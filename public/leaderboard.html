@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Leaderboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .bar-wrapper {
+      margin: 10px 0;
+    }
+
+    .bar-label {
+      font-weight: bold;
+      margin-bottom: 4px;
+    }
+
+    .bar {
+      height: 30px;
+      background-color: #007bff;
+      color: white;
+      line-height: 30px;
+      padding-left: 10px;
+      border-radius: 5px;
+      transition: width 1s ease-in-out;
+    }
+
+    .bar-score {
+      margin-left: 10px;
+      font-weight: bold;
+    }
+
+    .bar-container {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 5px;
+    }
+
+    .container {
+      max-width: 600px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Leaderboard</h1>
+    <div id="chart"></div>
+  </div>
+
+  <script>
+    fetch("/leaderboard")
+      .then(res => res.json())
+      .then(data => {
+        const maxScore = Math.max(...data.map(d => d.score)) || 1;
+        const chart = document.getElementById("chart");
+        data.forEach((entry, index) => {
+          const wrapper = document.createElement("div");
+          wrapper.className = "bar-wrapper";
+
+          const label = document.createElement("div");
+          label.className = "bar-label";
+          label.textContent = `${index + 1}. ${entry.player}`;
+
+          const barContainer = document.createElement("div");
+          barContainer.className = "bar-container";
+
+          const bar = document.createElement("div");
+          bar.className = "bar";
+          bar.style.width = "0%";
+          bar.textContent = `${entry.score} pts`;
+
+          barContainer.appendChild(bar);
+          wrapper.appendChild(label);
+          wrapper.appendChild(barContainer);
+          chart.appendChild(wrapper);
+
+          setTimeout(() => {
+            const width = (entry.score / maxScore) * 100;
+            bar.style.width = `${width}%`;
+          }, 100);
+        });
+      });
+  </script>
+</body>
+</html>
