@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin - Submit Results</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>Submit Game Results</h1>
+  </header>
+
+  <section class="form-area">
+    <input type="password" id="password" placeholder="Admin Password" />
+    <div id="results"></div>
+    <button onclick="submitResults()">Submit Results</button>
+    <p id="status"></p>
+  </section>
+
+  <script>
+    const games = [
+      { id: "game1", away: "Tigers", home: "Yankees" },
+      { id: "game2", away: "Dodgers", home: "Cubs" },
+      { id: "game3", away: "Mets", home: "Phillies" },
+      { id: "game4", away: "Red Sox", home: "Blue Jays" },
+      { id: "game5", away: "Braves", home: "Marlins" },
+      { id: "game6", away: "Astros", home: "Rangers" },
+      { id: "game7", away: "Cardinals", home: "Pirates" },
+      { id: "game8", away: "Giants", home: "Padres" },
+      { id: "game9", away: "Brewers", home: "Nationals" },
+      { id: "game10", away: "Rays", home: "Orioles" }
+    ];
+
+    window.onload = () => {
+      const container = document.getElementById('results');
+      games.forEach(game => {
+        const div = document.createElement('div');
+        div.className = 'game-card';
+        div.innerHTML = `
+          <div class="team">
+            ${game.away} @ ${game.home}
+          </div>
+          <select id="${game.away}@${game.home}">
+            <option value="">-- Select Winner --</option>
+            <option value="${game.away}">${game.away}</option>
+            <option value="${game.home}">${game.home}</option>
+          </select>
+        `;
+        container.appendChild(div);
+      });
+    };
+
+    function submitResults() {
+      const password = document.getElementById("password").value.trim();
+      const results = {};
+      games.forEach(game => {
+        const key = `${game.away}@${game.home}`;
+        const winner = document.getElementById(key).value;
+        if (winner) results[key] = winner;
+      });
+
+      fetch('/results', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password, results })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("status").textContent = data.message;
+      });
+    }
+  </script>
+</body>
+</html>
