@@ -14,6 +14,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+// Submit picks
 app.post('/submit', (req, res) => {
   const { player, picks: playerPicks, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
@@ -21,6 +22,7 @@ app.post('/submit', (req, res) => {
   res.json({ message: 'Picks saved!' });
 });
 
+// Submit results
 app.post('/results', (req, res) => {
   const { results: submittedResults, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
@@ -28,6 +30,7 @@ app.post('/results', (req, res) => {
   res.json({ message: 'Results submitted!' });
 });
 
+// Get leaderboard
 app.get('/leaderboard', (req, res) => {
   const leaderboard = Object.entries(picks).map(([player, playerPicks]) => {
     let score = 0;
@@ -40,6 +43,26 @@ app.get('/leaderboard', (req, res) => {
   });
   leaderboard.sort((a, b) => b.score - a.score);
   res.json(leaderboard);
+});
+
+// Clear one player's picks
+app.post('/clear-player', (req, res) => {
+  const { player, password } = req.body;
+  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
+  if (picks[player]) {
+    delete picks[player];
+    res.json({ message: `${player}'s picks cleared.` });
+  } else {
+    res.json({ message: `${player} had no picks.` });
+  }
+});
+
+// Clear all picks
+app.post('/clear-all', (req, res) => {
+  const { password } = req.body;
+  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
+  picks = {};
+  res.json({ message: 'All picks cleared.' });
 });
 
 app.listen(PORT, () => {
