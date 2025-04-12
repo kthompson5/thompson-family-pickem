@@ -7,21 +7,26 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Thompson Family Pick 'Em</h1>
+  <header>
+    <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+    <h1>Thompson Family Pick 'Em</h1>
+  </header>
 
-  <div class="section">
-    <h2>Submit Picks</h2>
-    <input type="text" id="player" placeholder="Your Name" />
+  <section class="form-area">
+    <input type="text" id="player" placeholder="Enter your name" />
     <input type="password" id="password" placeholder="Password" />
-    <textarea id="picksInput" placeholder='{"2025-04-10_Rays@Yankees":"Yankees"}'></textarea>
-    <button onclick="submitPicks()">Submit</button>
-  </div>
 
-  <div class="section">
+    <div id="games"></div>
+
+    <button onclick="submitPicks()">Submit Picks</button>
+    <p id="status"></p>
+  </section>
+
+  <section class="leaderboard">
     <h2>Leaderboard</h2>
     <button onclick="loadLeaderboard()">Refresh</button>
     <ul id="leaderboard"></ul>
-  </div>
+  </section>
 
   <script src="script.js"></script>
 </body>
