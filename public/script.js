@@ -40,14 +40,19 @@ window.onload = () => {
     const div = document.createElement("div");
     div.className = "game-card";
     div.innerHTML = `
-      <div class="team">
-        <img src="${logos[game.away]}" alt="${game.away}" />
-        ${game.away} @ 
-        <img src="${logos[game.home]}" alt="${game.home}" />
-        ${game.home}
+      <div class="team-row">
+        <div class="team-block">
+          <img src="${logos[game.away]}" alt="${game.away}" />
+          <div>${game.away}</div>
+        </div>
+        <div>vs</div>
+        <div class="team-block">
+          <img src="${logos[game.home]}" alt="${game.home}" />
+          <div>${game.home}</div>
+        </div>
       </div>
       <select id="${game.id}">
-        <option value="">-- Select --</option>
+        <option value="">-- Select Winner --</option>
         <option value="${game.away}">${game.away}</option>
         <option value="${game.home}">${game.home}</option>
       </select>
@@ -79,18 +84,4 @@ function submitPicks() {
   .then(data => {
     document.getElementById("status").textContent = data.message;
   });
-}
-
-function loadLeaderboard() {
-  fetch('/leaderboard')
-    .then(res => res.json())
-    .then(data => {
-      const list = document.getElementById("leaderboard");
-      list.innerHTML = '';
-      data.forEach(({ player, score }) => {
-        const li = document.createElement('li');
-        li.textContent = `${player}: ${score} pts`;
-        list.appendChild(li);
-      });
-    });
 }
