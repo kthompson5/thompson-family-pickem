@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Clear Picks</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <header>
+    <h1>Clear Picks</h1>
+  </header>
+
+  <section class="form-area">
+    <input type="password" id="password" placeholder="Admin Password" />
+    <input type="text" id="player" placeholder="Player Name to Clear" />
+
+    <button onclick="clearPlayer()">Clear Player Picks</button>
+    <button onclick="clearAll()">Clear ALL Picks</button>
+    <p id="status"></p>
+  </section>
+
+  <script>
+    function clearPlayer() {
+      const player = document.getElementById("player").value.trim();
+      const password = document.getElementById("password").value.trim();
+      if (!player || !password) return alert("Enter player and password");
+
+      fetch("/clear-player", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ player, password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("status").textContent = data.message;
+      });
+    }
+
+    function clearAll() {
+      const password = document.getElementById("password").value.trim();
+      if (!password) return alert("Enter password");
+
+      fetch("/clear-all", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("status").textContent = data.message;
+      });
+    }
+  </script>
+</body>
+</html>
