@@ -15,28 +15,24 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.post('/submit', (req, res) => {
-  const { player, gamePicks, password } = req.body;
+  const { player, picks: playerPicks, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
-  picks[player] = gamePicks;
-  return res.json({ message: 'Picks submitted!' });
-});
-
-app.get('/picks', (req, res) => {
-  res.json(picks);
+  picks[player] = playerPicks;
+  res.json({ message: 'Picks saved!' });
 });
 
 app.post('/results', (req, res) => {
-  const { gameResults, password } = req.body;
+  const { results: submittedResults, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
-  results = gameResults;
-  return res.json({ message: 'Results submitted!' });
+  results = submittedResults;
+  res.json({ message: 'Results submitted!' });
 });
 
 app.get('/leaderboard', (req, res) => {
   const leaderboard = Object.entries(picks).map(([player, playerPicks]) => {
     let score = 0;
-    for (const [key, value] of Object.entries(playerPicks)) {
-      if (results[key] && results[key] === value) {
+    for (const [game, selected] of Object.entries(playerPicks)) {
+      if (results[game] && results[game] === selected) {
         score++;
       }
     }
