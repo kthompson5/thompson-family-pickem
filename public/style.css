@@ -65,4 +65,39 @@ button:hover {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  border-bottom: 1px
+  border-bottom: 1px solid #ddd;
+  padding: 10px 0;
+}
+
+.team {
+  display: flex;
+  align-items: center;
+}
+
+.team img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+select {
+  width: 100%;
+}
+
+.leaderboard {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+li {
+  padding: 5px 0;
+}
