@@ -126,3 +126,30 @@ li {
 .leaderboard-link {
   margin: 30px 0;
 }
+/* Fix logo sizing and prevent stretch */
+.logo {
+  max-width: 120px;
+  height: auto;
+}
+
+/* Prevent nav from pushing things around */
+.header-bar {
+  flex-wrap: wrap;
+  row-gap: 10px;
+}
+
+.nav-buttons {
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+@media (max-width: 600px) {
+  .nav-buttons a {
+    font-size: 0.85rem;
+    padding: 6px 12px;
+  }
+
+  .logo {
+    max-width: 90px;
+  }
+}
