@@ -206,10 +206,15 @@ li {
 }
 
 @media (max-width: 600px) {
+  .header-bar {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
   .logo-wrap {
     flex-direction: column;
     align-items: center;
-    gap: 6px;
     text-align: center;
   }
 
@@ -217,6 +222,14 @@ li {
     font-size: 0.85rem;
     font-weight: 500;
     white-space: normal;
+    text-align: center;
+  }
+
+  .nav-buttons {
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 10px;
   }
 }
+
 
