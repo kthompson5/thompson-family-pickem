@@ -1,16 +1,65 @@
 <!DOCTYPE html>
 <html lang="en">
-<header class="header-bar">
-  <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
-  <nav class="nav-buttons">
-    <a href="/index.html">Home</a>
-    <a href="/picks.html">Make Picks</a>
-    <a href="/leaderboard.html">Leaderboard</a>
-    <a href="/rules.html">Rules</a>
-    <a href="/game-info.html">Game Info</a>
-  </nav>
-</header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thompson Family Pick 'Em – Rules</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .rules-container {
+      max-width: 700px;
+      margin: 60px auto;
+      background: white;
+      padding: 40px 30px;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.1);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .rules-container h1,
+    .rules-container h2 {
+      color: #002f5f;
+      margin-bottom: 15px;
+    }
+
+    .rules-container ul {
+      padding-left: 20px;
+    }
+
+    .rules-container li {
+      margin-bottom: 10px;
+    }
+
+    .rules-logo {
+      display: block;
+      margin: 0 auto 30px;
+      max-width: 120px;
+    }
+
+    .rules-container a {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .rules-container a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
 <body>
+  <header class="header-bar">
+    <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+    <nav class="nav-buttons">
+      <a href="/index.html">Home</a>
+      <a href="/picks.html">Make Picks</a>
+      <a href="/leaderboard.html">Leaderboard</a>
+      <a href="/rules.html">Rules</a>
+      <a href="/game-info.html">Game Info</a>
+    </nav>
+  </header>
+
   <div class="rules-container">
     <img src="logo.png" alt="Thompson Family Pick 'Em" class="rules-logo" />
     <h1>How It Works</h1>
@@ -28,7 +77,7 @@
       <li><em>Coming Soon:</em> We’ll use a combined score from a featured game or other method to break ties.</li>
     </ul>
 
-    <a href="/">← Back to Picks</a>
+    <a href="/picks.html">← Back to Picks</a>
   </div>
 </body>
 </html>
