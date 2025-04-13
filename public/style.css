@@ -231,5 +231,70 @@ li {
     margin-top: 10px;
   }
 }
+.stacked-header {
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+
+.logo-row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 16px;
+  width: 100%;
+}
+
+.main-logo {
+  max-height: 80px;
+  width: auto;
+}
+
+.tagline-area {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #002f5f;
+  white-space: nowrap;
+}
+
+.league-logos {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.league-logos img {
+  height: 28px;
+  width: auto;
+}
+
+@media (max-width: 700px) {
+  .logo-row {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .tagline-area {
+    align-items: center;
+  }
+
+  .tagline {
+    font-size: 0.95rem;
+    white-space: normal;
+  }
+
+  .league-logos img {
+    height: 22px;
+  }
+}
 
 
