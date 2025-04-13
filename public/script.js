@@ -8,7 +8,8 @@ const games = [
   { id: "game7", away: "Cardinals", home: "Pirates" },
   { id: "game8", away: "Giants", home: "Padres" },
   { id: "game9", away: "Brewers", home: "Nationals" },
-  { id: "game10", away: "Rays", home: "Orioles" }
+  { id: "game10", away: "Rays", home: "Orioles" },
+  { id: "game11", away: "Michigan", home: "Notre Dame" }
 ];
 
 const logos = {
