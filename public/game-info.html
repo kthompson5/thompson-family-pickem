@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,45 +7,6 @@
   <title>Game Info – Thompson Family Pick 'Em</title>
   <link rel="stylesheet" href="style.css" />
   <style>
-    body {
-      background-color: #0b1f3a;
-      font-family: 'Inter', sans-serif;
-      margin: 0;
-      padding: 0;
-    }
-
-    .header-bar {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #f2f2f2;
-      padding: 15px 20px;
-      flex-wrap: wrap;
-    }
-
-    .logo {
-      max-width: 120px;
-    }
-
-    .nav-buttons {
-      display: flex;
-      gap: 12px;
-    }
-
-    .nav-buttons a {
-      background-color: #002f5f;
-      color: white;
-      padding: 8px 16px;
-      text-decoration: none;
-      border-radius: 6px;
-      font-weight: bold;
-      font-size: 0.95rem;
-    }
-
-    .nav-buttons a:hover {
-      background-color: #001a3a;
-    }
-
     .container {
       max-width: 800px;
       margin: 40px auto;
@@ -52,25 +14,20 @@
       background: white;
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      font-family: 'Segoe UI', sans-serif;
     }
 
     .game-card {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
       padding: 20px;
       margin-bottom: 25px;
-      background-color: #f9f9f9;
-      border-radius: 10px;
-      box-shadow: 0 0 5px rgba(0,0,0,0.08);
+      border-bottom: 1px solid #ddd;
     }
 
     .team-row {
       display: flex;
       justify-content: space-around;
       align-items: center;
-      width: 100%;
-      gap: 40px;
+      margin-bottom: 12px;
     }
 
     .team {
@@ -85,21 +42,24 @@
     }
 
     .info-line {
-      margin-top: 15px;
       font-size: 0.95rem;
       color: #333;
+      margin-bottom: 4px;
     }
 
-    h2 {
-      text-align: center;
-      color: #002f5f;
-      margin-bottom: 30px;
+    .espn-bet {
+      font-size: 0.8rem;
+      color: #999;
+      font-style: italic;
     }
   </style>
 </head>
 <body>
   <header class="header-bar">
-    <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+      <span class="tagline">Built for the Family. Powered by Competition.</span>
+    </div>
     <nav class="nav-buttons">
       <a href="/index.html">Home</a>
       <a href="/picks.html">Make Picks</a>
@@ -110,38 +70,50 @@
   </header>
 
   <div class="container">
-    <h2>Matchups & Info</h2>
+    <h2 style="text-align:center; color:#002f5f;">Matchups & Betting Info</h2>
     <div id="game-info"></div>
   </div>
 
   <script src="logos.js"></script>
   <script>
-    // Replace this with your real games array from script.js
-    const games = [
-      { id: "game1", away: "Tigers", home: "Yankees" },
-      { id: "game2", away: "Dodgers", home: "Cubs" },
-      { id: "game3", away: "Mets", home: "Phillies" },
-      { id: "game4", away: "Red Sox", home: "Blue Jays" },
-      { id: "game5", away: "Braves", home: "Marlins" },
-      { id: "game6", away: "Astros", home: "Rangers" },
-      { id: "game7", away: "Cardinals", home: "Pirates" },
-      { id: "game8", away: "Giants", home: "Padres" },
-      { id: "game9", away: "Brewers", home: "Nationals" },
-      { id: "game10", away: "Rays", home: "Orioles" },
-      { id: "game11", away: "Michigan", home: "Notre Dame" }
+    const gameDetails = [
+      {
+        away: "Michigan",
+        home: "Ohio State",
+        spread: "Michigan -6.5",
+        winProb: 71
+      },
+      {
+        away: "Alabama",
+        home: "Georgia",
+        spread: "Georgia -2.5",
+        winProb: 58
+      },
+      {
+        away: "Cowboys",
+        home: "Eagles",
+        spread: "Eagles -1.5",
+        winProb: 54
+      }
     ];
 
+    const logos = window.logos || {};
     const container = document.getElementById("game-info");
 
-    games.forEach(game => {
+    gameDetails.forEach(game => {
       const div = document.createElement("div");
       div.className = "game-card";
 
-      const spread = Math.random() > 0.5
-        ? `${game.away} -${(Math.random() * 7 + 1).toFixed(1)}`
-        : `${game.home} -${(Math.random() * 7 + 1).toFixed(1)}`;
+      const spreadValue = parseFloat(game.spread.split(" ")[1]);
+      let phrasing = "";
 
-      const winProb = `${game.away}: ${Math.floor(Math.random() * 20 + 40)}%`;
+      if (spreadValue <= 3) {
+        phrasing = `Close matchup – ${game.spread.split(" ")[0]} has a slight edge`;
+      } else if (spreadValue <= 7) {
+        phrasing = `${game.spread.split(" ")[0]} favored by ${spreadValue}`;
+      } else {
+        phrasing = `Heavy favorite: ${game.spread.split(" ")[0]} -${spreadValue}`;
+      }
 
       div.innerHTML = `
         <div class="team-row">
@@ -155,8 +127,9 @@
             <div>${game.home}</div>
           </div>
         </div>
-        <div class="info-line">Estimated Spread: ${spread}</div>
-        <div class="info-line">Win Probability (fun): ${winProb}</div>
+        <div class="info-line">${phrasing}</div>
+        <div class="info-line">Win Probability: ${game.winProb}%</div>
+        <div class="espn-bet">Spread via ESPN Bet</div>
       `;
       container.appendChild(div);
     });
