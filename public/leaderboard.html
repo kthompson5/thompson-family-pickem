@@ -1,21 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-<header class="header-bar">
-  <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
-  <nav class="nav-buttons">
-    <a href="/index.html">Home</a>
-    <a href="/picks.html">Make Picks</a>
-    <a href="/leaderboard.html">Leaderboard</a>
-    <a href="/rules.html">Rules</a>
-    <a href="/game-info.html">Game Info</a>
-  </nav>
-</header>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thompson Family Pick 'Em – Leaderboard</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    h1 {
+      text-align: center;
+      color: #002f5f;
+    }
+
+    .bar-wrapper {
+      margin: 10px 0;
+    }
+
+    .bar-label {
+      margin-bottom: 5px;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .bar-container {
+      width: 100%;
+      background-color: #e0e0e0;
+      border-radius: 6px;
+      overflow: hidden;
+    }
+
+    .bar {
+      height: 30px;
+      background-color: #007bff;
+      color: white;
+      padding-left: 10px;
+      display: flex;
+      align-items: center;
+      font-weight: bold;
+      transition: width 0.6s ease;
+    }
+  </style>
+</head>
 <body>
   <header class="header-bar">
     <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
     <nav class="nav-buttons">
+      <a href="/index.html">Home</a>
+      <a href="/picks.html">Make Picks</a>
       <a href="/leaderboard.html">Leaderboard</a>
       <a href="/rules.html">Rules</a>
+      <a href="/game-info.html">Game Info</a>
     </nav>
   </header>
 
