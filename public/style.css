@@ -153,3 +153,38 @@ li {
     max-width: 90px;
   }
 }
+.logo-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.logo {
+  max-width: 140px;
+  height: auto;
+  margin-bottom: 5px;
+}
+
+.tagline {
+  font-size: 0.85rem;
+  color: #444;
+  font-style: italic;
+  font-weight: 500;
+  margin-left: 4px;
+  max-width: 200px;
+}
+
+@media (max-width: 600px) {
+  .logo-section {
+    align-items: center;
+    text-align: center;
+  }
+
+  .tagline {
+    font-size: 0.75rem;
+    margin-left: 0;
+    max-width: 100%;
+  }
+}
+
