@@ -17,36 +17,28 @@ body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 15px 20px;
   background-color: #f2f2f2;
+  padding: 15px 20px;
   flex-wrap: wrap;
 }
 
-.logo {
-  max-width: 150px;
-  height: auto;
-}
-
-/* 🧭 Sleek Nav Buttons */
 .nav-buttons {
   display: flex;
-  gap: 20px;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  font-size: 1rem;
+  gap: 12px;
 }
 
 .nav-buttons a {
+  background-color: #002f5f;
+  color: white;
+  padding: 8px 16px;
   text-decoration: none;
-  color: #002f5f;
-  font-weight: 600;
-  border-bottom: 2px solid transparent;
-  transition: border-color 0.3s ease;
+  border-radius: 6px;
+  font-weight: bold;
+  font-size: 0.95rem;
 }
 
 .nav-buttons a:hover {
-  border-bottom: 2px solid #002f5f;
+  background-color: #001a3a;
 }
 
 .form-area {
