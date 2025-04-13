@@ -6,59 +6,108 @@
   <title>Thompson Family Pick 'Em – Home</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-size: cover;
+      background-position: center;
+      transition: background-image 1s ease-in-out;
+    }
+
     .home-container {
-      max-width: 600px;
+      max-width: 700px;
       margin: 60px auto;
-      background: white;
-      padding: 30px 25px;
+      background: rgba(255, 255, 255, 0.95);
+      padding: 40px 30px;
       border-radius: 12px;
-      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+      box-shadow: 0 0 15px rgba(0,0,0,0.15);
       text-align: center;
     }
 
     .home-container h1 {
-      font-size: 1.8rem;
-      margin-bottom: 10px;
+      font-size: 2rem;
+      margin-bottom: 15px;
       color: #002f5f;
     }
 
     .home-container p {
-      font-size: 1rem;
+      font-size: 1.05rem;
       color: #333;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
+    }
+
+    .btn-group {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 16px;
     }
 
     .nav-btn {
       display: inline-block;
-      padding: 12px 24px;
-      margin: 10px;
+      padding: 14px 28px;
       background-color: #002f5f;
       color: white;
       font-weight: 600;
+      font-size: 1rem;
       text-decoration: none;
       border-radius: 6px;
       transition: background-color 0.2s ease;
+      min-width: 180px;
+      text-align: center;
     }
 
     .nav-btn:hover {
       background-color: #001a3a;
+    }
+
+    .logo {
+      max-width: 120px;
+      margin: 0 auto 20px;
+      display: block;
+    }
+
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 15px 20px;
+      background-color: #f2f2f2;
     }
   </style>
 </head>
 <body>
   <header class="header-bar">
     <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
-    <nav class="nav-buttons">
-      <a href="/leaderboard.html">Leaderboard</a>
-      <a href="/rules.html">Rules</a>
-    </nav>
   </header>
 
   <div class="home-container">
     <h1>Welcome to the Thompson Family Pick 'Em</h1>
-    <p>Select the winners. Earn the glory. Compete for the crown — all in good family fun.</p>
+    <p>Select the winners. Earn bragging rights. Compete in each event all year long.</p>
 
-    <a href="/picks.html" class="nav-btn">Make Your Picks</a>
+    <div class="btn-group">
+      <a href="/picks.html" class="nav-btn">Make Your Picks</a>
+      <a href="/leaderboard.html" class="nav-btn">View Leaderboard</a>
+      <a href="/rules.html" class="nav-btn">View Rules</a>
+    </div>
   </div>
+
+  <script>
+    const backgrounds = [
+      "https://images.unsplash.com/photo-1604152135912-04a022e2362b", // football field
+      "https://images.unsplash.com/photo-1531415074968-036ba1b575da", // stadium lights
+      "https://images.unsplash.com/photo-1505842465776-3bf6b07b016b", // end zone
+      "https://images.unsplash.com/photo-1521412644187-c49fa049e84d"  // fans/crowd
+    ];
+
+    let current = 0;
+    function rotateBackground() {
+      document.body.style.backgroundImage = `url(${backgrounds[current]})`;
+      current = (current + 1) % backgrounds.length;
+    }
+    rotateBackground();
+    setInterval(rotateBackground, 5000); // Change every 5 seconds
+  </script>
 </body>
 </html>
