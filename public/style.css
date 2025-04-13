@@ -71,6 +71,12 @@ select {
   font-size: 1em;
 }
 
+input,
+select {
+  box-sizing: border-box;
+  display: block;
+}
+
 button {
   background-color: #007bff;
   color: white;
