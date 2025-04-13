@@ -16,13 +16,33 @@
     .header-bar {
       display: flex;
       align-items: center;
-      justify-content: center;
+      justify-content: space-between;
       background-color: #f2f2f2;
       padding: 15px 20px;
+      flex-wrap: wrap;
     }
 
     .logo {
       max-width: 120px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-buttons a {
+      background-color: #002f5f;
+      color: white;
+      padding: 8px 16px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .nav-buttons a:hover {
+      background-color: #001a3a;
     }
 
     .container {
@@ -80,6 +100,13 @@
 <body>
   <header class="header-bar">
     <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+    <nav class="nav-buttons">
+      <a href="/index.html">Home</a>
+      <a href="/picks.html">Make Picks</a>
+      <a href="/leaderboard.html">Leaderboard</a>
+      <a href="/rules.html">Rules</a>
+      <a href="/game-info.html">Game Info</a>
+    </nav>
   </header>
 
   <div class="container">
@@ -87,36 +114,34 @@
     <div id="game-info"></div>
   </div>
 
+  <script src="logos.js"></script>
   <script>
-    const logos = {
-      "Michigan": "https://a.espncdn.com/i/teamlogos/ncf/500/130.png",
-      "Notre Dame": "https://a.espncdn.com/i/teamlogos/ncf/500/87.png",
-      "Cowboys": "https://a.espncdn.com/i/teamlogos/nfl/500/dal.png",
-      "Eagles": "https://a.espncdn.com/i/teamlogos/nfl/500/phi.png"
-    };
-
-    const gameDetails = [
-      {
-        away: "Michigan",
-        home: "Notre Dame",
-        kickoff: "Saturday, 3:30 PM ET",
-        spread: "Michigan -3.5",
-        winProb: "Michigan 61%"
-      },
-      {
-        away: "Cowboys",
-        home: "Eagles",
-        kickoff: "Sunday, 4:25 PM ET",
-        spread: "Eagles -1.5",
-        winProb: "Eagles 55%"
-      }
+    // Replace this with your real games array from script.js
+    const games = [
+      { id: "game1", away: "Tigers", home: "Yankees" },
+      { id: "game2", away: "Dodgers", home: "Cubs" },
+      { id: "game3", away: "Mets", home: "Phillies" },
+      { id: "game4", away: "Red Sox", home: "Blue Jays" },
+      { id: "game5", away: "Braves", home: "Marlins" },
+      { id: "game6", away: "Astros", home: "Rangers" },
+      { id: "game7", away: "Cardinals", home: "Pirates" },
+      { id: "game8", away: "Giants", home: "Padres" },
+      { id: "game9", away: "Brewers", home: "Nationals" },
+      { id: "game10", away: "Rays", home: "Orioles" },
+      { id: "game11", away: "Michigan", home: "Notre Dame" }
     ];
 
     const container = document.getElementById("game-info");
 
-    gameDetails.forEach(game => {
+    games.forEach(game => {
       const div = document.createElement("div");
       div.className = "game-card";
+
+      const spread = Math.random() > 0.5
+        ? `${game.away} -${(Math.random() * 7 + 1).toFixed(1)}`
+        : `${game.home} -${(Math.random() * 7 + 1).toFixed(1)}`;
+
+      const winProb = `${game.away}: ${Math.floor(Math.random() * 20 + 40)}%`;
 
       div.innerHTML = `
         <div class="team-row">
@@ -130,9 +155,8 @@
             <div>${game.home}</div>
           </div>
         </div>
-        <div class="info-line">Kickoff: ${game.kickoff}</div>
-        <div class="info-line">Spread: ${game.spread}</div>
-        <div class="info-line">Win Probability: ${game.winProb}</div>
+        <div class="info-line">Estimated Spread: ${spread}</div>
+        <div class="info-line">Win Probability (fun): ${winProb}</div>
       `;
       container.appendChild(div);
     });
