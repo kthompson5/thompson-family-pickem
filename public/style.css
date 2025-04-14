@@ -194,7 +194,7 @@ li {
 }
 
 .logo {
-  max-height: 90px;
+  max-height: 12px;
   width: auto;
 }
 
@@ -317,4 +317,13 @@ li {
 .home-text-block p {
   font-size: 1.05rem;
 }
+.logo {
+  max-height: 90px;
+  width: auto;
+}
 
+@media (max-width: 600px) {
+  .logo {
+    max-height: 70px;
+  }
+}
