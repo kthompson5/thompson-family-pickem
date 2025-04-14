@@ -301,5 +301,20 @@ li {
     height: 22px;
   }
 }
+.home-text-block {
+  margin-bottom: 35px;
+  color: #333;
+  text-align: center;
+  line-height: 1.6;
+}
 
+.home-text-block h1 {
+  font-size: 2rem;
+  color: #002f5f;
+  letter-spacing: -0.5px;
+}
+
+.home-text-block p {
+  font-size: 1.05rem;
+}
 
