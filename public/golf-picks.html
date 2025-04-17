@@ -1,0 +1,180 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Submit Your Golf Picks</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #0b1f3a;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      color: #222;
+    }
+
+    .header-bar {
+      background-color: #f2f2f2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 20px;
+      flex-wrap: wrap;
+    }
+
+    .logo {
+      max-height: 60px;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 12px;
+    }
+
+    .nav-buttons a {
+      background-color: #002f5f;
+      color: white;
+      padding: 8px 14px;
+      border-radius: 6px;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .nav-buttons a:hover {
+      background-color: #001a3a;
+    }
+
+    .container {
+      max-width: 500px;
+      margin: 40px auto;
+      padding: 30px;
+      background-color: white;
+      border-radius: 12px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      text-align: center;
+      color: #002f5f;
+    }
+
+    label {
+      display: block;
+      margin-top: 15px;
+      font-weight: 600;
+    }
+
+    input[type="text"],
+    select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 6px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      font-size: 1rem;
+    }
+
+    button {
+      background-color: #007bff;
+      color: white;
+      font-size: 1rem;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      width: 100%;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    #confirmation {
+      text-align: center;
+      margin-top: 20px;
+      color: green;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <header class="header-bar">
+    <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+    <nav class="nav-buttons">
+      <a href="/index.html">Home</a>
+      <a href="/picks.html">Make Picks</a>
+      <a href="/leaderboard.html">Leaderboard</a>
+      <a href="/rules.html">Rules</a>
+      <a href="/game-info.html">Game Info</a>
+      <a href="/golf.html">Golf</a>
+      <a href="/golf-details.html">Golf Details</a>
+      <a href="/golf-picks.html">Submit Picks</a>
+    </nav>
+  </header>
+
+  <div class="container">
+    <h1>Final Round Picks</h1>
+    <form onsubmit="submitGolfPicks(event)">
+      <label for="playerName">Your Name</label>
+      <input type="text" id="playerName" placeholder="First & Last" required />
+
+      <label for="golfer1">Golfer 1</label>
+      <select id="golfer1" required>
+        <option value="">Select a golfer</option>
+        <option value="Rory McIlroy">Rory McIlroy</option>
+        <option value="Scottie Scheffler">Scottie Scheffler</option>
+        <option value="Jon Rahm">Jon Rahm</option>
+        <option value="Brooks Koepka">Brooks Koepka</option>
+        <option value="Justin Thomas">Justin Thomas</option>
+      </select>
+
+      <label for="golfer2">Golfer 2</label>
+      <select id="golfer2" required>
+        <option value="">Select a golfer</option>
+        <option value="Viktor Hovland">Viktor Hovland</option>
+        <option value="Patrick Cantlay">Patrick Cantlay</option>
+        <option value="Jordan Spieth">Jordan Spieth</option>
+        <option value="Xander Schauffele">Xander Schauffele</option>
+        <option value="Tony Finau">Tony Finau</option>
+      </select>
+
+      <label for="golfer3">Golfer 3</label>
+      <select id="golfer3" required>
+        <option value="">Select a golfer</option>
+        <option value="Max Homa">Max Homa</option>
+        <option value="Collin Morikawa">Collin Morikawa</option>
+        <option value="Rickie Fowler">Rickie Fowler</option>
+        <option value="Cameron Smith">Cameron Smith</option>
+        <option value="Will Zalatoris">Will Zalatoris</option>
+      </select>
+
+      <label for="tiebreaker">Tiebreaker Score</label>
+      <input type="text" id="tiebreaker" placeholder="Predicted winning score (e.g. 274)" required />
+
+      <button type="submit">Submit Picks</button>
+      <div id="confirmation"></div>
+    </form>
+  </div>
+
+  <script>
+    function submitGolfPicks(e) {
+      e.preventDefault();
+      const name = document.getElementById("playerName").value;
+      const g1 = document.getElementById("golfer1").value;
+      const g2 = document.getElementById("golfer2").value;
+      const g3 = document.getElementById("golfer3").value;
+      const tb = document.getElementById("tiebreaker").value;
+
+      const picks = { name, golfer1: g1, golfer2: g2, golfer3: g3, tiebreaker: tb };
+      console.log("Submitted picks:", picks); // placeholder for actual saving logic
+
+      document.getElementById("confirmation").textContent = "Your picks have been submitted!";
+      e.target.reset();
+    }
+  </script>
+</body>
+</html>
