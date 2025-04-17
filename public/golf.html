@@ -1,0 +1,164 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Thompson Family Pick 'Em – Golf</title>
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    .golf-header {
+      text-align: center;
+      margin: 30px auto;
+    }
+
+    .golf-header h1 {
+      color: #0b1f3a;
+      font-size: 2.2rem;
+      margin-bottom: 5px;
+    }
+
+    .golf-header p {
+      color: #444;
+      font-size: 1.1rem;
+    }
+
+    .golf-leaderboard {
+      max-width: 900px;
+      margin: 40px auto;
+      background-color: white;
+      border: 2px solid #0b1f3a;
+      border-radius: 12px;
+      padding: 20px;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    .golf-leaderboard h2 {
+      text-align: center;
+      color: #0b1f3a;
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .golf-leaderboard h2 img {
+      height: 36px;
+    }
+
+    .golf-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 1rem;
+    }
+
+    .golf-table th, .golf-table td {
+      padding: 10px;
+      text-align: center;
+      border-bottom: 1px solid #ccc;
+    }
+
+    .golf-table th {
+      background-color: #002f5f;
+      color: white;
+    }
+
+    .golf-row {
+      background-color: #f9f9f9;
+    }
+
+    .net-score {
+      background-color: #e1edff;
+      font-weight: bold;
+      border-left: 2px solid #99c1ff;
+      border-right: 2px solid #99c1ff;
+    }
+
+    .bonus-cell {
+      font-weight: bold;
+      color: #004085;
+    }
+
+    .footer-note {
+      text-align: center;
+      font-size: 0.9rem;
+      color: #555;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header-bar">
+    <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+    <nav class="nav-buttons">
+      <a href="/index.html">Home</a>
+      <a href="/picks.html">Make Picks</a>
+      <a href="/leaderboard.html">Leaderboard</a>
+      <a href="/rules.html">Rules</a>
+      <a href="/game-info.html">Game Info</a>
+      <a href="/golf.html">Golf</a>
+    </nav>
+  </header>
+
+  <div class="golf-header">
+    <h1>Final Round Golf Challenge</h1>
+    <p>Sunday Scores Only – Bonus Points for Champion, Sleeper, Birdies</p>
+  </div>
+
+  <div class="golf-leaderboard">
+    <h2>
+      Live Leaderboard
+      <img src="logo.png" alt="Tournament Logo Placeholder" />
+    </h2>
+    <table class="golf-table">
+      <thead>
+        <tr>
+          <th>Rank</th>
+          <th>Player</th>
+          <th>Golfer 1</th>
+          <th>Golfer 2</th>
+          <th>Golfer 3</th>
+          <th class="net-score">Net Score</th>
+          <th>To Par</th>
+          <th>Bonuses</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="golf-row">
+          <td>1</td>
+          <td>Ben</td>
+          <td>-4</td>
+          <td>-2</td>
+          <td>-1</td>
+          <td class="net-score">-7</td>
+          <td>-1</td>
+          <td class="bonus-cell">C + B</td>
+        </tr>
+        <tr class="golf-row">
+          <td>2</td>
+          <td>Monica</td>
+          <td>-3</td>
+          <td>E</td>
+          <td>-2</td>
+          <td class="net-score">-5</td>
+          <td>+1</td>
+          <td class="bonus-cell">S</td>
+        </tr>
+        <tr class="golf-row">
+          <td>T3</td>
+          <td>Diego</td>
+          <td>-2</td>
+          <td>-2</td>
+          <td>-1</td>
+          <td class="net-score">-5</td>
+          <td>+1</td>
+          <td class="bonus-cell">–</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="footer-note">* C = Champion Bonus, S = Sleeper Bonus, B = Birdie Boost</p>
+  </div>
+</body>
+</html>
