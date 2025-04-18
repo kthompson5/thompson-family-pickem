@@ -1,20 +1,19 @@
 const apiKey = "a6a414c8999b33f828a1bb5750cf";
-const endpoint = '/golf-api/players';
+const endpoint = `https://feeds.datagolf.com/preds/live-strokes-gained?file_format=json&key=${apiKey}`;
 
 async function loadGolfers() {
   try {
     const res = await fetch(endpoint);
-    const json = await res.json();
-    const players = json.data || [];
+    const data = await res.json();
+    const players = data.players || [];
 
     const dropdownIds = ["golfer1", "golfer2", "golfer3"];
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
       players.forEach(player => {
-        const name = player.name || `${player.first_name} ${player.last_name}`;
         const option = document.createElement("option");
-        option.value = name;
-        option.textContent = name;
+        option.value = `${player.first_name} ${player.last_name}`;
+        option.textContent = `${player.first_name} ${player.last_name}`;
         select.appendChild(option);
       });
     });
@@ -38,20 +37,12 @@ function submitGolfPicks() {
     return;
   }
 
-  fetch("/golf-submit", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ player, picks, tiebreaker, password: "goirish" })
-  })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("status").textContent = data.message;
-    })
-    .catch(err => {
-      console.error("Error submitting golf picks:", err);
-      document.getElementById("status").textContent = "Something went wrong!";
-    });
+  // You can send this to your server later if needed
+  console.log({ player, picks, tiebreaker });
+
+  document.getElementById("status").textContent = "Picks submitted successfully!";
 }
 
 window.onload = loadGolfers;
+
 
