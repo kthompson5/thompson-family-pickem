@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-const fetch = require('node-fetch'); // ✅ Use require here instead of import
+const fetch = require('node-fetch'); // ✅ This is the correct way for CommonJS
 
 const app = express();
 const PORT = process.env.PORT || 3000;
