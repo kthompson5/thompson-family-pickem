@@ -1,11 +1,11 @@
 const apiKey = "a6a414c8999b33f828a1bb5750cf";
-const endpoint = `https://feeds.datagolf.com/preds/field?tour=pga&event_type=stroke&file_format=json&key=a6a414c8999b33f828a1bb5750cf`;
+const endpoint = `https://feeds.datagolf.com/preds/field?tour=pga&event_type=stroke&file_format=json&key=${apiKey}`;
 
 async function loadGolfers() {
   try {
     const res = await fetch(endpoint);
     const data = await res.json();
-    const players = data.players || [];
+    const players = data.data || [];
 
     const dropdownIds = ["golfer1", "golfer2", "golfer3"];
     dropdownIds.forEach(id => {
@@ -37,12 +37,9 @@ function submitGolfPicks() {
     return;
   }
 
-  // You can send this to your server later if needed
   console.log({ player, picks, tiebreaker });
-
   document.getElementById("status").textContent = "Picks submitted successfully!";
 }
 
 window.onload = loadGolfers;
-
 
