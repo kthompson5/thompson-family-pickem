@@ -111,7 +111,7 @@ app.post('/clear-all', (req, res) => {
 
 app.get('/golf-api/players', async (req, res) => {
   try {
-    const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+    const fetch = require('node-fetch');
     const response = await fetch(`https://feeds.datagolf.com/preds/live-strokes-gained?file_format=json&key=a6a414c8999b33f828a1bb5750cf`);
     const data = await response.json();
     res.json(data);
