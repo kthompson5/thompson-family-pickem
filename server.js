@@ -75,18 +75,6 @@ app.post('/submit-golf-picks', (req, res) => {
   res.json({ message: 'Golf picks submitted!' });
 });
 
-// Golf leaderboard API
-app.get('/golf-api/players', async (req, res) => {
-  try {
-    const response = await fetch(`https://feeds.datagolf.com/preds/live-strokes-gained?sg=total&file_format=json&key=a6a414c8999b33f828a1bb5750cf`);
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error("Error fetching DataGolf API:", error);
-    res.status(500).json({ error: "Failed to fetch golfers" });
-  }
-});
-
 // Leaderboard
 app.get('/leaderboard', (req, res) => {
   const leaderboard = Object.entries(picks).map(([player, playerPicks]) => {
