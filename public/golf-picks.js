@@ -37,32 +37,10 @@ function submitGolfPicks() {
     return;
   }
 
-  // Future backend POST logic could go here
-  console.log({ player, picks, tiebreaker });
-
-  document.getElementById("status").textContent = "Picks submitted successfully!";
-}
-
-window.onload = loadGolfers;
-document.getElementById("golf-pick-form").addEventListener("submit", function(e) {
-  e.preventDefault();
-
-  const player = document.getElementById("player").value.trim();
-  const password = document.getElementById("password").value.trim();
-  const golfer1 = document.getElementById("golfer1").value;
-  const golfer2 = document.getElementById("golfer2").value;
-  const golfer3 = document.getElementById("golfer3").value;
-  const tiebreaker = document.getElementById("tiebreaker").value;
-
-  if (!player || !password || !golfer1 || !golfer2 || !golfer3) {
-    alert("Please fill out all fields");
-    return;
-  }
-
   fetch("/golf-submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ player, password, golfer1, golfer2, golfer3, tiebreaker })
+    body: JSON.stringify({ player, picks, tiebreaker, password: "goirish" }) // optional: replace or remove password
   })
     .then(res => res.json())
     .then(data => {
@@ -72,4 +50,6 @@ document.getElementById("golf-pick-form").addEventListener("submit", function(e)
       console.error("Error submitting golf picks:", err);
       document.getElementById("status").textContent = "Something went wrong!";
     });
-});
+}
+
+window.onload = loadGolfers;
