@@ -109,6 +109,18 @@ app.post('/clear-all', (req, res) => {
   res.json({ message: 'All picks cleared.' });
 });
 
+app.get('/golf-api/players', async (req, res) => {
+  try {
+    const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
+    const response = await fetch(`https://feeds.datagolf.com/preds/live-strokes-gained?file_format=json&key=a6a414c8999b33f828a1bb5750cf`);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching DataGolf API:", error);
+    res.status(500).json({ error: "Failed to fetch golfers" });
+  }
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
