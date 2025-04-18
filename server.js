@@ -60,6 +60,20 @@ app.post('/results', (req, res) => {
   res.json({ message: 'Results submitted!' });
 });
 
+let golfPicks = {};
+
+app.post('/golf-submit', (req, res) => {
+  const { player, golfer1, golfer2, golfer3, tiebreaker, password } = req.body;
+  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
+
+  golfPicks[player] = {
+    golfers: [golfer1, golfer2, golfer3],
+    tiebreaker
+  };
+
+  res.json({ message: 'Golf picks submitted!' });
+});
+
 // Get leaderboard
 app.get('/leaderboard', (req, res) => {
   const leaderboard = Object.entries(picks).map(([player, playerPicks]) => {
