@@ -1,5 +1,5 @@
 const apiKey = "a6a414c8999b33f828a1bb5750cf";
-const endpoint = `https://feeds.datagolf.com/preds/live-strokes-gained?file_format=json&key=${apiKey}`;
+const endpoint = '/golf-api/players';
 
 async function loadGolfers() {
   try {
