@@ -1,19 +1,20 @@
 const apiKey = "a6a414c8999b33f828a1bb5750cf";
-const endpoint = `/golf-api/players`;
+const endpoint = `https://feeds.datagolf.com/preds/live-strokes-gained?file_format=json&key=${apiKey}`;
 
 async function loadGolfers() {
   try {
     const res = await fetch(endpoint);
-    const data = await res.json();
-    const players = data.players || [];
+    const json = await res.json();
+    const players = json.data || [];
 
     const dropdownIds = ["golfer1", "golfer2", "golfer3"];
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
       players.forEach(player => {
+        const name = player.name || `${player.first_name} ${player.last_name}`;
         const option = document.createElement("option");
-        option.value = `${player.first_name} ${player.last_name}`;
-        option.textContent = `${player.first_name} ${player.last_name}`;
+        option.value = name;
+        option.textContent = name;
         select.appendChild(option);
       });
     });
@@ -40,7 +41,7 @@ function submitGolfPicks() {
   fetch("/golf-submit", {
     method: "POST",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ player, picks, tiebreaker, password: "goirish" }) // optional: replace or remove password
+    body: JSON.stringify({ player, picks, tiebreaker, password: "goirish" })
   })
     .then(res => res.json())
     .then(data => {
@@ -53,3 +54,4 @@ function submitGolfPicks() {
 }
 
 window.onload = loadGolfers;
+
