@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
+const fs = require('fs'); // ✅ Needed for golf pick file handling
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -14,12 +15,41 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Submit picks
+// Submit regular picks
 app.post('/submit', (req, res) => {
   const { player, picks: playerPicks, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
   picks[player] = playerPicks;
   res.json({ message: 'Picks saved!' });
+});
+
+// ✅ Submit golf picks
+app.post('/submit-golf-picks', (req, res) => {
+  const { player, password, golfers, tiebreaker } = req.body;
+  if (password !== PICKEM_PASSWORD) {
+    return res.json({ message: 'Incorrect password.' });
+  }
+
+  if (!player || !Array.isArray(golfers) || golfers.length !== 3 || !tiebreaker) {
+    return res.json({ message: 'Missing data. Please try again.' });
+  }
+
+  const file = './golf-picks.json';
+  let data = {};
+
+  if (fs.existsSync(file)) {
+    const raw = fs.readFileSync(file);
+    data = raw.length ? JSON.parse(raw) : {};
+  }
+
+  data[player] = {
+    golfers,
+    tiebreaker,
+    timestamp: new Date().toISOString()
+  };
+
+  fs.writeFileSync(file, JSON.stringify(data, null, 2));
+  res.json({ message: 'Golf picks submitted!' });
 });
 
 // Submit results
