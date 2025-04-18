@@ -78,7 +78,7 @@ app.post('/submit-golf-picks', (req, res) => {
 // Golf leaderboard API
 app.get('/golf-api/players', async (req, res) => {
   try {
-    const response = await fetch(`https://feeds.datagolf.com/preds/live-strokes-gained?file_format=json&key=a6a414c8999b33f828a1bb5750cf`);
+    const response = await fetch(`https://feeds.datagolf.com/preds/live-strokes-gained?sg=total&file_format=json&key=a6a414c8999b33f828a1bb5750cf`);
     const data = await response.json();
     res.json(data);
   } catch (error) {
