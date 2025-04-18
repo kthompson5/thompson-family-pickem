@@ -1,9 +1,9 @@
-import fetch from 'node-fetch';
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
-const fs = require('fs'); // ✅ Needed for golf pick file handling
+const fs = require('fs');
+const fetch = require('node-fetch'); // ✅ Use require here instead of import
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -11,6 +11,7 @@ const PICKEM_PASSWORD = process.env.PICKEM_PASSWORD || 'goirish';
 
 let picks = {};
 let results = {};
+let golfPicks = {};
 
 app.use(cors());
 app.use(bodyParser.json());
@@ -24,7 +25,28 @@ app.post('/submit', (req, res) => {
   res.json({ message: 'Picks saved!' });
 });
 
-// ✅ Submit golf picks
+// Submit results
+app.post('/results', (req, res) => {
+  const { results: submittedResults, password } = req.body;
+  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
+  results = submittedResults;
+  res.json({ message: 'Results submitted!' });
+});
+
+// Submit golf picks (old method)
+app.post('/golf-submit', (req, res) => {
+  const { player, golfer1, golfer2, golfer3, tiebreaker, password } = req.body;
+  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
+
+  golfPicks[player] = {
+    golfers: [golfer1, golfer2, golfer3],
+    tiebreaker
+  };
+
+  res.json({ message: 'Golf picks submitted!' });
+});
+
+// Submit golf picks (JSON file method)
 app.post('/submit-golf-picks', (req, res) => {
   const { player, password, golfers, tiebreaker } = req.body;
   if (password !== PICKEM_PASSWORD) {
@@ -53,29 +75,19 @@ app.post('/submit-golf-picks', (req, res) => {
   res.json({ message: 'Golf picks submitted!' });
 });
 
-// Submit results
-app.post('/results', (req, res) => {
-  const { results: submittedResults, password } = req.body;
-  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
-  results = submittedResults;
-  res.json({ message: 'Results submitted!' });
+// Golf leaderboard API
+app.get('/golf-api/players', async (req, res) => {
+  try {
+    const response = await fetch(`https://feeds.datagolf.com/preds/live-strokes-gained?file_format=json&key=a6a414c8999b33f828a1bb5750cf`);
+    const data = await response.json();
+    res.json(data);
+  } catch (error) {
+    console.error("Error fetching DataGolf API:", error);
+    res.status(500).json({ error: "Failed to fetch golfers" });
+  }
 });
 
-let golfPicks = {};
-
-app.post('/golf-submit', (req, res) => {
-  const { player, golfer1, golfer2, golfer3, tiebreaker, password } = req.body;
-  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
-
-  golfPicks[player] = {
-    golfers: [golfer1, golfer2, golfer3],
-    tiebreaker
-  };
-
-  res.json({ message: 'Golf picks submitted!' });
-});
-
-// Get leaderboard
+// Leaderboard
 app.get('/leaderboard', (req, res) => {
   const leaderboard = Object.entries(picks).map(([player, playerPicks]) => {
     let score = 0;
@@ -110,18 +122,7 @@ app.post('/clear-all', (req, res) => {
   res.json({ message: 'All picks cleared.' });
 });
 
-app.get('/golf-api/players', async (req, res) => {
-  try {
-    const fetch = require('node-fetch');
-    const response = await fetch(`https://feeds.datagolf.com/preds/live-strokes-gained?file_format=json&key=a6a414c8999b33f828a1bb5750cf`);
-    const data = await response.json();
-    res.json(data);
-  } catch (error) {
-    console.error("Error fetching DataGolf API:", error);
-    res.status(500).json({ error: "Failed to fetch golfers" });
-  }
-});
-
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
+
