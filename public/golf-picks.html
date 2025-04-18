@@ -3,95 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Final Round Picks – Thompson Family Pick 'Em</title>
+  <title>Final Round Picks</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <header class="header-bar">
     <div class="logo-wrap">
       <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
-      <span class="tagline">Built for the Family. Powered by Competition.</span>
+      <span class="tagline">Final Round Picks</span>
     </div>
     <nav class="nav-buttons">
       <a href="/index.html">Home</a>
-      <a href="/picks.html">MLB Picks</a>
-      <a href="/golf-picks.html">Golf Picks</a>
-      <a href="/golf.html">Golf Leaderboard</a>
+      <a href="/golf.html">Leaderboard</a>
     </nav>
   </header>
 
-  <main class="form-area" style="max-width: 600px; margin: 40px auto;">
-    <h2 style="text-align: center;">Final Round Picks</h2>
-    <input type="text" id="player" placeholder="Enter your full name" />
-    <input type="password" id="password" placeholder='Password: "goirish"' />
+  <div class="form-area">
+    <input type="text" id="player" placeholder="Your Name" />
+    <input type="number" id="tiebreaker" placeholder="Tiebreaker: Predicted Winning Score" />
 
-    <label for="golfer1">Select Golfer #1</label>
-    <select id="golfer1">
-      <option value="">-- Choose Golfer --</option>
-      <option value="Scottie Scheffler">Scottie Scheffler</option>
-      <option value="Rory McIlroy">Rory McIlroy</option>
-      <option value="Jon Rahm">Jon Rahm</option>
-    </select>
-
-    <label for="golfer2">Select Golfer #2</label>
-    <select id="golfer2">
-      <option value="">-- Choose Golfer --</option>
-      <option value="Scottie Scheffler">Scottie Scheffler</option>
-      <option value="Rory McIlroy">Rory McIlroy</option>
-      <option value="Jon Rahm">Jon Rahm</option>
-    </select>
-
-    <label for="golfer3">Select Golfer #3</label>
-    <select id="golfer3">
-      <option value="">-- Choose Golfer --</option>
-      <option value="Scottie Scheffler">Scottie Scheffler</option>
-      <option value="Rory McIlroy">Rory McIlroy</option>
-      <option value="Jon Rahm">Jon Rahm</option>
-    </select>
-
-    <label for="tiebreaker">Tiebreaker (Winning Score):</label>
-    <input type="text" id="tiebreaker" placeholder="e.g. -12" />
+    <select id="golfer1"></select>
+    <select id="golfer2"></select>
+    <select id="golfer3"></select>
 
     <button onclick="submitGolfPicks()">Submit Picks</button>
-    <p id="status" style="text-align:center; margin-top: 15px;"></p>
-  </main>
+    <p id="status"></p>
+  </div>
 
-  <script>
-    function submitGolfPicks() {
-      const player = document.getElementById("player").value.trim();
-      const password = document.getElementById("password").value.trim();
-      const golfer1 = document.getElementById("golfer1").value;
-      const golfer2 = document.getElementById("golfer2").value;
-      const golfer3 = document.getElementById("golfer3").value;
-      const tiebreaker = document.getElementById("tiebreaker").value;
-
-      if (!player || !password || !golfer1 || !golfer2 || !golfer3 || !tiebreaker) {
-        alert("Please fill out all fields.");
-        return;
-      }
-
-      const picks = {
-        player,
-        password,
-        golfers: [golfer1, golfer2, golfer3],
-        tiebreaker
-      };
-
-      fetch('/submit-golf-picks', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(picks)
-      })
-      .then(res => res.json())
-      .then(data => {
-        document.getElementById("status").textContent = data.message;
-      })
-      .catch(err => {
-        document.getElementById("status").textContent = "Error submitting picks.";
-        console.error(err);
-      });
-    }
-  </script>
+  <script src="golf-picks.js"></script>
 </body>
 </html>
-
