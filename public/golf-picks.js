@@ -1,5 +1,5 @@
 const apiKey = "a6a414c8999b33f828a1bb5750cf";
-const endpoint = `https://feeds.datagolf.com/get-player-list?file_format=[ file_format ]&key=a6a414c8999b33f828a1bb5750cf`;
+const endpoint = `https://feeds.datagolf.com/get-player-list?file_format=[ file_format ]&{apiKey}`;
 
 async function loadGolfers() {
   try {
