@@ -1,6 +1,7 @@
 {
   "name": "thompson-family-pickem",
   "version": "1.0.0",
+  "type": "module",
   "description": "Thompson Family Sports Pick'em App",
   "main": "server.js",
   "scripts": {
@@ -13,3 +14,4 @@
     "node-fetch": "^3.3.2"
   }
 }
+
