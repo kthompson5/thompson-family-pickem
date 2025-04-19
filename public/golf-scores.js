@@ -8,25 +8,16 @@ async function loadLeaderboard() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(data.contents, "text/html");
 
-    const rows = doc.querySelectorAll("tr.PlayerRow__Overview");
+    const rows = doc.querySelectorAll(".Table__Scroller table tbody tr.PlayerRow__Overview");
     const body = document.getElementById("golf-body");
-    
-    // Show a loading message
-    body.innerHTML = `<tr><td colspan="8">Loading leaderboard...</td></tr>`;
-
-    body.innerHTML = ""; // Clear once ready
+    body.innerHTML = "";
 
     rows.forEach(row => {
       const cells = row.querySelectorAll("td");
       if (cells.length < 13) return;
 
       const position = cells[1]?.textContent.trim();
-
-      // More reliable fallback for name
-      let name = cells[2]?.querySelector("a")?.textContent?.trim();
-      if (!name) {
-        name = cells[2]?.textContent?.trim().replace(/\s+$/, '');
-      }
+      const name = cells[2]?.querySelector("a")?.textContent.trim();
       if (!name) return;
 
       const eagles = parseInt(cells[7]?.textContent.trim()) || 0;
@@ -35,7 +26,7 @@ async function loadLeaderboard() {
       const bogeys = parseInt(cells[10]?.textContent.trim()) || 0;
       const doubles = parseInt(cells[11]?.textContent.trim()) || 0;
 
-      const net = (eagles * 5) + (birdies * 3) + (bogeys * -1) + (doubles * -3);
+      const net = (eagles * 5) + (birdies * 3) + (pars * 0) + (bogeys * -1) + (doubles * -3);
 
       const rowEl = document.createElement("tr");
       rowEl.className = "golf-row";
