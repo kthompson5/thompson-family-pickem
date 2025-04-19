@@ -4,7 +4,7 @@ async function loadLeaderboard() {
     const data = await res.json();
 
     const podium = document.getElementById("podium");
-    const bars = document.getElementById("bars");
+    const bars = document.getElementById("bar-chart"); // ✅ FIXED ID
     podium.innerHTML = "";
     bars.innerHTML = "";
 
