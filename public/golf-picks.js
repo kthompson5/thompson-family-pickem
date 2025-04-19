@@ -1,15 +1,17 @@
 async function loadGolfers() {
   try {
-    const res = await fetch("https://corsproxy.io/?https://www.espn.com/golf/leaderboard");
-    const html = await res.text();
+    const url = "https://www.espn.com/golf/leaderboard";
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
+
+    const res = await fetch(proxyUrl);
+    const data = await res.json();
+    const html = data.contents;
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
 
-    const players = [];
-
-    // Go through table rows
     const rows = doc.querySelectorAll("table tbody tr");
+    const players = [];
 
     rows.forEach(row => {
       const playerCell = row.querySelector("td.tl.plyr");
@@ -17,12 +19,14 @@ async function loadGolfers() {
         const anchor = playerCell.querySelector("a");
         if (anchor) {
           const name = anchor.textContent.trim();
-          if (name) players.push(name);
+          if (name && !players.includes(name)) {
+            players.push(name);
+          }
         }
       }
     });
 
-    // Now populate the dropdowns
+    // Fill the dropdowns
     const dropdownIds = ["golfer1", "golfer2", "golfer3"];
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
@@ -35,9 +39,10 @@ async function loadGolfers() {
     });
 
   } catch (err) {
-    console.error("Error loading golfers:", err);
+    console.error("Failed to load golfers:", err);
     document.getElementById("status").textContent = "Error loading player list.";
   }
 }
 
 window.onload = loadGolfers;
+
