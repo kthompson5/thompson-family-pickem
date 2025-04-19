@@ -3,163 +3,137 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Thompson Family Pick 'Em – Leaderboard</title>
+  <title>Leaderboard</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      background-color: #001427;
-      color: #fefcfb;
+      background-color: #0b1f3a;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
+      color: white;
     }
 
     .header-bar {
-      background-color: #003049;
-      padding: 15px 20px;
+      background-color: white;
+      padding: 10px 20px;
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
-    }
-
-    .logo-wrap {
-      display: flex;
-      align-items: center;
-      gap: 15px;
     }
 
     .logo {
-      height: 50px;
-    }
-
-    .tagline {
-      font-size: 1.2rem;
-      color: #fcbf49;
+      max-height: 50px;
     }
 
     .nav-buttons a {
-      margin-left: 12px;
+      color: #0b1f3a;
       text-decoration: none;
-      color: #fefcfb;
       font-weight: bold;
-      background-color: #d62828;
-      padding: 8px 14px;
+      margin-left: 20px;
+      background-color: #ffffff;
+      padding: 6px 12px;
       border-radius: 6px;
+      transition: background-color 0.3s ease;
     }
 
     .nav-buttons a:hover {
-      background-color: #f77f00;
+      background-color: #d9e6ff;
     }
 
-    .container {
-      max-width: 960px;
-      margin: 30px auto;
+    .leaderboard-container {
       padding: 20px;
-    }
-
-    .leaderboard-title {
       text-align: center;
-      font-size: 2rem;
-      color: #fcbf49;
-      margin-bottom: 30px;
     }
 
     .podium {
       display: flex;
       justify-content: center;
-      gap: 20px;
+      align-items: flex-end;
+      gap: 10px;
       margin-bottom: 40px;
     }
 
-    .podium-spot {
-      background: #003049;
-      color: #fefcfb;
-      border-radius: 8px;
-      padding: 15px 20px;
+    .podium div {
+      background-color: #ffffff;
+      color: #0b1f3a;
+      padding: 10px;
+      border-radius: 6px 6px 0 0;
       text-align: center;
-      flex: 1;
+      width: 80px;
     }
 
-    .podium-spot h2 {
-      margin: 5px 0;
-      font-size: 1.3rem;
+    .first {
+      height: 140px;
+      order: 2;
     }
 
-    .podium-spot.gold {
-      background-color: #ffd700;
-      color: #000;
+    .second {
+      height: 100px;
+      order: 1;
     }
 
-    .podium-spot.silver {
-      background-color: #c0c0c0;
-      color: #000;
+    .third {
+      height: 80px;
+      order: 3;
     }
 
-    .podium-spot.bronze {
-      background-color: #cd7f32;
-      color: #000;
+    @media (max-width: 600px) {
+      .podium {
+        flex-direction: row;
+        gap: 5px;
+      }
+      .podium div {
+        width: 60px;
+        font-size: 0.85rem;
+        padding: 6px;
+      }
     }
 
     .bar-chart {
-      margin-top: 30px;
+      width: 90%;
+      max-width: 700px;
+      margin: auto;
     }
 
     .bar {
-      margin: 10px 0;
-      background-color: #003049;
-      height: 30px;
-      border-radius: 6px;
-      overflow: hidden;
       display: flex;
       align-items: center;
+      margin: 8px 0;
     }
 
-    .bar span {
-      padding-left: 12px;
+    .bar-name {
+      width: 120px;
       font-weight: bold;
+      color: white;
     }
 
     .bar-fill {
-      background-color: #f77f00;
-      height: 100%;
-      display: flex;
-      align-items: center;
-      white-space: nowrap;
-      transition: width 0.6s ease-out;
+      height: 24px;
+      background-color: red;
+      transition: width 1s ease-out;
+      border-radius: 4px;
     }
 
-    .footer-note {
-      margin-top: 40px;
-      text-align: center;
-      color: #aaa;
-      font-size: 0.9rem;
+    .bar-score {
+      margin-left: 10px;
+      font-weight: bold;
     }
   </style>
 </head>
 <body>
   <header class="header-bar">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
-      <span class="tagline">Leaderboard</span>
-    </div>
+    <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
     <nav class="nav-buttons">
       <a href="/index.html">Home</a>
       <a href="/picks.html">Make Picks</a>
+      <a href="/leaderboard.html">Leaderboard</a>
     </nav>
   </header>
 
-  <div class="container">
-    <div class="leaderboard-title">Live Standings</div>
-
-    <div class="podium" id="podium">
-      <!-- Dynamic Top 3 injected here -->
-    </div>
-
-    <div class="bar-chart" id="barChart">
-      <!-- Dynamic bar chart injected here -->
-    </div>
-
-    <div class="footer-note">Powered by Thompson Family Pick 'Em</div>
+  <div class="leaderboard-container">
+    <div class="podium" id="podium"></div>
+    <div class="bar-chart" id="bar-chart"></div>
   </div>
 
   <script src="leaderboard.js"></script>
