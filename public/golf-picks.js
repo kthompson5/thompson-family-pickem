@@ -1,35 +1,48 @@
-function submitGolfPicks() {
-  const player = document.getElementById("player").value.trim();
-  const tiebreaker = document.getElementById("tiebreaker").value;
-  const picks = [
-    document.getElementById("golfer1").value,
-    document.getElementById("golfer2").value,
-    document.getElementById("golfer3").value,
-    document.getElementById("golfer4").value
-  ];
+async function loadGolfers() {
+  try {
+    const url = "https://www.espn.com/golf/leaderboard";
+    const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
 
-  if (!player || picks.includes("") || !tiebreaker) {
-    document.getElementById("status").textContent = "Please complete all fields.";
-    return;
-  }
+    const res = await fetch(proxyUrl);
+    const data = await res.json();
+    const html = data.contents;
 
-  fetch("/submit-golf-picks", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      player,
-      tiebreaker,
-      golfers: picks,
-      password: "goirish"
-    })
-  })
-    .then(res => res.json())
-    .then(data => {
-      document.getElementById("status").textContent = data.message;
-    })
-    .catch(err => {
-      console.error("Error submitting golf picks:", err);
-      document.getElementById("status").textContent = "Something went wrong!";
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(html, "text/html");
+
+    const rows = doc.querySelectorAll("table tbody tr");
+    const players = [];
+
+    rows.forEach(row => {
+      const playerCell = row.querySelector("td.tl.plyr");
+      if (playerCell) {
+        const anchor = playerCell.querySelector("a");
+        if (anchor) {
+          const name = anchor.textContent.trim();
+          if (name && !players.includes(name)) {
+            players.push(name);
+          }
+        }
+      }
     });
+
+    // Fill all 4 dropdowns
+    const dropdownIds = ["golfer1", "golfer2", "golfer3", "golfer4"];
+    dropdownIds.forEach(id => {
+      const select = document.getElementById(id);
+      players.forEach(name => {
+        const option = document.createElement("option");
+        option.value = name;
+        option.textContent = name;
+        select.appendChild(option);
+      });
+    });
+
+  } catch (err) {
+    console.error("Failed to load golfers:", err);
+    document.getElementById("status").textContent = "Error loading player list.";
+  }
 }
+
+window.onload = loadGolfers;
 
