@@ -5,25 +5,15 @@ async function loadGolfers() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(html, "text/html");
 
-    const golferNames = [];
-    const rows = doc.querySelectorAll("table tbody tr");
+    // Select all TDs that contain player names
+    const playerCells = doc.querySelectorAll('td.plyr a.leaderboard_player_name');
 
-    rows.forEach(row => {
-      const cells = row.querySelectorAll("td");
-      if (cells.length >= 2) {
-        const nameCell = cells[1]; // 2nd column
-        const nameEl = nameCell.querySelector("a, span"); // safer: look for child elements
-        const name = nameEl ? nameEl.textContent.trim() : nameCell.textContent.trim();
-        if (name && !golferNames.includes(name)) {
-          golferNames.push(name);
-        }
-      }
-    });
+    const names = [...playerCells].map(a => a.textContent.trim());
 
     const dropdownIds = ["golfer1", "golfer2", "golfer3"];
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
-      golferNames.forEach(name => {
+      names.forEach(name => {
         const option = document.createElement("option");
         option.value = name;
         option.textContent = name;
@@ -31,9 +21,27 @@ async function loadGolfers() {
       });
     });
   } catch (err) {
-    console.error("Error loading golfers:", err);
+    console.error("Failed to load golfers from ESPN:", err);
     document.getElementById("status").textContent = "Error loading player list.";
   }
+}
+
+function submitGolfPicks() {
+  const player = document.getElementById("player").value.trim();
+  const tiebreaker = document.getElementById("tiebreaker").value;
+  const picks = [
+    document.getElementById("golfer1").value,
+    document.getElementById("golfer2").value,
+    document.getElementById("golfer3").value
+  ];
+
+  if (!player || picks.includes("") || !tiebreaker) {
+    document.getElementById("status").textContent = "Please complete all fields.";
+    return;
+  }
+
+  console.log({ player, picks, tiebreaker });
+  document.getElementById("status").textContent = "Picks submitted successfully!";
 }
 
 window.onload = loadGolfers;
