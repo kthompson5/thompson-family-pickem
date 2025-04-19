@@ -8,7 +8,12 @@ async function loadLeaderboard() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(data.contents, "text/html");
 
-    const rows = doc.querySelectorAll(".Table__Scroller table tbody tr.PlayerRow__Overview");
+    const table = Array.from(doc.querySelectorAll("table"))
+      .find(t => t.querySelector("th.eagles")); // Only table that contains 'eagles' column
+
+    if (!table) throw new Error("Stats table not found.");
+
+    const rows = table.querySelectorAll("tbody tr");
     const body = document.getElementById("golf-body");
     body.innerHTML = "";
 
@@ -44,7 +49,6 @@ async function loadLeaderboard() {
 
       body.appendChild(rowEl);
     });
-
   } catch (err) {
     console.error("Error loading golf leaderboard:", err);
     document.getElementById("golf-body").innerHTML = `
