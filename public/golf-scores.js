@@ -8,7 +8,7 @@ async function loadLeaderboard() {
     const parser = new DOMParser();
     const doc = parser.parseFromString(data.contents, "text/html");
 
-    const rows = doc.querySelectorAll("table tbody tr");
+    const rows = doc.querySelectorAll("tr.PlayerRow__Overview");
     const body = document.getElementById("golf-body");
     body.innerHTML = "";
 
@@ -16,11 +16,10 @@ async function loadLeaderboard() {
       const cells = row.querySelectorAll("td");
       if (cells.length < 13) return;
 
-      const playerAnchor = cells[2].querySelector("a");
-      const name = playerAnchor?.textContent.trim();
+      const position = cells[1]?.textContent.trim();
+      const name = cells[2]?.querySelector("a")?.textContent.trim();
       if (!name) return;
 
-      const position = cells[1]?.textContent.trim();
       const eagles = parseInt(cells[7]?.textContent.trim()) || 0;
       const birdies = parseInt(cells[8]?.textContent.trim()) || 0;
       const pars = parseInt(cells[9]?.textContent.trim()) || 0;
@@ -55,3 +54,4 @@ async function loadLeaderboard() {
 }
 
 window.onload = loadLeaderboard;
+
