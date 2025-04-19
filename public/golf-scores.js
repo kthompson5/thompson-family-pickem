@@ -7,8 +7,8 @@ async function loadLeaderboard() {
 
     const parser = new DOMParser();
     const doc = parser.parseFromString(data.contents, "text/html");
-    const rows = doc.querySelectorAll(".PlayerRow__Overview");
 
+    const rows = doc.querySelectorAll("table tbody tr");
     const body = document.getElementById("golf-body");
     body.innerHTML = "";
 
@@ -16,16 +16,18 @@ async function loadLeaderboard() {
       const cells = row.querySelectorAll("td");
       if (cells.length < 13) return;
 
-      const position = cells[1]?.textContent.trim();
-      const name = cells[2]?.querySelector("a")?.textContent.trim();
+      const playerAnchor = cells[2].querySelector("a");
+      const name = playerAnchor?.textContent.trim();
+      if (!name) return;
 
+      const position = cells[1]?.textContent.trim();
       const eagles = parseInt(cells[7]?.textContent.trim()) || 0;
       const birdies = parseInt(cells[8]?.textContent.trim()) || 0;
       const pars = parseInt(cells[9]?.textContent.trim()) || 0;
       const bogeys = parseInt(cells[10]?.textContent.trim()) || 0;
       const doubles = parseInt(cells[11]?.textContent.trim()) || 0;
 
-      const net = (eagles * 5) + (birdies * 3) + (pars * 0) + (bogeys * -1) + (doubles * -3);
+      const net = (eagles * 5) + (birdies * 3) + (bogeys * -1) + (doubles * -3);
 
       const rowEl = document.createElement("tr");
       rowEl.className = "golf-row";
@@ -43,6 +45,7 @@ async function loadLeaderboard() {
 
       body.appendChild(rowEl);
     });
+
   } catch (err) {
     console.error("Error loading golf leaderboard:", err);
     document.getElementById("golf-body").innerHTML = `
@@ -52,4 +55,3 @@ async function loadLeaderboard() {
 }
 
 window.onload = loadLeaderboard;
-
