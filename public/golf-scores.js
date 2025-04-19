@@ -55,3 +55,4 @@ async function loadLeaderboard() {
 
 window.onload = loadLeaderboard;
 
+
