@@ -3,139 +3,176 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Leaderboard</title>
+  <title>Thompson Family Pick 'Em – Leaderboard</title>
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
-      background-color: #0b1f3a;
+      background-color: #001427;
+      color: #fefcfb;
       font-family: 'Segoe UI', sans-serif;
       margin: 0;
       padding: 0;
-      color: white;
     }
 
     .header-bar {
-      background-color: white;
-      padding: 10px 20px;
+      background-color: #003049;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo-wrap {
       display: flex;
       align-items: center;
-      justify-content: space-between;
+      gap: 15px;
     }
 
     .logo {
-      max-height: 50px;
+      height: 50px;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: #fcbf49;
     }
 
     .nav-buttons a {
-      color: #0b1f3a;
+      margin-left: 12px;
       text-decoration: none;
+      color: #fefcfb;
       font-weight: bold;
-      margin-left: 20px;
-      background-color: #ffffff;
-      padding: 6px 12px;
+      background-color: #d62828;
+      padding: 8px 14px;
       border-radius: 6px;
-      transition: background-color 0.3s ease;
     }
 
     .nav-buttons a:hover {
-      background-color: #d9e6ff;
+      background-color: #f77f00;
     }
 
-    .leaderboard-container {
+    .container {
+      max-width: 960px;
+      margin: 30px auto;
       padding: 20px;
+    }
+
+    .leaderboard-title {
       text-align: center;
+      font-size: 2rem;
+      color: #fcbf49;
+      margin-bottom: 30px;
     }
 
     .podium {
       display: flex;
       justify-content: center;
       align-items: flex-end;
-      gap: 10px;
+      gap: 15px;
       margin-bottom: 40px;
+      flex-wrap: wrap;
     }
 
-    .podium div {
-      background-color: #ffffff;
-      color: #0b1f3a;
-      padding: 10px;
-      border-radius: 6px 6px 0 0;
+    .podium-spot {
+      background: #003049;
+      color: #fefcfb;
+      border-radius: 8px;
+      padding: 10px 12px;
       text-align: center;
       width: 80px;
     }
 
-    .first {
-      height: 140px;
-      order: 2;
+    .gold {
+      background-color: #ffd700;
+      color: #000;
+      height: 130px;
     }
 
-    .second {
-      height: 100px;
-      order: 1;
+    .silver {
+      background-color: #c0c0c0;
+      color: #000;
+      height: 110px;
     }
 
-    .third {
-      height: 80px;
-      order: 3;
+    .bronze {
+      background-color: #cd7f32;
+      color: #000;
+      height: 90px;
+    }
+
+    .bar-chart {
+      margin-top: 30px;
+    }
+
+    .bar {
+      margin: 10px 0;
+      background-color: #003049;
+      height: 30px;
+      border-radius: 6px;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+    }
+
+    .bar span {
+      padding-left: 12px;
+      font-weight: bold;
+    }
+
+    .bar-fill {
+      background-color: #f77f00;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      white-space: nowrap;
+      transition: width 0.6s ease-out;
+    }
+
+    .footer-note {
+      margin-top: 40px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
     }
 
     @media (max-width: 600px) {
       .podium {
-        flex-direction: row;
-        gap: 5px;
+        gap: 8px;
       }
-      .podium div {
-        width: 60px;
-        font-size: 0.85rem;
+
+      .podium-spot {
+        width: 65px;
         padding: 6px;
+        font-size: 0.8rem;
       }
-    }
 
-    .bar-chart {
-      width: 90%;
-      max-width: 700px;
-      margin: auto;
-    }
-
-    .bar {
-      display: flex;
-      align-items: center;
-      margin: 8px 0;
-    }
-
-    .bar-name {
-      width: 120px;
-      font-weight: bold;
-      color: white;
-    }
-
-    .bar-fill {
-      height: 24px;
-      background-color: red;
-      transition: width 1s ease-out;
-      border-radius: 4px;
-    }
-
-    .bar-score {
-      margin-left: 10px;
-      font-weight: bold;
+      .gold { height: 90px; }
+      .silver { height: 75px; }
+      .bronze { height: 60px; }
     }
   </style>
 </head>
 <body>
   <header class="header-bar">
-    <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
+      <span class="tagline">Leaderboard</span>
+    </div>
     <nav class="nav-buttons">
       <a href="/index.html">Home</a>
       <a href="/picks.html">Make Picks</a>
-      <a href="/leaderboard.html">Leaderboard</a>
     </nav>
   </header>
 
-  <div class="leaderboard-container">
+  <div class="container">
+    <div class="leaderboard-title">Live Standings</div>
+
     <div class="podium" id="podium"></div>
-    <div class="bar-chart" id="bar-chart"></div>
+    <div class="bar-chart" id="barChart"></div>
+    <div class="footer-note">Powered by Thompson Family Pick 'Em</div>
   </div>
 
   <script src="leaderboard.js"></script>
 </body>
 </html>
+
