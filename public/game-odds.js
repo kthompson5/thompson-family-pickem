@@ -38,5 +38,5 @@ window.onload = () => {
   loadOddsForSport('basketball_nba', 'nba-odds');
   loadOddsForSport('baseball_mlb', 'mlb-odds');
   loadOddsForSport('americanfootball_ncaaf', 'cfb-odds');
-  loadOddsForSport('golf_masters', 'golf-odds'); // Change this to current tournament if needed
+  loadOddsForSport('golf_pga_championship', 'golf-odds'); // Change this to current tournament if needed
 };
