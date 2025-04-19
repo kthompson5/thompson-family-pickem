@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,6 +6,13 @@
   <title>Thompson Family Pick 'Em – Golf</title>
   <link rel="stylesheet" href="style.css" />
   <style>
+    body {
+      background-color: #0b1f3a;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
     .golf-header {
       text-align: center;
       margin: 30px auto;
@@ -24,13 +30,12 @@
     }
 
     .golf-leaderboard {
-      max-width: 900px;
+      max-width: 960px;
       margin: 40px auto;
       background-color: white;
       border: 2px solid #0b1f3a;
       border-radius: 12px;
       padding: 20px;
-      font-family: 'Segoe UI', sans-serif;
     }
 
     .golf-leaderboard h2 {
@@ -45,13 +50,13 @@
     }
 
     .golf-leaderboard h2 img {
-      height: 72px;
+      height: 60px;
     }
 
     .golf-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 1rem;
+      font-size: 0.95rem;
     }
 
     .golf-table th, .golf-table td {
@@ -70,109 +75,62 @@
     }
 
     .net-score {
-      background-color: #e1edff;
       font-weight: bold;
-      border-left: 2px solid #99c1ff;
-      border-right: 2px solid #99c1ff;
     }
 
-    .bonus-cell {
-      font-weight: bold;
-      color: #004085;
+    .net-score.good {
+      color: green;
     }
 
-    .footer-note {
-      text-align: center;
-      font-size: 0.9rem;
-      color: #555;
-      margin-top: 40px;
+    .net-score.bad {
+      color: red;
     }
 
     @media (max-width: 600px) {
-      .golf-table th:nth-child(3),
-      .golf-table th:nth-child(4),
-      .golf-table th:nth-child(5),
-      .golf-table th:nth-child(7),
-      .golf-table td:nth-child(3),
-      .golf-table td:nth-child(4),
-      .golf-table td:nth-child(5),
-      .golf-table td:nth-child(7) {
+      .golf-table th:nth-child(n+4),
+      .golf-table td:nth-child(n+4) {
         display: none;
       }
     }
   </style>
 </head>
-<body style="background-color: #0b1f3a;">
+<body>
   <header class="header-bar">
     <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
     <nav class="nav-buttons">
       <a href="/index.html">Home</a>
-      <a href="/picks.html">Make Picks</a>
-      <a href="/leaderboard.html">Leaderboard</a>
-      <a href="/rules.html">Rules</a>
-      <a href="/game-info.html">Game Info</a>
       <a href="/golf.html">Golf</a>
     </nav>
   </header>
 
   <div class="golf-header">
-    <h1>Final Round Golf Challenge</h1>
-    <p>Sunday Scores Only – Bonus Points for Champion, Sleeper, Birdies</p>
+    <h1>Live Golf Leaderboard</h1>
+    <p>+5 Eagle • +3 Birdie • 0 Par • -1 Bogey • -3 Double or Worse • +10 Hole-in-One</p>
   </div>
 
   <div class="golf-leaderboard">
     <h2>
-      Live Leaderboard
-      <img src="logo.png" alt="Tournament Logo Placeholder" />
+      Tournament Scores
+      <img src="pga.png" alt="PGA Logo" />
     </h2>
-    <table class="golf-table">
+    <table class="golf-table" id="golf-table">
       <thead>
         <tr>
-          <th>Rank</th>
-          <th>Player</th>
-          <th>Golfer 1</th>
-          <th>Golfer 2</th>
-          <th>Golfer 3</th>
-          <th class="net-score">Net Score</th>
-          <th>To Par</th>
-          <th>Bonuses</th>
+          <th>Pos</th>
+          <th>Name</th>
+          <th>E</th>
+          <th>B</th>
+          <th>P</th>
+          <th>Bo</th>
+          <th>DB</th>
+          <th>H1</th>
+          <th>Net</th>
         </tr>
       </thead>
-      <tbody>
-        <tr class="golf-row">
-          <td>1</td>
-          <td>Ben</td>
-          <td>-4</td>
-          <td>-2</td>
-          <td>-1</td>
-          <td class="net-score">-7</td>
-          <td>-1</td>
-          <td class="bonus-cell">C + B</td>
-        </tr>
-        <tr class="golf-row">
-          <td>2</td>
-          <td>Monica</td>
-          <td>-3</td>
-          <td>E</td>
-          <td>-2</td>
-          <td class="net-score">-5</td>
-          <td>+1</td>
-          <td class="bonus-cell">S</td>
-        </tr>
-        <tr class="golf-row">
-          <td>T3</td>
-          <td>Diego</td>
-          <td>-2</td>
-          <td>-2</td>
-          <td>-1</td>
-          <td class="net-score">-5</td>
-          <td>+1</td>
-          <td class="bonus-cell">–</td>
-        </tr>
-      </tbody>
+      <tbody id="golf-body"></tbody>
     </table>
-    <p class="footer-note">* C = Champion Bonus, S = Sleeper Bonus, B = Birdie Boost</p>
   </div>
-<script src="golf-leaderboard.js"></script>
+
+  <script src="golf-scores.js"></script>
 </body>
 </html>
