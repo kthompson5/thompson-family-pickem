@@ -1,48 +1,42 @@
-const apiKey = "10edd05ababaff9ad4db9f204f91b190";
-const sports = [
-  { name: "NFL", key: "americanfootball_nfl" },
-  { name: "NBA", key: "basketball_nba" },
-  { name: "MLB", key: "baseball_mlb" },
-  { name: "CFB", key: "americanfootball_ncaaf" },
-  { name: "Golf", key: "golf" }
-];
+async function loadOddsForSport(sport, containerId) {
+  try {
+    const res = await fetch(`/api/odds?sport=${sport}`);
+    const data = await res.json();
 
-async function fetchOdds(sportKey) {
-  const url = `https://api.the-odds-api.com/v4/sports/${sportKey}/odds/?regions=us&markets=h2h&oddsFormat=american&apiKey=${apiKey}`;
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Failed to fetch odds for ${sportKey}`);
-  return await response.json();
-}
+    const container = document.getElementById(containerId);
+    container.innerHTML = "";
 
-function createGameHTML(game) {
-  const home = game.home_team;
-  const away = game.away_team;
-  const bookmaker = game.bookmakers[0];
-  if (!bookmaker || !bookmaker.markets[0]) return "";
-
-  const outcomes = bookmaker.markets[0].outcomes;
-  const homeOdds = outcomes.find(o => o.name === home)?.price ?? "-";
-  const awayOdds = outcomes.find(o => o.name === away)?.price ?? "-";
-
-  return `
-    <div class="game-odds-row">
-      <strong>${away}</strong> (${awayOdds}) @ <strong>${home}</strong> (${homeOdds})
-    </div>
-  `;
-}
-
-async function loadOdds() {
-  for (const sport of sports) {
-    try {
-      const data = await fetchOdds(sport.key);
-      const section = document.getElementById(`odds-${sport.name.toLowerCase()}`);
-      section.innerHTML = data.map(createGameHTML).join("") || "<p>No games found.</p>";
-    } catch (err) {
-      console.error(`Error loading odds for ${sport.name}:`, err);
-      const section = document.getElementById(`odds-${sport.name.toLowerCase()}`);
-      section.innerHTML = "<p>Error loading odds.</p>";
+    if (!data || !Array.isArray(data) || data.length === 0) {
+      container.innerHTML = "<p style='color:white;'>No data available.</p>";
+      return;
     }
+
+    data.forEach(event => {
+      const matchDiv = document.createElement("div");
+      matchDiv.style.padding = "10px 0";
+      matchDiv.style.borderBottom = "1px solid #ccc";
+
+      const team1 = event.bookmakers[0]?.markets[0]?.outcomes[0];
+      const team2 = event.bookmakers[0]?.markets[0]?.outcomes[1];
+
+      matchDiv.innerHTML = `
+        <strong style="color:white;">${event.home_team} vs ${event.away_team}</strong><br>
+        <span style="color:#9bd3f7;">${team1.name}: ${team1.price}</span><br>
+        <span style="color:#9bd3f7;">${team2.name}: ${team2.price}</span>
+      `;
+
+      container.appendChild(matchDiv);
+    });
+  } catch (err) {
+    console.error("Failed to load odds:", err);
+    document.getElementById(containerId).innerHTML = "<p style='color:white;'>Error loading data</p>";
   }
 }
 
-window.onload = loadOdds;
+window.onload = () => {
+  loadOddsForSport('americanfootball_nfl', 'nfl-odds');
+  loadOddsForSport('basketball_nba', 'nba-odds');
+  loadOddsForSport('baseball_mlb', 'mlb-odds');
+  loadOddsForSport('americanfootball_ncaaf', 'cfb-odds');
+  loadOddsForSport('golf_masters', 'golf-odds'); // Change this to current tournament if needed
+};
