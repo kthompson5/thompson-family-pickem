@@ -1,33 +1,46 @@
-async function loadGolfers() {
+async function loadGolfersFromESPN() {
+  const proxyUrl = "https://api.allorigins.win/raw?url=";
+  const espnUrl = "https://www.espn.com/golf/leaderboard";
+  const dropdownIds = ["golfer1", "golfer2", "golfer3"];
+
   try {
-    const res = await fetch("https://www.espn.com/golf/leaderboard");
-    const text = await res.text();
+    const res = await fetch(proxyUrl + encodeURIComponent(espnUrl));
+    const html = await res.text();
+    const tempDiv = document.createElement("div");
+    tempDiv.innerHTML = html;
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(text, "text/html");
+    const rows = tempDiv.querySelectorAll("table tbody tr");
 
-    const rows = Array.from(doc.querySelectorAll("table tbody tr"));
+    const golfers = [];
+    for (let i = 0; i < rows.length; i++) {
+      const cols = rows[i].querySelectorAll("td");
+      if (cols.length >= 2) {
+        const name = cols[1].textContent.trim();
+        if (name && !golfers.includes(name)) {
+          golfers.push(name);
+        }
+      }
+    }
 
-    const golfers = rows.map(row => {
-      const nameCell = row.querySelector("td:nth-child(2)");
-      return nameCell ? nameCell.textContent.trim() : null;
-    }).filter(name => name && !name.includes("Tee") && !name.includes("WD"));
-
-    const uniqueGolfers = [...new Set(golfers)].slice(0, 50); // Limit to 50 for simplicity
-
-    const dropdownIds = ["golfer1", "golfer2", "golfer3"];
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
-      uniqueGolfers.forEach(name => {
+      select.innerHTML = ""; // Clear old options
+      const defaultOption = document.createElement("option");
+      defaultOption.textContent = "-- Select Golfer --";
+      defaultOption.value = "";
+      select.appendChild(defaultOption);
+
+      golfers.forEach(name => {
         const option = document.createElement("option");
         option.value = name;
         option.textContent = name;
         select.appendChild(option);
       });
     });
+
   } catch (err) {
-    console.error("Failed to scrape golfers:", err);
-    document.getElementById("status").textContent = "Error loading player list.";
+    console.error("Error loading golfers:", err);
+    document.getElementById("status").textContent = "Error loading golfer list.";
   }
 }
 
@@ -49,4 +62,5 @@ function submitGolfPicks() {
   document.getElementById("status").textContent = "Picks submitted successfully!";
 }
 
-window.onload = loadGolfers;
+window.onload = loadGolfersFromESPN;
+
