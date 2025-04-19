@@ -12,19 +12,18 @@ async function loadGolfersFromESPN() {
     const rows = tempDiv.querySelectorAll("table tbody tr");
 
     const golfers = [];
-    for (let i = 0; i < rows.length; i++) {
-      const cols = rows[i].querySelectorAll("td");
-      if (cols.length >= 2) {
-        const name = cols[1].textContent.trim();
-        if (name && !golfers.includes(name)) {
-          golfers.push(name);
-        }
+    for (let row of rows) {
+      const playerCell = row.querySelector("td:nth-child(2) a, td:nth-child(2) span");
+      const name = playerCell?.textContent.trim();
+
+      if (name && !golfers.includes(name)) {
+        golfers.push(name);
       }
     }
 
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
-      select.innerHTML = ""; // Clear old options
+      select.innerHTML = "";
       const defaultOption = document.createElement("option");
       defaultOption.textContent = "-- Select Golfer --";
       defaultOption.value = "";
@@ -63,4 +62,5 @@ function submitGolfPicks() {
 }
 
 window.onload = loadGolfersFromESPN;
+
 
