@@ -26,8 +26,7 @@ async function loadGolfers() {
       }
     });
 
-    // Fill the dropdowns
-    const dropdownIds = ["golfer1", "golfer2", "golfer3"];
+    const dropdownIds = ["golfer1", "golfer2", "golfer3", "golfer4"];
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
       players.forEach(name => {
@@ -44,5 +43,23 @@ async function loadGolfers() {
   }
 }
 
-window.onload = loadGolfers;
+function submitGolfPicks() {
+  const player = document.getElementById("player").value.trim();
+  const tiebreaker = document.getElementById("tiebreaker").value;
+  const picks = [
+    document.getElementById("golfer1").value,
+    document.getElementById("golfer2").value,
+    document.getElementById("golfer3").value,
+    document.getElementById("golfer4").value
+  ];
 
+  if (!player || picks.includes("") || !tiebreaker) {
+    document.getElementById("status").textContent = "Please complete all fields.";
+    return;
+  }
+
+  console.log({ player, picks, tiebreaker });
+  document.getElementById("status").textContent = "Picks submitted successfully!";
+}
+
+window.onload = loadGolfers;
