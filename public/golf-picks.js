@@ -11,8 +11,9 @@ async function loadGolfers() {
     rows.forEach(row => {
       const cells = row.querySelectorAll("td");
       if (cells.length >= 2) {
-        const nameCell = cells[1]; // column just after player rank
-        const name = nameCell.textContent.trim();
+        const nameCell = cells[1]; // 2nd column
+        const nameEl = nameCell.querySelector("a, span"); // safer: look for child elements
+        const name = nameEl ? nameEl.textContent.trim() : nameCell.textContent.trim();
         if (name && !golferNames.includes(name)) {
           golferNames.push(name);
         }
