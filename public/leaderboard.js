@@ -31,3 +31,4 @@ window.onload = async () => {
     console.error("Failed to load leaderboard:", err);
   }
 };
+
