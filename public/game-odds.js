@@ -34,7 +34,7 @@ async function loadOddsForSport(sport, containerId) {
 }
 
 window.onload = () => {
-  loadOddsForSport('americanfootball_nfl', 'nfl-odds');
+  loadOddsForSport('americanfootball_nfl_super_bowl_winner', 'nfl-odds');
   loadOddsForSport('basketball_nba', 'nba-odds');
   loadOddsForSport('baseball_mlb', 'mlb-odds');
   loadOddsForSport('americanfootball_ncaaf', 'cfb-odds');
