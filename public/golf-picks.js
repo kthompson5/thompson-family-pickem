@@ -2,15 +2,13 @@ async function loadGolfers() {
   try {
     const url = "https://www.espn.com/golf/leaderboard";
     const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(url)}`;
-
     const res = await fetch(proxyUrl);
     const data = await res.json();
-    const html = data.contents;
 
-    const parser = new DOMParser();
-    const doc = parser.parseFromString(html, "text/html");
+    const temp = document.createElement("html");
+    temp.innerHTML = data.contents;
 
-    const rows = doc.querySelectorAll("table tbody tr");
+    const rows = temp.querySelectorAll("table tbody tr");
     const players = [];
 
     rows.forEach(row => {
@@ -26,10 +24,10 @@ async function loadGolfers() {
       }
     });
 
-    // Fill all 4 dropdowns
     const dropdownIds = ["golfer1", "golfer2", "golfer3", "golfer4"];
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
+      select.innerHTML = `<option value="">Select ${id}</option>`;
       players.forEach(name => {
         const option = document.createElement("option");
         option.value = name;
@@ -45,4 +43,5 @@ async function loadGolfers() {
 }
 
 window.onload = loadGolfers;
+
 
