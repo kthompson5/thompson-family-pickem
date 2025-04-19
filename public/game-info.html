@@ -84,18 +84,22 @@
       padding: 15px 20px;
     }
 
-    iframe {
-      width: 100%;
-      height: 420px;
-      border: none;
-      border-radius: 6px;
+    .matchup {
+      border-bottom: 1px solid #ccc;
+      padding: 12px 0;
+    }
+
+    .matchup strong {
+      color: white;
+    }
+
+    .matchup span {
+      display: block;
+      color: #9bd3f7;
+      margin-left: 10px;
     }
 
     @media (max-width: 600px) {
-      iframe {
-        height: 500px;
-      }
-
       .section summary {
         font-size: 1rem;
       }
@@ -117,41 +121,32 @@
   <div class="container">
     <h2>Live Game Odds</h2>
 
-    <details class="section">
+    <details class="section" open>
       <summary>NFL</summary>
-      <div class="section-content">
-        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/americanfootball/en/US/scoreboard" title="NFL Odds"></iframe>
-      </div>
+      <div class="section-content" id="nfl-odds">Loading NFL odds...</div>
     </details>
 
     <details class="section">
       <summary>NBA</summary>
-      <div class="section-content">
-        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/basketball/en/US/scoreboard" title="NBA Odds"></iframe>
-      </div>
+      <div class="section-content" id="nba-odds">Loading NBA odds...</div>
     </details>
 
     <details class="section">
       <summary>MLB</summary>
-      <div class="section-content">
-        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/baseball/en/US/scoreboard" title="MLB Odds"></iframe>
-      </div>
+      <div class="section-content" id="mlb-odds">Loading MLB odds...</div>
     </details>
 
     <details class="section">
       <summary>College Football</summary>
-      <div class="section-content">
-        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/ncaaf/en/US/scoreboard" title="CFB Odds"></iframe>
-      </div>
+      <div class="section-content" id="cfb-odds">Loading CFB odds...</div>
     </details>
 
     <details class="section">
       <summary>Golf</summary>
-      <div class="section-content">
-        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/golf/en/US/leaderboard" title="Golf Odds"></iframe>
-      </div>
+      <div class="section-content" id="golf-odds">Loading Golf odds...</div>
     </details>
   </div>
+
   <script src="game-odds.js"></script>
 </body>
 </html>
