@@ -1,24 +1,32 @@
-const apiKey = "a6a414c8999b33f828a1bb5750cf";
-const endpoint = `https://feeds.datagolf.com/get-player-list?file_format=json&key=a6a414c8999b33f828a1bb5750cf`;
-
 async function loadGolfers() {
   try {
-    const res = await fetch(endpoint);
-    const data = await res.json();
-    const players = data.data || [];
+    const res = await fetch("https://www.espn.com/golf/leaderboard");
+    const text = await res.text();
+
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(text, "text/html");
+
+    const rows = Array.from(doc.querySelectorAll("table tbody tr"));
+
+    const golfers = rows.map(row => {
+      const nameCell = row.querySelector("td:nth-child(2)");
+      return nameCell ? nameCell.textContent.trim() : null;
+    }).filter(name => name && !name.includes("Tee") && !name.includes("WD"));
+
+    const uniqueGolfers = [...new Set(golfers)].slice(0, 50); // Limit to 50 for simplicity
 
     const dropdownIds = ["golfer1", "golfer2", "golfer3"];
     dropdownIds.forEach(id => {
       const select = document.getElementById(id);
-      players.forEach(player => {
+      uniqueGolfers.forEach(name => {
         const option = document.createElement("option");
-        option.value = `${player.first_name} ${player.last_name}`;
-        option.textContent = `${player.first_name} ${player.last_name}`;
+        option.value = name;
+        option.textContent = name;
         select.appendChild(option);
       });
     });
   } catch (err) {
-    console.error("Failed to load golfers from DataGolf:", err);
+    console.error("Failed to scrape golfers:", err);
     document.getElementById("status").textContent = "Error loading player list.";
   }
 }
@@ -42,4 +50,3 @@ function submitGolfPicks() {
 }
 
 window.onload = loadGolfers;
-
