@@ -3,15 +3,108 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Game Info – Thompson Family Pick 'Em</title>
+  <title>Thompson Family Pick 'Em – Game Info</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    body {
+      background-color: #001427;
+      color: #fefcfb;
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .header-bar {
+      background-color: white;
+      padding: 15px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .logo {
+      height: 50px;
+    }
+
+    .tagline {
+      font-size: 1.2rem;
+      color: #003049;
+      font-weight: bold;
+    }
+
+    .nav-buttons a {
+      margin-left: 12px;
+      text-decoration: none;
+      color: white;
+      font-weight: bold;
+      background-color: #002f5f;
+      padding: 8px 14px;
+      border-radius: 6px;
+    }
+
+    .nav-buttons a:hover {
+      background-color: #001a3a;
+    }
+
+    .container {
+      max-width: 960px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    h2 {
+      text-align: center;
+      color: #9bd3f7;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .section {
+      background-color: #003049;
+      border-radius: 8px;
+      margin-bottom: 16px;
+      overflow: hidden;
+    }
+
+    .section summary {
+      padding: 15px 20px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      color: #001427;
+      background-color: #9bd3f7;
+      cursor: pointer;
+      border: none;
+    }
+
+    .section summary:hover {
+      background-color: #bce4ff;
+    }
+
+    .section-content {
+      padding: 15px 20px;
+    }
+
+    iframe {
+      width: 100%;
+      height: 420px;
+      border: none;
+      border-radius: 6px;
+    }
+
+    @media (max-width: 600px) {
+      iframe {
+        height: 500px;
+      }
+
+      .section summary {
+        font-size: 1rem;
+      }
+    }
+  </style>
 </head>
 <body>
   <header class="header-bar">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
-      <span class="tagline">Built for the Family. Powered by Competition.</span>
-    </div>
+    <img src="logo.png" alt="Thompson Family Pick 'Em" class="logo" />
     <nav class="nav-buttons">
       <a href="/index.html">Home</a>
       <a href="/picks.html">Make Picks</a>
@@ -21,77 +114,43 @@
     </nav>
   </header>
 
-  <div class="container" style="max-width: 800px; margin: 40px auto; padding: 20px; background: white; border-radius: 12px;">
-    <h2 style="text-align:center; color:#002f5f; display:flex; justify-content:center; align-items:center; gap:10px;">
-      Matchups & Betting Info
-      <img src="original-Fanduel.png" alt="FanDuel" style="height: 28px;" />
-    </h2>
-    <div id="game-info"></div>
-  </div>
+  <div class="container">
+    <h2>Live Game Odds</h2>
 
-  <script src="logos.js"></script>
-<script>
-document.addEventListener("DOMContentLoaded", () => {
-  const gameDetails = [
-    { away: "Phillies", home: "Cubs", spread: "Cubs -2.5", winProb: 60 },
-    { away: "Orioles", home: "Tigers", spread: "Orioles -3.0", winProb: 65 },
-    { away: "Mets", home: "Nationals", spread: "Nationals -4.5", winProb: 55 },
-    { away: "Blue Jays", home: "Yankees", spread: "Yankees -1.5", winProb: 60 },
-    { away: "Red Sox", home: "Guardians", spread: "Red Sox -4.5", winProb: 65 },
-    { away: "Astros", home: "Royals", spread: "Astros -3.0", winProb: 60 },
-    { away: "Angels", home: "Twins", spread: "Twins -2.5", winProb: 55 },
-    { away: "Brewers", home: "Cardinals", spread: "Brewers -3.0", winProb: 65 },
-    { away: "Reds", home: "Rockies", spread: "Rockies -4.5", winProb: 55 },
-    { away: "Rays", home: "Padres", spread: "Padres -2.5", winProb: 60 },
-    { away: "Marlins", home: "Mariners", spread: "Marlins -3.0", winProb: 65 },
-    { away: "Braves", home: "Diamondbacks", spread: "Diamondbacks -4.5", winProb: 55 },
-    { away: "White Sox", home: "Athletics", spread: "White Sox -1.5", winProb: 60 },
-    { away: "Pirates", home: "Dodgers", spread: "Dodgers -3.0", winProb: 65 },
-    { away: "Rangers", home: "Giants", spread: "Rangers -2.5", winProb: 55 },
-    { away: "Blue Jays", home: "Yankees", spread: "Blue Jays -2.5", winProb: 60 },
-    { away: "Orioles", home: "Tigers", spread: "Tigers -3.0", winProb: 65 },
-    { away: "Mets", home: "Nationals", spread: "Mets -4.5", winProb: 55 },
-    { away: "Red Sox", home: "Guardians", spread: "Guardians -2.5", winProb: 60 },
-    { away: "Astros", home: "Royals", spread: "Royals -3.0", winProb: 65 },
-    { away: "Angels", home: "Twins", spread: "Angels -2.5", winProb: 55 },
-    { away: "Brewers", home: "Cardinals", spread: "Cardinals -3.0", winProb: 60 },
-    { away: "Reds", home: "Rockies", spread: "Reds -2.5", winProb: 65 },
-    { away: "Rays", home: "Padres", spread: "Rays -3.0", winProb: 55 },
-    { away: "Marlins", home: "Mariners", spread: "Mariners -2.5", winProb: 60 }
-  ];
-
-  const container = document.getElementById("game-info");
-  const logos = window.logos || {};
-
-  gameDetails.forEach(game => {
-    const div = document.createElement("div");
-    div.className = "game-card";
-    const spreadValue = parseFloat(game.spread.split(" ")[1]);
-    let phrasing = "";
-
-    if (spreadValue <= 2.5) {
-      phrasing = `Close matchup – ${game.spread.split(" ")[0]} has a slight edge`;
-    } else if (spreadValue <= 6.5) {
-      phrasing = `${game.spread.split(" ")[0]} favored by ${spreadValue}`;
-    } else {
-      phrasing = `Heavy favorite: ${game.spread.split(" ")[0]} -${spreadValue}`;
-    }
-
-    const awayLogo = logos[game.away] ? `<img src="${logos[game.away]}" alt="${game.away}" style="height:24px; vertical-align:middle;">` : '';
-    const homeLogo = logos[game.home] ? `<img src="${logos[game.home]}" alt="${game.home}" style="height:24px; vertical-align:middle;">` : '';
-
-    div.innerHTML = `
-      <div style="text-align:center; margin-bottom: 10px;">
-        <strong>${awayLogo} ${game.away} @ ${game.home} ${homeLogo}</strong>
+    <details class="section">
+      <summary>NFL</summary>
+      <div class="section-content">
+        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/americanfootball/en/US/scoreboard" title="NFL Odds"></iframe>
       </div>
-      <div style="text-align:center; font-size: 0.95rem;">${phrasing}</div>
-      <div style="text-align:center; font-size: 0.95rem;">Win Probability: ${game.winProb}%</div>
-      <div style="text-align:center; font-size: 0.8rem; color: #888; font-style: italic;">Spread via FanDuel</div>
-      <hr style="margin: 20px 0;" />
-    `;
-    container.appendChild(div);
-  });
-});
-</script>
+    </details>
+
+    <details class="section">
+      <summary>NBA</summary>
+      <div class="section-content">
+        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/basketball/en/US/scoreboard" title="NBA Odds"></iframe>
+      </div>
+    </details>
+
+    <details class="section">
+      <summary>MLB</summary>
+      <div class="section-content">
+        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/baseball/en/US/scoreboard" title="MLB Odds"></iframe>
+      </div>
+    </details>
+
+    <details class="section">
+      <summary>College Football</summary>
+      <div class="section-content">
+        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/ncaaf/en/US/scoreboard" title="CFB Odds"></iframe>
+      </div>
+    </details>
+
+    <details class="section">
+      <summary>Golf</summary>
+      <div class="section-content">
+        <iframe src="https://widgets.sir.sportradar.com/68070a94d01a451d845b0a51bb9eeb67/golf/en/US/leaderboard" title="Golf Odds"></iframe>
+      </div>
+    </details>
+  </div>
 </body>
 </html>
