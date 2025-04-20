@@ -52,11 +52,25 @@
       padding: 20px;
     }
 
-    h2 {
-      text-align: center;
-      color: #9bd3f7;
+    .odds-header {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 25px;
+    }
+
+    .odds-header h2 {
+      color: white;
       font-size: 2rem;
-      margin-bottom: 20px;
+      margin: 0;
+    }
+
+    .odds-header img {
+      height: 40px;
+      background: white;
+      border-radius: 8px;
+      padding: 4px 6px;
     }
 
     .section {
@@ -74,6 +88,13 @@
       background-color: #9bd3f7;
       cursor: pointer;
       border: none;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section summary img {
+      height: 24px;
     }
 
     .section summary:hover {
@@ -103,6 +124,10 @@
       .section summary {
         font-size: 1rem;
       }
+
+      .odds-header {
+        flex-direction: column;
+      }
     }
   </style>
 </head>
@@ -119,30 +144,35 @@
   </header>
 
   <div class="container">
-    <h2>Live Game Odds</h2>
+    <!-- ✅ Odds Header with TSA Branding -->
+    <div class="odds-header">
+      <h2>Live Game Odds</h2>
+      <img src="tsalogo.png" alt="TSA" />
+    </div>
 
+    <!-- ✅ Each section has a logo -->
     <details class="section" open>
-      <summary>NFL</summary>
+      <summary><img src="nfl.png" alt="NFL Logo" /> NFL</summary>
       <div class="section-content" id="nfl-odds">Loading NFL odds...</div>
     </details>
 
     <details class="section">
-      <summary>NBA</summary>
+      <summary><img src="nba.png" alt="NBA Logo" /> NBA</summary>
       <div class="section-content" id="nba-odds">Loading NBA odds...</div>
     </details>
 
     <details class="section">
-      <summary>MLB</summary>
+      <summary><img src="mlb.png" alt="MLB Logo" /> MLB</summary>
       <div class="section-content" id="mlb-odds">Loading MLB odds...</div>
     </details>
 
     <details class="section">
-      <summary>College Football</summary>
+      <summary><img src="cfp.png" alt="CFB Logo" /> College Football</summary>
       <div class="section-content" id="cfb-odds">Loading CFB odds...</div>
     </details>
 
     <details class="section">
-      <summary>Golf</summary>
+      <summary><img src="pga.png" alt="PGA Logo" /> Golf</summary>
       <div class="section-content" id="golf-odds">Loading Golf odds...</div>
     </details>
   </div>
@@ -150,3 +180,4 @@
   <script src="game-odds.js"></script>
 </body>
 </html>
+
