@@ -376,3 +376,9 @@ li {
 .nav-btn:hover {
   background-color: #001a3a;
 }
+.main-logo {
+  max-width: 120px;
+  height: auto;
+  display: block;
+}
+
