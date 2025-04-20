@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
+const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -19,7 +19,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
-// ✅ Route: Submit regular picks
+// Submit regular picks
 app.post('/submit', (req, res) => {
   const { player, picks: playerPicks, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
@@ -27,7 +27,7 @@ app.post('/submit', (req, res) => {
   res.json({ message: 'Picks saved!' });
 });
 
-// ✅ Route: Submit results
+// Submit results
 app.post('/results', (req, res) => {
   const { results: submittedResults, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
@@ -35,7 +35,7 @@ app.post('/results', (req, res) => {
   res.json({ message: 'Results submitted!' });
 });
 
-// ✅ Route: Submit golf picks (legacy)
+// Submit golf picks (legacy)
 app.post('/golf-submit', (req, res) => {
   const { player, golfer1, golfer2, golfer3, tiebreaker, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
@@ -46,7 +46,7 @@ app.post('/golf-submit', (req, res) => {
   res.json({ message: 'Golf picks submitted!' });
 });
 
-// ✅ Route: Submit golf picks (JSON method)
+// Submit golf picks (JSON method)
 app.post('/submit-golf-picks', (req, res) => {
   const { player, password, golfers, tiebreaker } = req.body;
   if (password !== PICKEM_PASSWORD) {
@@ -74,7 +74,7 @@ app.post('/submit-golf-picks', (req, res) => {
   res.json({ message: 'Golf picks submitted!' });
 });
 
-// ✅ Route: Leaderboard
+// Leaderboard route
 app.get('/leaderboard', (req, res) => {
   const leaderboard = Object.entries(picks).map(([player, playerPicks]) => {
     let score = 0;
@@ -89,7 +89,7 @@ app.get('/leaderboard', (req, res) => {
   res.json(leaderboard);
 });
 
-// ✅ Route: Clear one player's picks
+// Clear one player's picks
 app.post('/clear-player', (req, res) => {
   const { player, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
@@ -101,7 +101,7 @@ app.post('/clear-player', (req, res) => {
   }
 });
 
-// ✅ Route: Clear all picks
+// Clear all picks
 app.post('/clear-all', (req, res) => {
   const { password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
@@ -109,10 +109,21 @@ app.post('/clear-all', (req, res) => {
   res.json({ message: 'All picks cleared.' });
 });
 
-// ✅ Route: Get odds from The Odds API
+// Enhanced Odds API route
 app.get('/api/odds', async (req, res) => {
-  const sport = req.query.sport || 'americanfootball_nfl';
-  const url = `https://api.the-odds-api.com/v4/sports/${sport}/odds/?regions=us&markets=h2h&oddsFormat=american&apiKey=${ODDS_API_KEY}`;
+  const sport = req.query.sport || 'basketball_nba';
+  let markets = 'h2h'; // Default market
+
+  if (['basketball_nba', 'baseball_mlb', 'americanfootball_ncaaf'].includes(sport)) {
+    markets = 'h2h,spreads';
+  } else if (
+    sport === 'americanfootball_nfl_super_bowl_winner' ||
+    sport === 'golf_pga_championship_winner'
+  ) {
+    markets = 'outrights';
+  }
+
+  const url = `https://api.the-odds-api.com/v4/sports/${sport}/odds/?regions=us&markets=${markets}&oddsFormat=american&apiKey=${ODDS_API_KEY}`;
 
   try {
     const response = await fetch(url);
@@ -124,8 +135,7 @@ app.get('/api/odds', async (req, res) => {
   }
 });
 
-// ✅ Start server
+// Start server
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
-
