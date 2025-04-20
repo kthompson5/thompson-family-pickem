@@ -1,6 +1,7 @@
-async function loadOddsForSport(sport, containerId) {
+async function loadOddsForSport(sport, containerId, markets = ['h2h']) {
   try {
-    const res = await fetch(`/api/odds?sport=${sport}`);
+    const query = `/api/odds?sport=${sport}&markets=${markets.join(',')}`;
+    const res = await fetch(query);
     const data = await res.json();
 
     const container = document.getElementById(containerId);
@@ -13,30 +14,42 @@ async function loadOddsForSport(sport, containerId) {
 
     data.forEach(event => {
       const matchDiv = document.createElement("div");
-      matchDiv.style.padding = "10px 0";
-      matchDiv.style.borderBottom = "1px solid #ccc";
+      matchDiv.className = "matchup";
 
-      const team1 = event.bookmakers[0]?.markets[0]?.outcomes[0];
-      const team2 = event.bookmakers[0]?.markets[0]?.outcomes[1];
+      const title = `<strong>${event.home_team} vs ${event.away_team}</strong>`;
+      let lines = "";
 
-      matchDiv.innerHTML = `
-        <strong style="color:white;">${event.home_team} vs ${event.away_team}</strong><br>
-        <span style="color:#9bd3f7;">${team1.name}: ${team1.price}</span><br>
-        <span style="color:#9bd3f7;">${team2.name}: ${team2.price}</span>
-      `;
+      markets.forEach(market => {
+        const marketData = event.bookmakers?.[0]?.markets?.find(m => m.key === market);
+        if (marketData) {
+          const boxClass = market === 'h2h' ? 'box-h2h'
+                         : market === 'spreads' ? 'box-spread'
+                         : 'box-outright';
 
+          marketData.outcomes.forEach(outcome => {
+            const price = outcome.price > 0 ? `+${outcome.price}` : outcome.price;
+            const label = market === 'spreads' && outcome.point !== null
+              ? `${outcome.name} (${outcome.point})`
+              : outcome.name;
+            lines += `<span class="odds-box ${boxClass}">${label}: ${price}</span>`;
+          });
+        }
+      });
+
+      matchDiv.innerHTML = title + "<br>" + lines;
       container.appendChild(matchDiv);
     });
+
   } catch (err) {
     console.error("Failed to load odds:", err);
-    document.getElementById(containerId).innerHTML = "<p style='color:white;'>Error loading data</p>";
+    document.getElementById(containerId).innerHTML = "<p style='color:white;'>Error loading data.</p>";
   }
 }
 
 window.onload = () => {
-  loadOddsForSport('americanfootball_nfl_super_bowl_winner', 'nfl-odds');
-  loadOddsForSport('basketball_nba', 'nba-odds');
-  loadOddsForSport('baseball_mlb', 'mlb-odds');
-  loadOddsForSport('americanfootball_ncaaf', 'cfb-odds');
-  loadOddsForSport('golf_pga_championship_winner', 'golf-odds'); // Change this to current tournament if needed
+  loadOddsForSport('basketball_nba', 'nba-odds', ['h2h', 'spreads']);
+  loadOddsForSport('baseball_mlb', 'mlb-odds', ['h2h', 'spreads']);
+  loadOddsForSport('americanfootball_ncaaf', 'cfb-odds', ['h2h', 'spreads']);
+  loadOddsForSport('americanfootball_nfl', 'nfl-odds', ['outrights']);
+  loadOddsForSport('golf_pga_championship', 'golf-odds', ['outrights']);
 };
