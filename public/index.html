@@ -38,7 +38,7 @@
       font-size: 1.1rem;
       line-height: 1.6;
       color: #333;
-      margin-bottom: 25px;
+      margin-bottom: 35px;
     }
 
     .btn-group {
@@ -86,16 +86,21 @@
       margin-right: 8px;
     }
 
-    .tsa-logo {
-      max-width: 210px;
-      margin: 10px auto 20px;
+    .powered-logo {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+
+    .powered-logo span {
+      font-size: 0.95rem;
+      color: #888;
+      margin-bottom: 4px;
       display: block;
     }
 
-    .powered-by {
-      font-size: 0.95rem;
-      color: #666;
-      margin: 10px 0 5px;
+    .powered-logo img {
+      max-width: 180px;
+      margin-top: 4px;
     }
   </style>
 </head>
@@ -107,10 +112,9 @@
         <div class="tagline">Built for the Family. Powered by Competition.</div>
         <div class="league-logos">
           <img src="cfp.png" alt="CFP" />
-          <img src="mlb.png" alt="MLB" />
           <img src="nfl.png" alt="NFL" />
-          <img src="nba.png" alt="NBA" />
           <img src="pga.png" alt="PGA" />
+          <img src="tsalogo.png" alt="TSA" />
         </div>
       </div>
     </div>
@@ -126,10 +130,9 @@
   <div class="home-container">
     <h1 style="margin-bottom: 8px;">Family Pick 'Em – South Bend Edition</h1>
 
-    <div style="display: flex; justify-content: center; gap: 20px; align-items: center; margin-bottom: 25px;">
-      <img src="ND.png" alt="Notre Dame" style="height: 40px;" />
-      <img src="mlb.png" alt="MLB" style="height: 40px;" />
-      <img src="nba.png" alt="NBA" style="height: 40px;" />
+    <!-- ✅ ONLY ND logo, 2x size -->
+    <div style="display: flex; justify-content: center; margin-bottom: 25px;">
+      <img src="ND.png" alt="Notre Dame" style="height: 80px;" />
     </div>
 
     <p>
@@ -142,8 +145,11 @@
       Make your picks. Earn bragging rights. Let’s play ball.
     </p>
 
-    <p class="powered-by">Powered by</p>
-    <img src="tsalogo.png" alt="Thompson Sports Analytics" class="tsa-logo" />
+    <!-- ✅ Powered by TSA -->
+    <div class="powered-logo">
+      <span>Powered by</span>
+      <img src="tsalogo.png" alt="Thompson Sports Analytics" />
+    </div>
 
     <div class="btn-group">
       <a href="/picks.html" class="nav-btn">Make Your Picks</a>
