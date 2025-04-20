@@ -5,21 +5,60 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thompson Family Pick 'Em – Make Picks</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .tsa-footer {
+      text-align: center;
+      margin-top: 30px;
+      margin-bottom: 20px;
+    }
+
+    .tsa-footer img {
+      max-width: 100px;
+      display: block;
+      margin: 8px auto 0;
+    }
+
+    .tsa-footer span {
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    .leaderboard-btn {
+      display: inline-block;
+      margin: 30px auto 10px;
+      padding: 12px 24px;
+      background-color: #002f5f;
+      color: white;
+      font-weight: bold;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      transition: background-color 0.2s ease;
+    }
+
+    .leaderboard-btn:hover {
+      background-color: #001a3a;
+    }
+
+    .leaderboard-link {
+      text-align: center;
+    }
+  </style>
 </head>
 <body>
   <header class="header-bar">
-  <div class="logo-wrap">
-    <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
-    <span class="tagline">Built for the Family. Powered by Competition.</span>
-  </div>
-  <nav class="nav-buttons">
-    <a href="/index.html">Home</a>
-    <a href="/picks.html">Make Picks</a>
-    <a href="/leaderboard.html">Leaderboard</a>
-    <a href="/rules.html">Rules</a>
-    <a href="/game-info.html">Game Info</a>
-  </nav>
-</header>
+    <div class="logo-wrap">
+      <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
+      <span class="tagline">Built for the Family. Powered by Competition.</span>
+    </div>
+    <nav class="nav-buttons">
+      <a href="/index.html">Home</a>
+      <a href="/picks.html">Make Picks</a>
+      <a href="/leaderboard.html">Leaderboard</a>
+      <a href="/rules.html">Rules</a>
+      <a href="/game-info.html">Game Info</a>
+    </nav>
+  </header>
 
   <div class="main-wrapper">
     <section class="form-area">
@@ -33,9 +72,16 @@
     </section>
   </div>
 
-  <section class="leaderboard-link" style="text-align:center;">
-    <a href="/leaderboard.html">🏆 View Full Leaderboard</a>
+  <!-- ✅ Leaderboard Button -->
+  <section class="leaderboard-link">
+    <a href="/leaderboard.html" class="leaderboard-btn">🏆 View Full Leaderboard</a>
   </section>
+
+  <!-- ✅ Powered by TSA Footer -->
+  <div class="tsa-footer">
+    <span>Powered by</span>
+    <img src="tsalogo.png" alt="Thompson Sports Analytics" />
+  </div>
 
   <script src="logos.js"></script>
   <script src="script.js"></script>
