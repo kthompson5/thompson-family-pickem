@@ -14,16 +14,19 @@
       border-radius: 12px;
       box-shadow: 0 0 15px rgba(0,0,0,0.1);
       font-family: 'Segoe UI', sans-serif;
+      text-align: center;
     }
 
     .rules-container h1,
     .rules-container h2 {
       color: #002f5f;
       margin-bottom: 15px;
+      text-align: left;
     }
 
     .rules-container ul {
       padding-left: 20px;
+      text-align: left;
     }
 
     .rules-container li {
@@ -46,6 +49,21 @@
     .rules-container a:hover {
       text-decoration: underline;
     }
+
+    .powered-by-tsa {
+      margin-top: 30px;
+    }
+
+    .powered-by-tsa span {
+      font-size: 0.95rem;
+      color: #888;
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .powered-by-tsa img {
+      max-width: 180px;
+    }
   </style>
 </head>
 <body>
@@ -66,18 +84,25 @@
 
     <ul>
       <li>Pick the winner of each matchup listed on the home page.</li>
+      <li>Games cover all MLB games for April 25th, and all NBA games for April 25th-26th.</li>
       <li>1 point is awarded for each correct pick.</li>
       <li>Picks must be submitted before the start of the first game.</li>
-      <li>No changes can be made once picks are submitted (unless cleared by the admin).</li>
+      <li>No changes can be made once picks are submitted (unless you ask Uncle Kelly).</li>
       <li>Use the leaderboard to track how you stack up against everyone else.</li>
     </ul>
 
     <h2>Tiebreakers</h2>
     <ul>
-      <li><em>Coming Soon:</em> We’ll use a combined score from a featured game or other method to break ties.</li>
+      <li><em>Coin Flip:</em> Conducted by Elliot and Em.</li>
     </ul>
 
     <a href="/picks.html">← Back to Picks</a>
+
+    <div class="powered-by-tsa">
+      <span>Powered by</span>
+      <img src="tsalogo.png" alt="Thompson Sports Analytics" />
+    </div>
   </div>
 </body>
 </html>
+
