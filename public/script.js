@@ -1,4 +1,5 @@
 const games = [
+  // ✅ MLB Games – April 25
   { id: "game1", away: "Phillies", home: "Cubs" },
   { id: "game2", away: "Orioles", home: "Tigers" },
   { id: "game3", away: "Mets", home: "Nationals" },
@@ -14,16 +15,18 @@ const games = [
   { id: "game13", away: "White Sox", home: "Athletics" },
   { id: "game14", away: "Pirates", home: "Dodgers" },
   { id: "game15", away: "Rangers", home: "Giants" },
-  { id: "game16", away: "Blue Jays", home: "Yankees" },
-  { id: "game17", away: "Orioles", home: "Tigers" },
-  { id: "game18", away: "Mets", home: "Nationals" },
-  { id: "game19", away: "Red Sox", home: "Guardians" },
-  { id: "game20", away: "Astros", home: "Royals" },
-  { id: "game21", away: "Angels", home: "Twins" },
-  { id: "game22", away: "Brewers", home: "Cardinals" },
-  { id: "game23", away: "Reds", home: "Rockies" },
-  { id: "game24", away: "Rays", home: "Padres" },
-  { id: "game25", away: "Marlins", home: "Mariners" }
+
+  // ✅ NBA Playoff Games – April 25
+  { id: "game16", away: "Celtics", home: "Magic" },
+  { id: "game17", away: "Pacers", home: "Bucks" },
+  { id: "game18", away: "Lakers", home: "Timberwolves" },
+
+  // ✅ NBA Playoff Games – April 26
+  { id: "game19", away: "Rockets", home: "Warriors" },
+  { id: "game20", away: "Cavaliers", home: "Heat" },
+  { id: "game21", away: "Thunder", home: "Grizzlies" },
+  { id: "game22", away: "Nuggets", home: "Clippers" },
+  { id: "game23", away: "Knicks", home: "Pistons" }
 ];
 
 window.onload = () => {
@@ -77,3 +80,4 @@ function submitPicks() {
     document.getElementById("status").textContent = data.message;
   });
 }
+
