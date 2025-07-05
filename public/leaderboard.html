@@ -4,14 +4,16 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thompson Family Pick 'Em – Leaderboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <style>
     body {
       background-color: #001427;
       color: #fefcfb;
-      font-family: 'Segoe UI', sans-serif;
+      font-family: 'Inter', sans-serif;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
 
     .header-bar {
@@ -54,16 +56,22 @@
 
     .container {
       max-width: 960px;
-      margin: 30px auto;
+      margin: 40px auto;
       padding: 20px;
     }
 
     .leaderboard-title {
       text-align: center;
-      font-size: 2.3rem;
-      color: white;
-      font-weight: bold;
-      margin-bottom: 10px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      letter-spacing: 1.5px;
+      margin-bottom: 25px;
+      animation: slideIn 1s ease;
+    }
+
+    @keyframes slideIn {
+      from { opacity: 0; transform: translateY(-20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
     .powered-logo {
@@ -71,15 +79,9 @@
       margin-bottom: 30px;
     }
 
-    .powered-logo span {
-      font-size: 0.95rem;
-      color: #ccc;
-      display: block;
-      margin-bottom: 6px;
-    }
-
     .powered-logo img {
       max-width: 110px;
+      opacity: 0.9;
     }
 
     .podium {
@@ -90,31 +92,30 @@
     }
 
     .podium-spot {
-      border-radius: 8px;
-      padding: 12px;
+      border-radius: 12px;
+      padding: 18px;
       text-align: center;
       flex: 1;
-      font-size: 0.8rem;
+      font-size: 0.9rem;
       color: white;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transform: translateY(20px);
+      opacity: 0;
+      animation: fadeSlide 1s forwards;
     }
 
     .podium-spot h2 {
       margin: 5px 0;
-      font-size: 0.95rem;
+      font-size: 1.2rem;
       word-break: break-word;
     }
 
-    .gold {
-      background-color: #002f5f;
-    }
+    .gold { background-color: #002f5f; animation-delay: 0.3s; }
+    .silver { background-color: #c8102e; animation-delay: 0.5s; }
+    .bronze { background-color: #9bd3f7; color: #001427; animation-delay: 0.7s; }
 
-    .silver {
-      background-color: #c8102e;
-    }
-
-    .bronze {
-      background-color: #9bd3f7;
-      color: #001427;
+    @keyframes fadeSlide {
+      to { transform: translateY(0); opacity: 1; }
     }
 
     .bar-chart {
@@ -122,55 +123,39 @@
     }
 
     .bar {
-      margin: 10px 0;
+      margin: 12px 0;
       background-color: #e6e6e6;
-      height: 30px;
-      border-radius: 6px;
+      height: 34px;
+      border-radius: 20px;
       overflow: hidden;
       display: flex;
       align-items: center;
     }
 
-    .bar span {
-      padding-left: 12px;
-      font-weight: bold;
-      color: #002f5f;
-    }
-
     .bar-fill {
-      background-color: #9bd3f7;
-      color: #002f5f;
+      background: linear-gradient(90deg, #9bd3f7, #4fa4d8);
+      color: #001427;
       height: 100%;
       display: flex;
       align-items: center;
       white-space: nowrap;
-      padding-left: 10px;
-      width: 0; /* 👈 this triggers animation */
-      transition: width 0.6s ease-out;
+      padding-left: 12px;
+      width: 0;
+      transition: width 0.8s ease-out;
+      font-weight: bold;
     }
 
     .footer-note {
-      margin-top: 40px;
+      margin-top: 50px;
       text-align: center;
       color: #aaa;
       font-size: 0.9rem;
     }
 
     @media (max-width: 600px) {
-      .podium {
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-      }
-
-      .podium-spot {
-        width: 80%;
-        font-size: 0.75rem;
-      }
-
-      .podium-spot h2 {
-        font-size: 0.85rem;
-      }
+      .podium { flex-direction: column; gap: 16px; align-items: center; }
+      .podium-spot { width: 80%; }
+      .leaderboard-title { font-size: 2.3rem; }
     }
   </style>
 </head>
@@ -192,13 +177,9 @@
   <div class="container">
     <div class="leaderboard-title">Live Standings</div>
 
-    <!-- ✅ Powered by TSA -->
     <div class="powered-logo">
-  <span>Powered by</span>
-  <div style="background: white; padding: 6px 12px; border-radius: 10px; display: inline-block;">
-    <img src="tsalogo.png" alt="Thompson Sports Analytics" style="max-width: 110px;" />
-  </div>
-</div>
+      <img src="tsalogo.png" alt="Thompson Sports Analytics" />
+    </div>
 
     <div class="podium" id="podium"></div>
     <div class="bar-chart" id="barChart"></div>
@@ -209,4 +190,3 @@
   <script src="leaderboard.js"></script>
 </body>
 </html>
-
