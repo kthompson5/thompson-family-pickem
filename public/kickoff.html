@@ -4,47 +4,79 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thompson Family Pick 'Em – Kickoff Edition</title>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
       font-family: 'Inter', sans-serif;
-      background-color: #0b1f3a;
-      color: #222;
-      background-image: url('kickoff-background.jpg'); /* 🔨 Add a blurred football field image */
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
+      background: url('kickoff.jpg') center/cover no-repeat fixed;
+      color: white;
+      position: relative;
     }
 
-    .overlay {
-      background-color: rgba(11, 31, 58, 0.85);
-      min-height: 100vh;
-      padding: 40px 0;
+    /* Dark overlay */
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: rgba(11, 31, 58, 0.85);
+      z-index: -1;
     }
 
-    .home-container {
-      max-width: 700px;
-      margin: auto;
-      background: white;
-      padding: 40px 30px;
-      border-radius: 12px;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: rgba(255, 255, 255, 0.9);
+      padding: 15px 20px;
+      flex-wrap: wrap;
+    }
+
+    .main-logo {
+      max-height: 60px;
+    }
+
+    .tagline-area {
       text-align: center;
     }
 
-    .home-container h1 {
-      font-size: 2.4rem;
-      margin-bottom: 15px;
+    .tagline {
+      font-size: 1rem;
+      font-weight: 600;
       color: #002f5f;
+      margin-bottom: 4px;
+    }
+
+    .league-logos img {
+      height: 28px;
+      margin-right: 8px;
+    }
+
+    .home-container {
+      max-width: 800px;
+      margin: 80px auto;
+      padding: 40px 30px;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: 12px;
+      text-align: center;
+      box-shadow: 0 0 20px rgba(0,0,0,0.4);
+      animation: fadeIn 1.2s ease;
+    }
+
+    .home-container h1 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 3rem;
+      color: #002f5f;
+      letter-spacing: 2px;
+      margin-bottom: 15px;
+      animation: slideDown 1s ease;
     }
 
     .home-container p {
       font-size: 1.15rem;
-      line-height: 1.7;
       color: #333;
-      margin-bottom: 30px;
+      margin-bottom: 35px;
+      line-height: 1.6;
     }
 
     .btn-group {
@@ -64,72 +96,71 @@
       font-size: 1rem;
       text-decoration: none;
       border-radius: 6px;
-      transition: background-color 0.2s ease;
+      transition: transform 0.2s, background-color 0.2s;
       min-width: 180px;
-      text-align: center;
     }
 
     .nav-btn:hover {
       background-color: #001a3a;
+      transform: scale(1.05);
     }
 
     .powered-logo {
-      margin-top: 25px;
+      margin-top: 30px;
     }
 
-    .countdown {
-      font-size: 1.1rem;
-      color: #002f5f;
-      margin-bottom: 20px;
-      font-weight: 600;
+    .powered-logo img {
+      max-width: 150px;
+      opacity: 0.8;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideDown {
+      from { transform: translateY(-20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <div class="overlay">
-    <div class="home-container">
-      <h1>Family Pick 'Em: Kickoff Edition</h1>
 
-      <p>College Football and NFL Week 1 are here. The question is… <strong>who will take the lead?</strong><br> Make your picks, watch the scores, and take home the family bragging rights.</p>
-
-      <div class="countdown" id="countdown">Kickoff in: loading...</div>
-
-      <div class="btn-group">
-        <a href="/picks.html" class="nav-btn">Make Your Picks</a>
-        <a href="/leaderboard.html" class="nav-btn">View Leaderboard</a>
-        <a href="/rules.html" class="nav-btn">View Rules</a>
-        <a href="/game-info.html" class="nav-btn">Game Info</a>
+  <header class="header-bar">
+    <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
+    <div class="tagline-area">
+      <div class="tagline">Built for the Family. Powered by Competition.</div>
+      <div class="league-logos">
+        <img src="cfp.png" alt="CFP" />
+        <img src="nfl.png" alt="NFL" />
+        <img src="mlb.png" alt="MLB" />
+        <img src="pga.png" alt="PGA" />
+        <img src="nba.png" alt="NBA" />
       </div>
+    </div>
+  </header>
 
-      <div class="powered-logo">
-        <span>Powered by</span>
-        <img src="tsalogo.png" alt="Thompson Sports Analytics" />
-      </div>
+  <div class="home-container">
+    <h1>Week 1 Pick 'Em: Kickoff Edition</h1>
+
+    <p>
+      The college football and NFL seasons begin! Can you dominate Week 1<br>
+      and take the first lead in the family leaderboard?
+    </p>
+
+    <div class="btn-group">
+      <a href="/picks.html" class="nav-btn">Make Your Picks</a>
+      <a href="/leaderboard.html" class="nav-btn">View Leaderboard</a>
+      <a href="/rules.html" class="nav-btn">View Rules</a>
+      <a href="/game-info.html" class="nav-btn">Game Info</a>
+    </div>
+
+    <div class="powered-logo">
+      <span style="color:#888; font-size: 0.9rem;">Powered by</span><br>
+      <img src="tsalogo.png" alt="Thompson Sports Analytics" />
     </div>
   </div>
 
-  <script>
-    // Simple countdown timer to Saturday 12:00 PM (adjust as needed)
-    function updateCountdown() {
-      const kickoff = new Date("August 31, 2025 12:00:00").getTime();
-      const now = new Date().getTime();
-      const diff = kickoff - now;
-
-      if (diff <= 0) {
-        document.getElementById("countdown").textContent = "It's kickoff time!";
-        return;
-      }
-
-      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-      const minutes = Math.floor((diff / 1000 / 60) % 60);
-
-      document.getElementById("countdown").textContent =
-        `Kickoff in: ${days}d ${hours}h ${minutes}m`;
-    }
-
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-  </script>
 </body>
 </html>
