@@ -1,32 +1,8 @@
 const games = [
-  // ✅ MLB Games – April 25
-  { id: "game1", away: "Phillies", home: "Cubs" },
-  { id: "game2", away: "Orioles", home: "Tigers" },
-  { id: "game3", away: "Mets", home: "Nationals" },
-  { id: "game4", away: "Blue Jays", home: "Yankees" },
-  { id: "game5", away: "Red Sox", home: "Guardians" },
-  { id: "game6", away: "Astros", home: "Royals" },
-  { id: "game7", away: "Angels", home: "Twins" },
-  { id: "game8", away: "Brewers", home: "Cardinals" },
-  { id: "game9", away: "Reds", home: "Rockies" },
-  { id: "game10", away: "Rays", home: "Padres" },
-  { id: "game11", away: "Marlins", home: "Mariners" },
-  { id: "game12", away: "Braves", home: "Diamondbacks" },
-  { id: "game13", away: "White Sox", home: "Athletics" },
-  { id: "game14", away: "Pirates", home: "Dodgers" },
-  { id: "game15", away: "Rangers", home: "Giants" },
-
-  // ✅ NBA Playoff Games – April 25
-  { id: "game16", away: "Celtics", home: "Magic" },
-  { id: "game17", away: "Pacers", home: "Bucks" },
-  { id: "game18", away: "Lakers", home: "Timberwolves" },
-
-  // ✅ NBA Playoff Games – April 26
-  { id: "game19", away: "Rockets", home: "Warriors" },
-  { id: "game20", away: "Cavaliers", home: "Heat" },
-  { id: "game21", away: "Thunder", home: "Grizzlies" },
-  { id: "game22", away: "Nuggets", home: "Clippers" },
-  { id: "game23", away: "Knicks", home: "Pistons" }
+  { id: "game1", away: "Phillies", home: "Cubs", date: "Aug 31", winChance: { away: 42, home: 58 } },
+  { id: "game2", away: "Orioles", home: "Tigers", date: "Aug 31", winChance: { away: 64, home: 36 } },
+  { id: "game3", away: "Mets", home: "Nationals", date: "Aug 31", winChance: { away: 55, home: 45 } },
+  // Add the rest of your games with date + winChance %
 ];
 
 window.onload = () => {
@@ -35,12 +11,15 @@ window.onload = () => {
     const div = document.createElement("div");
     div.className = "game-card";
     div.innerHTML = `
+      <div class="game-date">${game.date}</div>
       <div class="team-row">
         <div class="team-block">
           <img src="${logos[game.away]}" alt="${game.away}" />
           <div>${game.away}</div>
         </div>
-        <div>vs</div>
+        <div class="win-circle" data-away="${game.winChance.away}" data-home="${game.winChance.home}">
+          ${createWinCircle(game.winChance.away, game.winChance.home)}
+        </div>
         <div class="team-block">
           <img src="${logos[game.home]}" alt="${game.home}" />
           <div>${game.home}</div>
@@ -55,6 +34,23 @@ window.onload = () => {
     gamesDiv.appendChild(div);
   });
 };
+
+function createWinCircle(awayPercent, homePercent) {
+  return `
+    <svg class="circle-chart" viewBox="0 0 36 36">
+      <path class="circle-chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <path class="circle-chart-foreground away" stroke-dasharray="${awayPercent},100"
+        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <text x="18" y="20.35" class="circle-chart-text">${awayPercent}%</text>
+    </svg>
+    <svg class="circle-chart" viewBox="0 0 36 36">
+      <path class="circle-chart-background" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <path class="circle-chart-foreground home" stroke-dasharray="${homePercent},100"
+        d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"/>
+      <text x="18" y="20.35" class="circle-chart-text">${homePercent}%</text>
+    </svg>
+  `;
+}
 
 function submitPicks() {
   const player = document.getElementById("player").value.trim();
@@ -75,9 +71,8 @@ function submitPicks() {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ player, picks, password })
   })
-  .then(res => res.json())
-  .then(data => {
-    document.getElementById("status").textContent = data.message;
-  });
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("status").textContent = data.message;
+    });
 }
-
