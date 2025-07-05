@@ -5,45 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thompson Family Pick 'Em – Make Picks</title>
   <link rel="stylesheet" href="style.css" />
-  <style>
-    .tsa-footer {
-      text-align: center;
-      margin-top: 30px;
-      margin-bottom: 20px;
-    }
-
-    .tsa-footer img {
-      max-width: 150px;
-      display: block;
-      margin: 8px auto 0;
-    }
-
-    .tsa-footer span {
-      color: #aaa;
-      font-size: 0.9rem;
-    }
-
-    .leaderboard-btn {
-      display: inline-block;
-      margin: 30px auto 10px;
-      padding: 12px 24px;
-      background-color: #9bd3f7; /* baby blue */
-      color: #002f5f;
-      font-weight: bold;
-      text-decoration: none;
-      border-radius: 6px;
-      font-size: 1rem;
-      transition: background-color 0.2s ease;
-    }
-
-    .leaderboard-btn:hover {
-      background-color: #cce9f9;
-    }
-
-    .leaderboard-link {
-      text-align: center;
-    }
-  </style>
 </head>
 <body>
   <header class="header-bar">
@@ -63,27 +24,25 @@
   <div class="main-wrapper">
     <section class="form-area">
       <input type="text" id="player" placeholder="Enter your FULL name (first & last)" />
-      <input type="password" id="password" placeholder='Password: "goirish"' />
+      <input type="password" id="password" placeholder="Tournament Password" />
 
-      <div id="games"></div>
+      <div id="games" class="game-list"></div>
 
       <button onclick="submitPicks()">Submit Picks</button>
       <p id="status"></p>
     </section>
   </div>
 
-  <!-- ✅ Leaderboard Button -->
   <section class="leaderboard-link">
     <a href="/leaderboard.html" class="leaderboard-btn">🏆 Proceed to Leaderboard</a>
   </section>
 
-  <!-- ✅ Powered by TSA Footer -->
   <div class="tsa-footer">
-  <span>Powered by</span>
-  <div style="background: white; padding: 6px 12px; border-radius: 10px; display: inline-block;">
-    <img src="tsalogo.png" alt="Thompson Sports Analytics" style="max-width: 110px;" />
+    <span>Powered by</span>
+    <div style="background: white; padding: 6px 12px; border-radius: 10px; display: inline-block;">
+      <img src="tsalogo.png" alt="Thompson Sports Analytics" style="max-width: 110px;" />
+    </div>
   </div>
-</div>
 
   <script src="logos.js"></script>
   <script src="script.js"></script>
