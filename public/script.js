@@ -6,14 +6,17 @@ const games = [
 
 window.onload = () => {
   const gamesDiv = document.getElementById("games");
-  games.forEach(game => {
-    const div = document.createElement("div");
-    div.className = "game-card";
 
+  games.forEach(game => {
     const left = game.leftPercent;
     const right = 100 - left;
 
+    const div = document.createElement("div");
+    div.className = "game-card";
+
     div.innerHTML = `
+      <div class="game-date">${game.date}</div>
+
       <div class="team-row">
         <div class="team-block">
           <img src="${logos[game.away]}" alt="${game.away}" />
@@ -28,10 +31,8 @@ window.onload = () => {
 
       <div class="predictor-container">
         <div class="predictor-circle" style="--left-percent: ${left}%;">
-          <div class="predictor-divider"></div>
+          <div class="predictor-percent-display">${left}% - ${right}%</div>
         </div>
-        <div class="predictor-percentage predictor-left">${left}%</div>
-        <div class="predictor-percentage predictor-right">${right}%</div>
       </div>
 
       <div class="predictor-credit">Prediction: Thompson Sports Analytics</div>
@@ -45,11 +46,14 @@ window.onload = () => {
 
     gamesDiv.appendChild(div);
   });
+
+  observeCircles();
 };
 
 function submitPicks() {
   const player = document.getElementById("player").value.trim();
   const password = document.getElementById("password").value.trim();
+
   if (!player || !password) {
     alert("Enter name and password");
     return;
@@ -70,4 +74,17 @@ function submitPicks() {
   .then(data => {
     document.getElementById("status").textContent = data.message;
   });
+}
+
+// Optional: Animate circles when they scroll into view
+function observeCircles() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  });
+
+  document.querySelectorAll('.predictor-container').forEach(el => observer.observe(el));
 }
