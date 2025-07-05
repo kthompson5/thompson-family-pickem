@@ -12,7 +12,12 @@
       <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
       <span class="tagline">Built for the Family. Powered by Competition.</span>
     </div>
-    <nav class="nav-buttons">
+    <div class="hamburger" onclick="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav class="nav-buttons" id="navButtons">
       <a href="/index.html">Home</a>
       <a href="/picks.html">Make Picks</a>
       <a href="/leaderboard.html">Leaderboard</a>
@@ -34,15 +39,4 @@
   </div>
 
   <section class="leaderboard-link">
-    <a href="/leaderboard.html" class="leaderboard-btn">🏆 Proceed to Leaderboard</a>
-  </section>
-
-  <div class="tsa-footer">
-    <span>Powered by</span>
-    <img src="tsalogo.png" alt="Thompson Sports Analytics" />
-  </div>
-
-  <script src="logos.js"></script>
-  <script src="script.js"></script>
-</body>
-</html>
+    <a href="/leaderboard.html" class="leaderboard-btn">
