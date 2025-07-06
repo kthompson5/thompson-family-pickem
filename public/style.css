@@ -36,10 +36,11 @@ body {
 }
 
 .tagline {
-  font-size: 1.1rem;
+  font-size: 0.95rem; /* was 1.1rem */
   font-weight: 600;
   color: #002f5f;
   white-space: nowrap;
+  margin-right: 4px; /* optional fine-tune */
 }
 
 .nav-buttons {
