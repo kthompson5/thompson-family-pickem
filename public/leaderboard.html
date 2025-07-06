@@ -17,41 +17,32 @@
     }
 
     .header-bar {
-  background-color: transparent;
-  padding: 15px 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-    .logo-wrap {
       display: flex;
+      flex-direction: column;
       align-items: center;
-      gap: 15px;
+      background-color: transparent;
+      padding: 20px 0;
     }
 
-    .logo {
-      height: 50px;
+    .main-logo {
+      max-height: 140px;
+      margin-bottom: 10px;
+    }
+
+    .tagline-area {
+      text-align: center;
     }
 
     .tagline {
-      font-size: 1.2rem;
-      color: #003049;
-      font-weight: bold;
+      font-size: 1rem;
+      font-weight: 600;
+      color: #002f5f;
+      margin-bottom: 4px;
     }
 
-    .nav-buttons a {
-      margin-left: 12px;
-      text-decoration: none;
-      color: white;
-      font-weight: bold;
-      background-color: #002f5f;
-      padding: 8px 14px;
-      border-radius: 6px;
-    }
-
-    .nav-buttons a:hover {
-      background-color: #001a3a;
+    .league-logos img {
+      height: 28px;
+      margin-right: 8px;
     }
 
     .container {
@@ -160,21 +151,21 @@
   </style>
 </head>
 <body>
-  <header class="header-bar" style="flex-direction: column; align-items: center;">
-  <a href="/index.html">
-    <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" style="max-height: 140px; margin-bottom: 10px;" />
-  </a>
-  <div class="tagline-area" style="text-align: center;">
-    <div class="tagline">Built for the Family. Powered by Competition.</div>
-    <div class="league-logos" style="margin-top: 6px;">
-      <img src="cfp.png" alt="CFP" />
-      <img src="nfl.png" alt="NFL" />
-      <img src="mlb.png" alt="MLB" />
-      <img src="pga.png" alt="PGA" />
-      <img src="nba.png" alt="NBA" />
+  <header class="header-bar">
+    <a href="/index.html">
+      <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
+    </a>
+    <div class="tagline-area">
+      <div class="tagline">Built for the Family. Powered by Competition.</div>
+      <div class="league-logos">
+        <img src="cfp.png" alt="CFP" />
+        <img src="nfl.png" alt="NFL" />
+        <img src="mlb.png" alt="MLB" />
+        <img src="pga.png" alt="PGA" />
+        <img src="nba.png" alt="NBA" />
+      </div>
     </div>
-  </div>
-</header>
+  </header>
 
   <div class="container">
     <div class="leaderboard-title">Live Standings</div>
