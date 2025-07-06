@@ -8,24 +8,28 @@ window.onload = () => {
   const gamesDiv = document.getElementById("games");
 
   games.forEach(game => {
-    const div = document.createElement("div");
-    div.className = "game-card";
-
     const left = game.leftPercent;
     const right = 100 - left;
+
+    const div = document.createElement("div");
+    div.className = "game-card";
 
     div.innerHTML = `
       <div class="team-row" style="margin-bottom: 12px;">
         <div class="team-block">
           <img src="${logos[game.away]}" alt="${game.away}" />
           <div>${game.away}</div>
-          <div class="percent-text away" data-percent="${left}">0%</div>
+          <div class="percentage-text animate-on-scroll" data-percent="${left}">
+            ${left}%
+          </div>
         </div>
         <div>at</div>
         <div class="team-block">
           <img src="${logos[game.home]}" alt="${game.home}" />
           <div>${game.home}</div>
-          <div class="percent-text home" data-percent="${right}">0%</div>
+          <div class="percentage-text animate-on-scroll" data-percent="${right}">
+            ${right}%
+          </div>
         </div>
       </div>
 
@@ -47,44 +51,25 @@ window.onload = () => {
     gamesDiv.appendChild(div);
   });
 
-  animateOnScroll();
+  setupScrollAnimation();
 };
 
-function animateOnScroll() {
-  const elements = document.querySelectorAll('.percent-text');
-  const triggerBottom = window.innerHeight * 0.85;
+// Animate percentages when they scroll into view
+function setupScrollAnimation() {
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      } else {
+        entry.target.classList.remove('visible');
+      }
+    });
+  }, { threshold: 0.5 });
 
-  elements.forEach(el => {
-    const boxTop = el.getBoundingClientRect().top;
-    if (boxTop < triggerBottom && !el.classList.contains('animated')) {
-      animatePercentage(el, parseInt(el.getAttribute('data-percent')));
-      el.classList.add('animated');
-    }
-  });
+  document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
 }
 
-function animatePercentage(el, target) {
-  let current = 0;
-  const increment = target > 0 ? 1 : -1;
-
-  const interval = setInterval(() => {
-    current += increment;
-    el.textContent = `${current}%`;
-
-    if ((increment > 0 && current >= target) || (increment < 0 && current <= target)) {
-      clearInterval(interval);
-      el.textContent = `${target}%`;
-    }
-  }, 20);
-
-  // Add color & shadow for depth
-  el.style.color = '#9bd3f7';
-  el.style.textShadow = '0 0 6px rgba(155, 211, 247, 0.7)';
-}
-
-window.addEventListener('scroll', animateOnScroll);
-window.addEventListener('load', animateOnScroll);
-
+// Submit picks
 function submitPicks() {
   const player = document.getElementById("player").value.trim();
   const password = document.getElementById("password").value.trim();
