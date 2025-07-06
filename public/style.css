@@ -1,3 +1,4 @@
+This was the most recent good style.css
 /* ================================
    Thompson Family Pick 'Em Styles
    Updated July 2025
@@ -21,7 +22,25 @@ body {
   padding: 15px 20px;
   flex-wrap: wrap;
   row-gap: 10px;
-  position: relative;
+}
+
+.logo-wrap, .logo-section, .logo-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.main-logo, .logo {
+  max-height: 80px;
+  width: auto;
+}
+
+.tagline {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #002f5f;
+  white-space: nowrap;
 }
 
 .nav-buttons {
@@ -44,42 +63,58 @@ body {
   background-color: #001a3a;
 }
 
-/* Hamburger Menu */
-.hamburger {
-  display: none;
-  flex-direction: column;
-  cursor: pointer;
+/* HOMEPAGE */
+.home-container {
+  max-width: 700px;
+  margin: 60px auto;
+  background: white;
+  padding: 40px 30px;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0,0,0,0.15);
+  text-align: center;
 }
 
-.hamburger span {
-  background: #002f5f;
-  height: 4px;
-  width: 25px;
-  margin: 4px;
-  border-radius: 2px;
+.home-container h1 {
+  font-size: 2.2rem;
+  margin-bottom: 15px;
+  color: #002f5f;
+  letter-spacing: -0.5px;
 }
 
-@media (max-width: 700px) {
-  .nav-buttons {
-    flex-direction: column;
-    background-color: #f2f2f2;
-    width: 100%;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    display: none;
-  }
-
-  .nav-buttons.active {
-    display: flex;
-  }
-
-  .hamburger {
-    display: flex;
-  }
+.home-container p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 20px;
 }
 
-/* PICKS PAGE */
+.btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 16px;
+}
+
+.nav-btn {
+  display: inline-block;
+  padding: 14px 28px;
+  background-color: #002f5f;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  letter-spacing: 0.5px;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease;
+  min-width: 180px;
+  text-align: center;
+}
+
+.nav-btn:hover {
+  background-color: #001a3a;
+}
+
+/* FORM AREA */
 .form-area {
   width: 90%;
   max-width: 500px;
@@ -146,138 +181,90 @@ button:hover {
   margin: 0 auto 5px;
 }
 
-/* PREDICTOR CIRCLE */
-.predictor-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
-}
-
-.predictor-container.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.predictor-circle {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: conic-gradient(#4fa4d8 var(--left-percent), #9bd3f7 0);
-  box-shadow: inset 0 0 12px rgba(0,0,0,0.3), 0 4px 10px rgba(0,0,0,0.4);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.predictor-percentage {
-  position: absolute;
-  font-size: 0.85rem;
-  font-weight: bold;
-  color: #fff;
-}
-
-.predictor-left { left: 10%; top: 45%; transform: translateY(-50%); }
-.predictor-right { right: 10%; top: 45%; transform: translateY(-50%); }
-
-.predictor-credit {
+/* LEADERBOARD */
+.leaderboard-title {
   text-align: center;
-  font-size: 0.7rem;
-  color: #aaa;
-  margin-top: 4px;
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 3rem;
+  letter-spacing: 1.5px;
+  margin-bottom: 25px;
+  animation: slideIn 1s ease;
+}
+
+.podium {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-bottom: 40px;
+}
+
+.podium-spot {
+  border-radius: 12px;
+  padding: 18px;
+  text-align: center;
+  flex: 1;
+  font-size: 0.9rem;
+  color: white;
+  box-shadow: 0 0 10px rgba(0,0,0,0.4);
+  transform: translateY(20px);
+  opacity: 0;
+  animation: fadeSlide 1s forwards;
+}
+
+.gold { background-color: #002f5f; }
+.silver { background-color: #c8102e; }
+.bronze { background-color: #9bd3f7; color: #001427; }
+
+.bar-chart {
+  margin-top: 30px;
+}
+
+.bar {
+  margin: 12px 0;
+  background-color: #e6e6e6;
+  height: 34px;
+  border-radius: 20px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+}
+
+.bar-fill {
+  background: linear-gradient(90deg, #9bd3f7, #4fa4d8);
+  color: #001427;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  padding-left: 12px;
+  width: 0;
+  transition: width 0.8s ease-out;
+  font-weight: bold;
+}
+
+/* ANIMATIONS */
+@keyframes fadeSlide {
+  to { transform: translateY(0); opacity: 1; }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-20px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* FOOTER */
-.tsa-footer {
+.footer-note {
+  margin-top: 50px;
   text-align: center;
-  margin: 40px 0 20px;
-}
-
-.tsa-footer span {
   color: #aaa;
   font-size: 0.9rem;
 }
 
-.tsa-footer img {
-  max-width: 110px;
-  display: block;
-  margin: 8px auto 0;
-}
-
-.leaderboard-link {
-  margin: 30px 0;
-  text-align: center;
-}
-
-.leaderboard-btn {
-  display: inline-block;
-  padding: 12px 24px;
-  background-color: #9bd3f7;
-  color: #002f5f;
-  font-weight: bold;
-  text-decoration: none;
-  border-radius: 6px;
-  font-size: 1rem;
-  transition: background-color 0.2s ease;
-}
-
-.leaderboard-btn:hover {
-  background-color: #cce9f9;
-}
-/* Add below your existing styles */
-
-/* GAME DATE */
-.game-date {
-  font-size: 0.95rem;
-  color: #ccc;
-  margin-bottom: 6px;
-  font-weight: 600;
-}
-
-/* Updated predictor circle inner text */
-.predictor-circle {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  background: conic-gradient(#4fa4d8 var(--left-percent), #9bd3f7 0);
-  box-shadow: inset 0 0 12px rgba(0,0,0,0.3), 0 4px 10px rgba(0,0,0,0.4);
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 0.9rem;
-  font-weight: bold;
-  color: #fff;
-}
-
-/* Centered % text inside the circle */
-.predictor-percent-display {
-  position: absolute;
-  font-size: 0.8rem;
-  font-weight: bold;
-  color: #fff;
-  text-align: center;
-}
-
-/* Predictor animation trigger */
-.predictor-container.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-/* Circle fade-in effect */
-.predictor-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 10px 0;
-  position: relative;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s ease, transform 0.8s ease;
+/* RESPONSIVE */
+@media (max-width: 700px) {
+  .nav-buttons { flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+  .podium { flex-direction: column; gap: 16px; align-items: center; }
+  .podium-spot { width: 80%; }
+  .leaderboard-title { font-size: 2.3rem; }
+  .main-logo { max-height: 60px; }
 }
