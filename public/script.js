@@ -1,3 +1,5 @@
+// Updated script.js for single percentage and arrow
+
 const games = [
   { id: "game1", away: "Cowboys", home: "Eagles", date: "Sept 1", time: "7:30 PM", leftPercent: 45 },
   { id: "game2", away: "Lions", home: "Packers", date: "Sept 1", time: "3:00 PM", leftPercent: 55 },
@@ -13,6 +15,8 @@ window.onload = () => {
 
     const left = game.leftPercent;
     const right = 100 - left;
+    const higher = left >= right ? left : right;
+    const arrow = left === right ? "" : (left > right ? "\u25C0" : "\u25B6"); // ◀ or ▶
 
     div.innerHTML = `
       <div class="team-row" style="margin-bottom: 12px;">
@@ -32,13 +36,10 @@ window.onload = () => {
       </div>
 
       <div class="predictor-container">
-        <div class="predictor-percentage predictor-left">${left}%</div>
-
-        <div class="predictor-circle" style="--left-percent: ${left}%;">
-          <div class="circle-fill"></div>
+        <div class="predictor-circle" style="--left-percent: ${left}%">
+          <div class="percent-text">${higher}%</div>
+          ${arrow ? `<div class="arrow-text">${arrow}</div>` : ""}
         </div>
-
-        <div class="predictor-percentage predictor-right">${right}%</div>
       </div>
 
       <div class="predictor-credit" style="font-style: italic; color: #bbb; margin-top: 8px;">
@@ -55,10 +56,9 @@ window.onload = () => {
     gamesDiv.appendChild(div);
   });
 
-  animateOnScroll(); // trigger initial animation if elements are already in view
+  animateOnScroll();
 };
 
-// Animate when elements scroll into view
 function animateOnScroll() {
   const elements = document.querySelectorAll('.predictor-container');
   const triggerBottom = window.innerHeight * 0.85;
@@ -76,7 +76,6 @@ function animateOnScroll() {
 window.addEventListener('scroll', animateOnScroll);
 window.addEventListener('load', animateOnScroll);
 
-// Submit picks
 function submitPicks() {
   const player = document.getElementById("player").value.trim();
   const password = document.getElementById("password").value.trim();
