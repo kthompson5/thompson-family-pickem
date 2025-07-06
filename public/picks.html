@@ -12,12 +12,7 @@
       <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
       <span class="tagline">Built for the Family. Powered by Competition.</span>
     </div>
-    <div class="hamburger" onclick="toggleMenu()">
-      <span></span>
-      <span></span>
-      <span></span>
-    </div>
-    <nav class="nav-buttons" id="navButtons">
+    <nav class="nav-buttons">
       <a href="/index.html">Home</a>
       <a href="/picks.html">Make Picks</a>
       <a href="/leaderboard.html">Leaderboard</a>
@@ -39,4 +34,85 @@
   </div>
 
   <section class="leaderboard-link">
-    <a href="/leaderboard.html" class="leaderboard-btn">
+    <a href="/leaderboard.html" class="leaderboard-btn">🏆 Proceed to Leaderboard</a>
+  </section>
+
+  <div class="tsa-footer">
+    <span>Powered by</span>
+    <img src="tsalogo.png" alt="Thompson Sports Analytics" />
+  </div>
+
+  <script>
+const games = [
+  { id: "game1", away: "Cowboys", home: "Eagles", date: "Sept 1", leftPercent: 45 },
+  { id: "game2", away: "Lions", home: "Packers", date: "Sept 1", leftPercent: 55 },
+  { id: "game3", away: "Notre Dame", home: "Michigan", date: "Sept 2", leftPercent: 60 }
+];
+
+window.onload = () => {
+  const gamesDiv = document.getElementById("games");
+  games.forEach(game => {
+    const left = game.leftPercent;
+    const right = 100 - left;
+
+    const div = document.createElement("div");
+    div.className = "game-card";
+    div.innerHTML = `
+      <div class="team-row">
+        <div class="team-block">
+          <img src="logos/${game.away}.png" alt="${game.away}" />
+          <div>${game.away}</div>
+        </div>
+        <div>vs</div>
+        <div class="team-block">
+          <img src="logos/${game.home}.png" alt="${game.home}" />
+          <div>${game.home}</div>
+        </div>
+      </div>
+
+      <div class="predictor-container">
+        <div class="predictor-circle" style="background: conic-gradient(#4fa4d8 ${left}%, #9bd3f7 0);">
+          <div style="font-size: 0.85rem;">${left}% / ${right}%</div>
+        </div>
+      </div>
+
+      <div class="predictor-credit">Prediction: Thompson Sports Analytics</div>
+
+      <select id="${game.id}">
+        <option value="">-- Select Winner --</option>
+        <option value="${game.away}">${game.away}</option>
+        <option value="${game.home}">${game.home}</option>
+      </select>
+    `;
+
+    gamesDiv.appendChild(div);
+  });
+};
+
+function submitPicks() {
+  const player = document.getElementById("player").value.trim();
+  const password = document.getElementById("password").value.trim();
+  if (!player || !password) {
+    alert("Enter name and password");
+    return;
+  }
+
+  const picks = {};
+  games.forEach(game => {
+    const choice = document.getElementById(game.id).value;
+    if (choice) picks[`${game.away}@${game.home}`] = choice;
+  });
+
+  fetch('/submit', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ player, picks, password })
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("status").textContent = data.message;
+  });
+}
+  </script>
+</body>
+</html>
