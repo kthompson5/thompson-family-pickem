@@ -7,19 +7,30 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="header-bar">
-    <div class="logo-wrap">
-      <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
-      <span class="tagline">Built for the Family. Powered by Competition.</span>
+
+<header class="header-bar">
+  <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
+  <div class="tagline-area">
+    <div class="tagline">Built for the Family. Powered by Competition.</div>
+    <div class="league-logos">
+      <img src="cfp.png" alt="CFP" />
+      <img src="nfl.png" alt="NFL" />
+      <img src="mlb.png" alt="MLB" />
+      <img src="pga.png" alt="PGA" />
+      <img src="nba.png" alt="NBA" />
     </div>
-    <nav class="nav-buttons vertical-menu">
-  <a href="/index.html">🏠 Home</a>
-  <a href="/picks.html">✅ Make Picks</a>
-  <a href="/leaderboard.html">🏆 Leaderboard</a>
-  <a href="/rules.html">📜 Rules</a>
-  <a href="/game-info.html">📊 Game Info</a>
-</nav>
-  </header>
+  </div>
+</header>
+
+<section class="picks-container">
+  <h1 class="page-title">Make Your Picks</h1>
+  <div class="btn-group">
+    <a href="/index.html" class="nav-btn">🏠 Home</a>
+    <a href="/picks.html" class="nav-btn">✅ Make Picks</a>
+    <a href="/leaderboard.html" class="nav-btn">🏆 Leaderboard</a>
+    <a href="/rules.html" class="nav-btn">📜 Rules</a>
+    <a href="/game-info.html" class="nav-btn">📊 Game Info</a>
+  </div>
 
   <div class="main-wrapper">
     <section class="form-area">
@@ -33,18 +44,19 @@
     </section>
   </div>
 
-<section class="leaderboard-link">
-  <a href="/leaderboard.html" class="leaderboard-btn">
-    🏆 Proceed to Leaderboard →
-  </a>
-</section>
+  <section class="leaderboard-link">
+    <a href="/leaderboard.html" class="leaderboard-btn">
+      🏆 Proceed to Leaderboard →
+    </a>
+  </section>
 
   <div class="tsa-footer">
     <span>Powered by</span>
     <img src="tsalogo.png" alt="Thompson Sports Analytics" />
   </div>
+</section>
 
-  <script src="logos.js"></script>
-  <script src="script.js"></script>
+<script src="logos.js"></script>
+<script src="script.js"></script>
 </body>
 </html>
