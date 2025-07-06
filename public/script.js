@@ -15,38 +15,38 @@ window.onload = () => {
     div.className = "game-card";
 
     div.innerHTML = `
-      <div class="team-row" style="margin-bottom: 12px;">
-        <div class="team-block">
-          <img src="${logos[game.away]}" alt="${game.away}" />
-          <div>${game.away}</div>
-          <div class="percentage-text animate-on-scroll" data-percent="${left}">
-            ${left}%
-          </div>
-        </div>
-        <div>at</div>
-        <div class="team-block">
-          <img src="${logos[game.home]}" alt="${game.home}" />
-          <div>${game.home}</div>
-          <div class="percentage-text animate-on-scroll" data-percent="${right}">
-            ${right}%
-          </div>
-        </div>
+  <div class="team-row" style="margin-bottom: 12px;">
+    <div class="team-block">
+      <img src="${logos[game.away]}" alt="${game.away}" />
+      <div>${game.away}</div>
+      <div class="percentage-text animate-on-scroll" data-percent="${left}">
+        ${left}%
       </div>
-
-      <div class="game-info" style="margin-bottom: 10px;">
-        <strong>${game.date} – ${game.time}</strong>
+    </div>
+    <div>at</div>
+    <div class="team-block">
+      <img src="${logos[game.home]}" alt="${game.home}" />
+      <div>${game.home}</div>
+      <div class="percentage-text animate-on-scroll" data-percent="${right}">
+        ${right}%
       </div>
+    </div>
+  </div>
 
-      <div class="predictor-credit" style="font-style: italic; color: #bbb; margin-top: 8px;">
-        According to Thompson Sports Analytics
-      </div>
+  <div class="predictor-credit animate-on-scroll">
+    According to Thompson Sports Analytics
+  </div>
 
-      <select id="${game.id}">
-        <option value="">-- Select Winner --</option>
-        <option value="${game.away}">${game.away}</option>
-        <option value="${game.home}">${game.home}</option>
-      </select>
-    `;
+  <div class="game-info" style="margin-bottom: 10px;">
+    <strong>${game.date} – ${game.time}</strong>
+  </div>
+
+  <select id="${game.id}">
+    <option value="">-- Select Winner --</option>
+    <option value="${game.away}">${game.away}</option>
+    <option value="${game.home}">${game.home}</option>
+  </select>
+`;
 
     gamesDiv.appendChild(div);
   });
