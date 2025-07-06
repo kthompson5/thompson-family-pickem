@@ -1,4 +1,4 @@
-// Updated script.js for single percentage and arrow
+// Updated script.js without circle graphics, now using animated text for win percentages
 
 const games = [
   { id: "game1", away: "Cowboys", home: "Eagles", date: "Sept 1", time: "7:30 PM", leftPercent: 45 },
@@ -15,31 +15,24 @@ window.onload = () => {
 
     const left = game.leftPercent;
     const right = 100 - left;
-    const higher = left >= right ? left : right;
-    const arrow = left === right ? "" : (left > right ? "\u25C0" : "\u25B6"); // ◀ or ▶
 
     div.innerHTML = `
       <div class="team-row" style="margin-bottom: 12px;">
         <div class="team-block">
           <img src="${logos[game.away]}" alt="${game.away}" />
           <div>${game.away}</div>
+          <div class="win-percent away-percent">${left}% chance</div>
         </div>
         <div>at</div>
         <div class="team-block">
           <img src="${logos[game.home]}" alt="${game.home}" />
           <div>${game.home}</div>
+          <div class="win-percent home-percent">${right}% chance</div>
         </div>
       </div>
 
       <div class="game-info" style="margin-bottom: 10px;">
         <strong>${game.date} – ${game.time}</strong>
-      </div>
-
-      <div class="predictor-container">
-        <div class="predictor-circle" style="--left-percent: ${left}%">
-          <div class="percent-text">${higher}%</div>
-          ${arrow ? `<div class="arrow-text">${arrow}</div>` : ""}
-        </div>
       </div>
 
       <div class="predictor-credit" style="font-style: italic; color: #bbb; margin-top: 8px;">
@@ -56,25 +49,21 @@ window.onload = () => {
     gamesDiv.appendChild(div);
   });
 
-  animateOnScroll();
+  animateWinPercent();
 };
 
-function animateOnScroll() {
-  const elements = document.querySelectorAll('.predictor-container');
-  const triggerBottom = window.innerHeight * 0.85;
-
-  elements.forEach(el => {
-    const boxTop = el.getBoundingClientRect().top;
-    if (boxTop < triggerBottom) {
-      el.classList.add('visible');
-    } else {
-      el.classList.remove('visible');
-    }
+function animateWinPercent() {
+  const percents = document.querySelectorAll(".win-percent");
+  percents.forEach(el => {
+    el.style.opacity = 0;
+    el.style.transform = "translateY(10px)";
+    setTimeout(() => {
+      el.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+      el.style.opacity = 1;
+      el.style.transform = "translateY(0)";
+    }, 300);
   });
 }
-
-window.addEventListener('scroll', animateOnScroll);
-window.addEventListener('load', animateOnScroll);
 
 function submitPicks() {
   const player = document.getElementById("player").value.trim();
