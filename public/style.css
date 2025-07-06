@@ -341,3 +341,18 @@ button:hover {
   max-width: 40px;
   object-fit: contain;
 }
+.leaderboard-btn {
+  display: inline-block;
+  padding: 12px 24px;
+  background-color: #4fa4d8; /* lighter blue */
+  color: #0b1f3a; /* dark blue text */
+  font-weight: bold;
+  text-decoration: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  transition: background-color 0.2s ease;
+}
+
+.leaderboard-btn:hover {
+  background-color: #72c1f0; /* lighter on hover */
+}
