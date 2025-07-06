@@ -24,6 +24,7 @@ app.post('/submit', (req, res) => {
   const { player, picks: playerPicks, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
   picks[player] = playerPicks;
+  console.log("Current Picks:", picks);
   res.json({ message: 'Picks saved!' });
 });
 
