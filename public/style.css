@@ -395,7 +395,7 @@ button:hover {
   position: absolute;
   font-size: 0.75rem;
   font-weight: bold;
-  color: white;
+  color: black;
 }
 
 .predictor-percentage.left {
@@ -417,7 +417,7 @@ button:hover {
   position: absolute;
   font-size: 0.8rem;
   font-weight: bold;
-  color: #ccc;
+  color: black;
   text-shadow: 0 0 4px rgba(0,0,0,0.7);
 }
 
