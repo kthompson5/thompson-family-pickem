@@ -1,11 +1,12 @@
 const games = [
-  { id: "game1", away: "Cowboys", home: "Eagles", date: "Sept 1", leftPercent: 45 },
-  { id: "game2", away: "Lions", home: "Packers", date: "Sept 1", leftPercent: 55 },
-  { id: "game3", away: "Notre Dame", home: "Michigan", date: "Sept 2", leftPercent: 60 },
+  { id: "game1", away: "Cowboys", home: "Eagles", date: "Sept 1", time: "7:30 PM", leftPercent: 45 },
+  { id: "game2", away: "Lions", home: "Packers", date: "Sept 1", time: "3:00 PM", leftPercent: 55 },
+  { id: "game3", away: "Notre Dame", home: "Michigan", date: "Sept 2", time: "6:00 PM", leftPercent: 60 },
 ];
 
 window.onload = () => {
   const gamesDiv = document.getElementById("games");
+
   games.forEach(game => {
     const div = document.createElement("div");
     div.className = "game-card";
@@ -14,12 +15,16 @@ window.onload = () => {
     const right = 100 - left;
 
     div.innerHTML = `
+      <div class="game-info">
+        <strong>${game.date} – ${game.time}</strong>
+      </div>
+
       <div class="team-row">
         <div class="team-block">
           <img src="${logos[game.away]}" alt="${game.away}" />
           <div>${game.away}</div>
         </div>
-        <div>vs</div>
+        <div>at</div>
         <div class="team-block">
           <img src="${logos[game.home]}" alt="${game.home}" />
           <div>${game.home}</div>
