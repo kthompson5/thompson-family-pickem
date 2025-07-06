@@ -405,3 +405,60 @@ button:hover {
   from { transform: rotate(-90deg); }
   to { transform: rotate(0deg); }
 }
+.predictor-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 12px 0;
+  position: relative;
+}
+
+.predictor-circle {
+  position: relative;
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: conic-gradient(#4fa4d8 var(--left-percent), #9bd3f7 0);
+  animation: spin 1s ease;
+}
+
+.circle-fill {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  width: 65%;
+  height: 65%;
+  background-color: #0b1f3a;
+  border-radius: 50%;
+}
+
+.percent-text {
+  position: absolute;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+}
+
+.predictor-percentage {
+  position: absolute;
+  font-size: 0.75rem;
+  font-weight: bold;
+  color: white;
+}
+
+.predictor-percentage.left {
+  top: -12px;
+  left: -28px;
+}
+
+.predictor-percentage.right {
+  bottom: -12px;
+  right: -28px;
+}
+
+@keyframes spin {
+  from { transform: rotate(-90deg); }
+  to { transform: rotate(0deg); }
+}
