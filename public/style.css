@@ -284,3 +284,27 @@ button:hover {
   display: block;
   margin: 8px auto 0;
 }
+.leaderboard-link {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.leaderboard-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 12px 24px;
+  background-color: #002f5f;
+  color: white;
+  font-weight: 600;
+  font-size: 1rem;
+  text-decoration: none;
+  border-radius: 6px;
+  transition: background-color 0.2s ease, transform 0.2s ease;
+}
+
+.leaderboard-btn:hover {
+  background-color: #001a3a;
+  transform: translateY(-1px);
+}
