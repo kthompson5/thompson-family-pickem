@@ -113,12 +113,33 @@ app.post('/clear-all', (req, res) => {
 // View all picks - Admin only
 app.get('/admin-picks', (req, res) => {
   const adminPassword = req.query.password;
-  if (adminPassword !== "YOUR_ADMIN_PASSWORD") {
+  if (adminPassword !== PICKEM_PASSWORD) {
     return res.status(403).json({ message: "Unauthorized" });
   }
 
   res.json(picks);
 });
+
+// Clear all picks
+app.post('/clear-all', (req, res) => {
+  const { password } = req.body;
+  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
+  picks = {};
+  res.json({ message: 'All picks cleared.' });
+});
+
+// ✅ Add admin-picks route here
+app.get('/admin-picks', (req, res) => {
+  const adminPassword = req.query.password;
+  if (adminPassword !== PICKEM_PASSWORD) {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  res.json(picks);
+});
+
+// Enhanced Odds API route
+app.get('/api/odds', async (req, res) => {
 
 // Enhanced Odds API route
 app.get('/api/odds', async (req, res) => {
