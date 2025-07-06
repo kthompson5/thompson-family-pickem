@@ -34,7 +34,7 @@ window.onload = () => {
   </div>
 
   <div class="predictor-credit animate-on-scroll">
-    According to Thompson Sports Analytics
+    Win % According to Thompson Sports Analytics
   </div>
 
   <div class="game-info" style="margin-bottom: 10px;">
