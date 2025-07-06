@@ -285,26 +285,24 @@ button:hover {
   margin: 8px auto 0;
 }
 .leaderboard-link {
-  margin: 30px 0;
+  margin: 40px 0;
   text-align: center;
 }
 
 .leaderboard-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 24px;
-  background-color: #002f5f;
-  color: white;
-  font-weight: 600;
-  font-size: 1rem;
+  display: inline-block;
+  padding: 14px 28px;
+  background-color: #ffd700; /* gold */
+  color: #002f5f;
+  font-weight: 700;
   text-decoration: none;
-  border-radius: 6px;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
   transition: background-color 0.2s ease, transform 0.2s ease;
 }
 
 .leaderboard-btn:hover {
-  background-color: #001a3a;
-  transform: translateY(-1px);
+  background-color: #f2c300;
+  transform: translateY(-2px);
 }
