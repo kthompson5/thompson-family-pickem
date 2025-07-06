@@ -32,10 +32,7 @@ app.post('/submit', (req, res) => {
 app.post('/results', (req, res) => {
   const { results: submittedResults, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
-
-  // Merge submitted results with existing ones
   results = { ...results, ...submittedResults };
-
   res.json({ message: 'Results submitted!' });
 });
 
@@ -43,19 +40,14 @@ app.post('/results', (req, res) => {
 app.post('/golf-submit', (req, res) => {
   const { player, golfer1, golfer2, golfer3, tiebreaker, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
-  golfPicks[player] = {
-    golfers: [golfer1, golfer2, golfer3],
-    tiebreaker
-  };
+  golfPicks[player] = { golfers: [golfer1, golfer2, golfer3], tiebreaker };
   res.json({ message: 'Golf picks submitted!' });
 });
 
 // Submit golf picks (JSON method)
 app.post('/submit-golf-picks', (req, res) => {
   const { player, password, golfers, tiebreaker } = req.body;
-  if (password !== PICKEM_PASSWORD) {
-    return res.json({ message: 'Incorrect password.' });
-  }
+  if (password !== PICKEM_PASSWORD) return res.json({ message: 'Incorrect password.' });
   if (!player || !Array.isArray(golfers) || golfers.length < 3 || !tiebreaker) {
     return res.json({ message: 'Missing data. Please try again.' });
   }
@@ -68,12 +60,7 @@ app.post('/submit-golf-picks', (req, res) => {
     data = raw.length ? JSON.parse(raw) : {};
   }
 
-  data[player] = {
-    golfers,
-    tiebreaker,
-    timestamp: new Date().toISOString()
-  };
-
+  data[player] = { golfers, tiebreaker, timestamp: new Date().toISOString() };
   fs.writeFileSync(file, JSON.stringify(data, null, 2));
   res.json({ message: 'Golf picks submitted!' });
 });
@@ -83,9 +70,7 @@ app.get('/leaderboard', (req, res) => {
   const leaderboard = Object.entries(picks).map(([player, playerPicks]) => {
     let score = 0;
     for (const [game, selected] of Object.entries(playerPicks)) {
-      if (results[game] && results[game] === selected) {
-        score++;
-      }
+      if (results[game] && results[game] === selected) score++;
     }
     return { player, score };
   });
@@ -113,31 +98,19 @@ app.post('/clear-all', (req, res) => {
   res.json({ message: 'All picks cleared.' });
 });
 
-// Clear all picks
-app.post('/clear-all', (req, res) => {
-  const { password } = req.body;
-  if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
-  picks = {};
-  res.json({ message: 'All picks cleared.' });
-});
-
-// ✅ Add admin-picks route here
+// View all picks - Admin only
 app.get('/admin-picks', (req, res) => {
   const adminPassword = req.query.password;
   if (adminPassword !== PICKEM_PASSWORD) {
     return res.status(403).json({ message: "Unauthorized" });
   }
-
   res.json(picks);
 });
 
 // Enhanced Odds API route
 app.get('/api/odds', async (req, res) => {
-
-// Enhanced Odds API route
-app.get('/api/odds', async (req, res) => {
   const sport = req.query.sport || 'basketball_nba';
-  let markets = 'h2h'; // Default market
+  let markets = 'h2h';
 
   if (['basketball_nba', 'baseball_mlb', 'americanfootball_ncaaf'].includes(sport)) {
     markets = 'h2h,spreads';
