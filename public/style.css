@@ -13,7 +13,7 @@ body {
 }
 
 /* HEADER & NAV */
-.header-bar {
+#.header-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -23,14 +23,14 @@ body {
   row-gap: 10px;
 }
 
-.logo-wrap, .logo-section, .logo-row {
+#.logo-wrap, .logo-section, .logo-row {
   display: flex;
   align-items: center;
   gap: 16px;
   flex-wrap: wrap;
 }
 
-.main-logo, .logo {
+#.main-logo, .logo {
   max-height: 80px;
   width: auto;
 }
