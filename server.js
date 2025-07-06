@@ -28,11 +28,14 @@ app.post('/submit', (req, res) => {
   res.json({ message: 'Picks saved!' });
 });
 
-// Submit results
+// Submit results (merge instead of overwrite)
 app.post('/results', (req, res) => {
   const { results: submittedResults, password } = req.body;
   if (password !== PICKEM_PASSWORD) return res.status(403).json({ message: 'Invalid password' });
-  results = submittedResults;
+
+  // Merge submitted results with existing ones
+  results = { ...results, ...submittedResults };
+
   res.json({ message: 'Results submitted!' });
 });
 
