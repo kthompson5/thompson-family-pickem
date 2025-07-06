@@ -37,7 +37,9 @@ window.onload = () => {
         <div class="predictor-percentage predictor-right">${right}%</div>
       </div>
 
-      <div class="predictor-credit">Prediction: Thompson Sports Analytics</div>
+      <div class="predictor-credit" style="font-style: italic; color: #bbb; margin-top: 8px;">
+        According to Thompson Sports Analytics
+      </div>
 
       <select id="${game.id}">
         <option value="">-- Select Winner --</option>
