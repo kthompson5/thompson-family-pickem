@@ -109,6 +109,16 @@ app.post('/clear-all', (req, res) => {
   res.json({ message: 'All picks cleared.' });
 });
 
+// View all picks - Admin only
+app.get('/admin-picks', (req, res) => {
+  const adminPassword = req.query.password;
+  if (adminPassword !== "YOUR_ADMIN_PASSWORD") {
+    return res.status(403).json({ message: "Unauthorized" });
+  }
+
+  res.json(picks);
+});
+
 // Enhanced Odds API route
 app.get('/api/odds', async (req, res) => {
   const sport = req.query.sport || 'basketball_nba';
