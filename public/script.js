@@ -15,11 +15,7 @@ window.onload = () => {
     const right = 100 - left;
 
     div.innerHTML = `
-      <div class="game-info">
-        <strong>${game.date} – ${game.time}</strong>
-      </div>
-
-      <div class="team-row">
+      <div class="team-row" style="margin-bottom: 12px;">
         <div class="team-block">
           <img src="${logos[game.away]}" alt="${game.away}" />
           <div>${game.away}</div>
@@ -29,6 +25,10 @@ window.onload = () => {
           <img src="${logos[game.home]}" alt="${game.home}" />
           <div>${game.home}</div>
         </div>
+      </div>
+
+      <div class="game-info" style="margin-bottom: 10px;">
+        <strong>${game.date} – ${game.time}</strong>
       </div>
 
       <div class="predictor-container">
