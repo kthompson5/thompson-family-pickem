@@ -413,3 +413,20 @@ button:hover {
   from { transform: rotate(-90deg); }
   to { transform: rotate(0deg); }
 }
+.predictor-percentage {
+  position: absolute;
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: #ccc;
+  text-shadow: 0 0 4px rgba(0,0,0,0.7);
+}
+
+.predictor-percentage.left {
+  top: -16px;
+  left: -32px;
+}
+
+.predictor-percentage.right {
+  bottom: -16px;
+  right: -32px;
+}
