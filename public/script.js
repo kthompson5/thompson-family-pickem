@@ -32,15 +32,14 @@ window.onload = () => {
       </div>
 
       <div class="predictor-container">
-  <div class="predictor-percentage left">${left}%</div>
-  
-  <div class="predictor-circle" style="--left-percent: ${left}%;">
-    <div class="circle-fill"></div>
-    <div class="percent-text">${left}%</div>
-  </div>
-  
-  <div class="predictor-percentage right">${right}%</div>
-</div>
+        <div class="predictor-percentage predictor-left">${left}%</div>
+
+        <div class="predictor-circle" style="--left-percent: ${left}%;">
+          <div class="circle-fill"></div>
+        </div>
+
+        <div class="predictor-percentage predictor-right">${right}%</div>
+      </div>
 
       <div class="predictor-credit" style="font-style: italic; color: #bbb; margin-top: 8px;">
         According to Thompson Sports Analytics
@@ -55,8 +54,29 @@ window.onload = () => {
 
     gamesDiv.appendChild(div);
   });
+
+  animateOnScroll(); // trigger initial animation if elements are already in view
 };
 
+// Animate when elements scroll into view
+function animateOnScroll() {
+  const elements = document.querySelectorAll('.predictor-container');
+  const triggerBottom = window.innerHeight * 0.85;
+
+  elements.forEach(el => {
+    const boxTop = el.getBoundingClientRect().top;
+    if (boxTop < triggerBottom) {
+      el.classList.add('visible');
+    } else {
+      el.classList.remove('visible');
+    }
+  });
+}
+
+window.addEventListener('scroll', animateOnScroll);
+window.addEventListener('load', animateOnScroll);
+
+// Submit picks
 function submitPicks() {
   const player = document.getElementById("player").value.trim();
   const password = document.getElementById("password").value.trim();
