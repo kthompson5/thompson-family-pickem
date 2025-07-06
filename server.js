@@ -110,16 +110,6 @@ app.post('/clear-all', (req, res) => {
   res.json({ message: 'All picks cleared.' });
 });
 
-// View all picks - Admin only
-app.get('/admin-picks', (req, res) => {
-  const adminPassword = req.query.password;
-  if (adminPassword !== PICKEM_PASSWORD) {
-    return res.status(403).json({ message: "Unauthorized" });
-  }
-
-  res.json(picks);
-});
-
 // Clear all picks
 app.post('/clear-all', (req, res) => {
   const { password } = req.body;
