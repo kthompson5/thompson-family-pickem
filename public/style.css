@@ -462,3 +462,40 @@ button:hover {
   from { transform: rotate(-90deg); }
   to { transform: rotate(0deg); }
 }
+.predictor-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  margin: 10px 0;
+  position: relative;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.predictor-container.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.predictor-circle {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: conic-gradient(#4fa4d8 var(--left-percent), #9bd3f7 0);
+  box-shadow: inset 0 0 10px rgba(0,0,0,0.3);
+  transition: transform 1s ease;
+}
+
+.predictor-container.visible .predictor-circle {
+  transform: rotate(360deg);
+}
+
+.circle-fill {
+  width: 70%;
+  height: 70%;
+  margin: 15%;
+  border-radius: 50%;
+  background-color: #0b1f3a;
+}
