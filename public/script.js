@@ -32,14 +32,14 @@ window.onload = () => {
       </div>
 
       <div class="predictor-container">
+  <div class="predictor-percentage left">${left}%</div>
+  
   <div class="predictor-circle" style="--left-percent: ${left}%;">
     <div class="circle-fill"></div>
     <div class="percent-text">${left}%</div>
   </div>
-  <div class="percent-labels">
-    <span class="percent-left">${left}%</span>
-    <span class="percent-right">${right}%</span>
-  </div>
+  
+  <div class="predictor-percentage right">${right}%</div>
 </div>
 
       <div class="predictor-credit" style="font-style: italic; color: #bbb; margin-top: 8px;">
