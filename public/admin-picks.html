@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin - All Picks</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <header>
+    <h1>All Submitted Picks</h1>
+  </header>
+
+  <section class="form-area">
+    <input type="password" id="adminPassword" placeholder="Admin Password">
+    <button onclick="loadPicks()">Load Picks</button>
+    <p id="status"></p>
+
+    <div id="picksTable" style="margin-top: 20px;"></div>
+  </section>
+
+  <script>
+    function loadPicks() {
+      const password = document.getElementById("adminPassword").value.trim();
+      fetch('/admin-picks', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ password })
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          document.getElementById("status").textContent = data.error;
+          return;
+        }
+
+        const picksDiv = document.getElementById("picksTable");
+        picksDiv.innerHTML = ''; // clear old results
+
+        Object.entries(data.picks).forEach(([player, picks]) => {
+          const div = document.createElement("div");
+          div.className = "game-card";
+          div.innerHTML = `<strong>${player}</strong><ul>` +
+            Object.entries(picks).map(([game, pick]) => `<li>${game}: ${pick}</li>`).join('') +
+            `</ul>`;
+          picksDiv.appendChild(div);
+        });
+      });
+    }
+  </script>
+</body>
+</html>
