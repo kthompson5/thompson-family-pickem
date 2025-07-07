@@ -22,6 +22,9 @@
       color: #002f5f;
       margin-bottom: 15px;
       text-align: left;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      animation: fadeIn 1s ease;
     }
 
     .rules-container ul {
@@ -36,18 +39,22 @@
     .rules-logo {
       display: block;
       margin: 0 auto 30px;
-      max-width: 120px;
+      max-height: 140px;
     }
 
     .rules-container a {
       display: inline-block;
       margin-top: 20px;
       text-decoration: none;
-      color: #007bff;
+      color: #002f5f;
+      font-weight: bold;
+      background-color: #9bd3f7;
+      padding: 8px 16px;
+      border-radius: 6px;
     }
 
     .rules-container a:hover {
-      text-decoration: underline;
+      background-color: #4fa4d8;
     }
 
     .powered-by-tsa {
@@ -64,39 +71,53 @@
     .powered-by-tsa img {
       max-width: 180px;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
   </style>
 </head>
 <body>
-  <header class="header-bar">
-    <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
-    <nav class="nav-buttons">
-      <a href="/index.html">Home</a>
-      <a href="/picks.html">Make Picks</a>
-      <a href="/leaderboard.html">Leaderboard</a>
-      <a href="/rules.html">Rules</a>
-      <a href="/game-info.html">Game Info</a>
-    </nav>
+  <header class="header-bar" style="flex-direction: column; align-items: center; background-color: white;">
+    <a href="/index.html">
+      <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" style="max-height: 140px; margin-bottom: 10px;" />
+    </a>
+    <div class="tagline-area" style="text-align: center;">
+      <div class="tagline">Built for the Family. Powered by Competition.</div>
+      <div class="league-logos" style="margin-top: 6px;">
+        <img src="cfp.png" alt="CFP" />
+        <img src="nfl.png" alt="NFL" />
+        <img src="mlb.png" alt="MLB" />
+        <img src="pga.png" alt="PGA" />
+        <img src="nba.png" alt="NBA" />
+      </div>
+    </div>
   </header>
 
   <div class="rules-container">
     <img src="logo.png" alt="Thompson Family Pick 'Em" class="rules-logo" />
-    <h1>How It Works</h1>
+    <h1>Kickoff Edition Rules</h1>
 
     <ul>
-      <li>Pick the winner of each matchup listed on the home page.</li>
-      <li>Games cover all MLB games for April 25th, and all NBA games for April 25th-26th.</li>
-      <li>1 point is awarded for each correct pick.</li>
-      <li>Picks must be submitted before the start of the first game.</li>
-      <li>No changes can be made once picks are submitted (unless you ask Uncle Kelly).</li>
-      <li>Use the leaderboard to track how you stack up against everyone else.</li>
+      <li>Pick the winner of each college football and NFL Week 1 matchup.</li>
+      <li>1 point awarded for each correct pick.</li>
+      <li>Picks lock before the first kickoff of each league (College & NFL).</li>
+      <li>Maximum of 2 submissions per player (use them wisely!).</li>
+      <li>$5 entry per submission. Payouts will be split among top finishers and will be announced once entries are final.</li>
+      <li>Track your standings live on the <strong>Leaderboard</strong> page.</li>
+      <li>Check out the <strong>Game Info</strong> page for pick trends and analytics during the weekend!</li>
     </ul>
 
     <h2>Tiebreakers</h2>
     <ul>
-      <li><em>Coin Flip:</em> Conducted by Elliot and Em.</li>
+      <li>1st: Total points in the Sunday Night NFL game.</li>
+      <li>2nd: Fewest incorrect NFL picks.</li>
+      <li>3rd: Fewest incorrect College picks.</li>
+      <li>4th: Random coin flip conducted by Em & Elliot.</li>
     </ul>
 
-    <a href="/picks.html">← Back to Picks</a>
+    <a href="/picks.html">Back to Picks</a>
 
     <div class="powered-by-tsa">
       <span>Powered by</span>
@@ -105,4 +126,3 @@
   </div>
 </body>
 </html>
-
