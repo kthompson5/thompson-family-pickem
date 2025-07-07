@@ -1,145 +1,140 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Game Info – Pick Trends</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Pick Trends</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <link rel="stylesheet" href="style.css">
   <style>
     body {
       background-color: #0b1f3a;
       color: white;
-      font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
+      font-family: 'Inter', sans-serif;
+      padding: 20px;
       text-align: center;
     }
-
-    .header {
-      background-color: white;
-      padding: 20px;
-      color: #002f5f;
-      font-weight: bold;
-      font-size: 1.5rem;
-    }
-
     .chart-container {
-      width: 90%;
-      max-width: 500px;
+      max-width: 700px;
       margin: 40px auto;
-      background: white;
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
-
-    .btn {
-      margin: 20px auto;
+    select {
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 8px;
+      font-size: 1rem;
+    }
+    .home-btn {
       display: inline-block;
+      margin-top: 30px;
       padding: 10px 20px;
       background-color: #4fa4d8;
       color: #0b1f3a;
-      font-weight: bold;
       border-radius: 6px;
       text-decoration: none;
-      transition: background-color 0.2s ease;
+      font-weight: bold;
     }
-
-    .btn:hover {
+    .home-btn:hover {
       background-color: #72c1f0;
     }
   </style>
 </head>
 <body>
+  <h1>Pick Trends</h1>
 
-<div class="header">
-  Game Info – Pick Trends
-</div>
+  <select id="gameFilter" onchange="updateChart()">
+    <option value="">Select a Game</option>
+  </select>
 
-<a href="/index.html" class="btn">⬅️ Back to Home</a>
+  <div class="chart-container">
+    <canvas id="pickChart"></canvas>
+  </div>
 
-<div class="chart-container">
-  <canvas id="matchupChart"></canvas>
-</div>
+  <a class="home-btn" href="/index.html">Back to Home</a>
 
-<div class="chart-container">
-  <canvas id="playerChart"></canvas>
-</div>
+  <script>
+    let chart;
+    let allData = {};
 
-<script>
-const matchups = [
-  { matchup: "Cowboys at Eagles", picks: { Cowboys: 7, Eagles: 13 } },
-  { matchup: "Lions at Packers", picks: { Lions: 12, Packers: 8 } },
-  { matchup: "Notre Dame at Michigan", picks: { "Notre Dame": 15, Michigan: 5 } },
-];
+    async function fetchPicks() {
+      const res = await fetch('/admin-picks?password=goirish');
+      const picks = await res.json();
+      const gameCounts = {};
 
-const playerData = {
-  "Ben": 3,
-  "Monica": 4,
-  "Dean": 5,
-  "Vinnie": 2,
-  "Diego": 4,
-  "Casey": 1,
-  "Jaclyn": 3,
-  "Brody": 4,
-  "Olivia": 2,
-  "Kelly": 5,
-};
+      Object.values(picks).forEach(playerPicks => {
+        Object.entries(playerPicks).forEach(([game, team]) => {
+          if (!gameCounts[game]) gameCounts[game] = {};
+          gameCounts[game][team] = (gameCounts[game][team] || 0) + 1;
+        });
+      });
 
-let currentMatchup = 0;
-
-function createMatchupChart() {
-  const data = matchups[currentMatchup];
-  const ctx = document.getElementById('matchupChart').getContext('2d');
-  if (window.matchupChart) window.matchupChart.destroy();
-  window.matchupChart = new Chart(ctx, {
-    type: 'pie',
-    data: {
-      labels: Object.keys(data.picks),
-      datasets: [{
-        data: Object.values(data.picks),
-        backgroundColor: ['#9bd3f7', '#4fa4d8'],
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        title: { display: true, text: data.matchup, color: '#002f5f', font: { size: 18 } }
-      }
+      allData = gameCounts;
+      populateDropdown();
+      updateChart();
     }
-  });
-}
 
-function createPlayerChart() {
-  const ctx = document.getElementById('playerChart').getContext('2d');
-  new Chart(ctx, {
-    type: 'bar',
-    data: {
-      labels: Object.keys(playerData),
-      datasets: [{
-        label: 'Total Picks',
-        data: Object.values(playerData),
-        backgroundColor: '#9bd3f7'
-      }]
-    },
-    options: {
-      responsive: true,
-      scales: {
-        y: { beginAtZero: true }
-      }
+    function populateDropdown() {
+      const select = document.getElementById("gameFilter");
+      Object.keys(allData).forEach(game => {
+        const option = document.createElement("option");
+        option.value = game;
+        option.textContent = game;
+        select.appendChild(option);
+      });
     }
-  });
-}
 
-createMatchupChart();
-createPlayerChart();
+    function updateChart() {
+      const selectedGame = document.getElementById("gameFilter").value;
+      const counts = allData[selectedGame] || {};
 
-setInterval(() => {
-  currentMatchup = (currentMatchup + 1) % matchups.length;
-  createMatchupChart();
-}, 5000);
-</script>
+      const labels = Object.keys(counts);
+      const data = Object.values(counts);
 
+      const bgColors = labels.map(() => getRandomColor());
+
+      if (chart) chart.destroy();
+      const ctx = document.getElementById('pickChart').getContext('2d');
+
+      chart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+          labels,
+          datasets: [{
+            label: `% of Picks`,
+            data,
+            backgroundColor: bgColors,
+            borderRadius: 6
+          }]
+        },
+        options: {
+          responsive: true,
+          animation: {
+            duration: 1500
+          },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: { color: 'white' },
+              grid: { color: '#333' }
+            },
+            x: {
+              ticks: { color: 'white' },
+              grid: { color: '#333' }
+            }
+          },
+          plugins: {
+            legend: { labels: { color: 'white' } }
+          }
+        }
+      });
+    }
+
+    function getRandomColor() {
+      const colors = ['#4fa4d8', '#9bd3f7', '#c8102e', '#ffd700', '#72c1f0'];
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    fetchPicks();
+  </script>
 </body>
 </html>
