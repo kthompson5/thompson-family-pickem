@@ -5,36 +5,53 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Thompson Family Pick 'Em – Make Picks</title>
   <link rel="stylesheet" href="style.css" />
+  <style>
+    .nav-links {
+      margin-top: 12px;
+      text-align: center;
+    }
+
+    .nav-links a {
+      display: inline-block;
+      margin: 0 10px;
+      padding: 8px 16px;
+      background-color: #002f5f;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      font-weight: bold;
+      transition: background-color 0.3s;
+    }
+
+    .nav-links a:hover {
+      background-color: #004080;
+    }
+  </style>
 </head>
 <body>
   <header class="header-bar" style="flex-direction: column; align-items: center;">
-  <a href="/index.html">
-    <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" style="max-height: 140px; margin-bottom: 10px;" />
-  </a>
-  <div class="tagline-area" style="text-align: center;">
-    <div class="tagline">Built for the Family. Powered by Competition.</div>
-    <div class="league-logos" style="margin-top: 6px;">
-      <img src="cfp.png" alt="CFP" />
-      <img src="nfl.png" alt="NFL" />
-      <img src="mlb.png" alt="MLB" />
-      <img src="pga.png" alt="PGA" />
-      <img src="nba.png" alt="NBA" />
+    <a href="/index.html">
+      <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" style="max-height: 140px; margin-bottom: 10px;" />
+    </a>
+    <div class="tagline-area" style="text-align: center;">
+      <div class="tagline">Built for the Family. Powered by Competition.</div>
+      <div class="league-logos" style="margin-top: 6px;">
+        <img src="cfp.png" alt="CFP" />
+        <img src="nfl.png" alt="NFL" />
+        <img src="mlb.png" alt="MLB" />
+        <img src="pga.png" alt="PGA" />
+        <img src="nba.png" alt="NBA" />
+      </div>
     </div>
-    <!-- Add Home Button Here -->
-    <div style="margin-top: 12px;">
-      <a href="/index.html" style="
-        display: inline-block;
-        padding: 8px 16px;
-        background-color: #002f5f;
-        color: white;
-        text-decoration: none;
-        border-radius: 6px;
-        font-size: 0.9rem;
-        font-weight: bold;
-      ">Home</a>
-    </div>
-  </div>
-</header>
+
+    <!-- New Nav Links -->
+    <nav class="nav-links">
+      <a href="/index.html">Home</a>
+      <a href="/game-info.html">Pick Trends</a>
+      <a href="/rules.html">Rules & Payment</a>
+    </nav>
+  </header>
 
   <div class="main-wrapper">
     <div class="leaderboard-title" style="color: white;">
@@ -54,7 +71,7 @@
 
   <section class="leaderboard-link">
     <a href="/leaderboard.html" class="leaderboard-btn">
-      🏆 Proceed to Leaderboard →
+      Proceed to Leaderboard →
     </a>
   </section>
 
