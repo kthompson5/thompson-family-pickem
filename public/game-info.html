@@ -7,6 +7,116 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <style>
+    body {
+      background-color: #001427;
+      color: white;
+      font-family: 'Inter', sans-serif;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .header-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: white;
+      padding: 20px 0;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .main-logo {
+      max-height: 140px;
+      margin-bottom: 10px;
+    }
+
+    .tagline-area {
+      text-align: center;
+    }
+
+    .tagline {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #002f5f;
+      margin-bottom: 4px;
+    }
+
+    .league-logos img {
+      height: 28px;
+      margin-right: 8px;
+    }
+
+    .home-link {
+      margin-top: 12px;
+      padding: 8px 16px;
+      background-color: #002f5f;
+      color: white;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+    }
+
+    .chart-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .chart-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.5rem;
+      letter-spacing: 1px;
+      margin-bottom: 20px;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .game-select {
+      margin-bottom: 20px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: #fff;
+      color: #002f5f;
+      border: none;
+    }
+
+    .powered-by {
+      margin-top: 50px;
+      text-align: center;
+    }
+
+    .powered-by img {
+      max-width: 120px;
+      opacity: 0.9;
+      margin-top: 8px;
+    }
+
+    .powered-by span {
+      color: #aaa;
+      font-size: 0.9rem;
+      display: block;
+    }
+
+    footer {
+      margin-top: 30px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #9bd3f7;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+  </style>
 </head>
 <body>
   <header class="header-bar">
@@ -27,14 +137,19 @@
   </header>
 
   <div class="chart-container">
-    <h2 id="chartTitle" class="chart-title">Pick Trends</h2>
+    <h2 class="chart-title">Pick Trends By Game</h2>
     <select id="gameSelect" class="game-select"></select>
     <canvas id="pickChart"></canvas>
   </div>
 
   <div class="chart-container">
-    <h2 class="chart-title">Overall Team Popularity</h2>
-    <canvas id="popularityChart"></canvas>
+    <h2 class="chart-title">Overall Team Pick Popularity</h2>
+    <canvas id="overallChart"></canvas>
+  </div>
+
+  <div class="powered-by">
+    <span>Powered by</span>
+    <img src="tsalogo.png" alt="Thompson Sports Analytics" />
   </div>
 
   <footer>
@@ -44,46 +159,40 @@
   </footer>
 
   <script>
-    let pickChart, popularityChart;
+    let pickChart;
+    let overallChart;
 
     async function fetchAndRender() {
       const res = await fetch('/admin-picks?password=goirish');
       const picks = await res.json();
       const games = new Set();
       const counts = {};
-      const totalCounts = {};
+      const overall = {};
 
       Object.values(picks).forEach(playerPicks => {
         Object.entries(playerPicks).forEach(([game, pick]) => {
           games.add(game);
-
           counts[game] = counts[game] || {};
           counts[game][pick] = (counts[game][pick] || 0) + 1;
-
-          totalCounts[pick] = (totalCounts[pick] || 0) + 1;
+          overall[pick] = (overall[pick] || 0) + 1;
         });
       });
 
-      // Populate game selector
       const gameList = Array.from(games);
       const gameSelect = document.getElementById('gameSelect');
       gameSelect.innerHTML = gameList.map(game => `<option value="${game}">${game}</option>`).join('');
-
       gameSelect.addEventListener('change', () => renderPickChart(gameSelect.value, counts));
 
       renderPickChart(gameList[0], counts);
-      renderPopularityChart(totalCounts);
+      renderOverallChart(overall);
     }
 
     function renderPickChart(game, counts) {
       const ctx = document.getElementById('pickChart').getContext('2d');
       const data = counts[game] || {};
       const total = Object.values(data).reduce((sum, val) => sum + val, 0);
-
       const labels = Object.keys(data);
       const values = labels.map(team => Math.round((data[team] / total) * 100));
-
-      document.getElementById('chartTitle').textContent = `Pick Trends: ${game}`;
 
       if (pickChart) pickChart.destroy();
 
@@ -102,31 +211,34 @@
           plugins: { legend: { display: false } },
           animation: { duration: 1000 },
           scales: {
-            y: { beginAtZero: true, ticks: { callback: value => `${value}%` } }
+            y: {
+              beginAtZero: true,
+              ticks: { callback: value => `${value}%` }
+            }
           }
         }
       });
     }
 
-    function renderPopularityChart(totalCounts) {
-      const ctx = document.getElementById('popularityChart').getContext('2d');
-      const labels = Object.keys(totalCounts);
-      const values = Object.values(totalCounts);
+    function renderOverallChart(overall) {
+      const ctx = document.getElementById('overallChart').getContext('2d');
+      const labels = Object.keys(overall);
+      const values = Object.values(overall);
 
-      if (popularityChart) popularityChart.destroy();
+      if (overallChart) overallChart.destroy();
 
-      popularityChart = new Chart(ctx, {
+      overallChart = new Chart(ctx, {
         type: 'doughnut',
         data: {
           labels,
           datasets: [{
+            label: 'Total Picks',
             data: values,
-            backgroundColor: ['#4fa4d8', '#9bd3f7', '#c8102e', '#ffc857', '#f4a261', '#2a9d8f'],
+            backgroundColor: ['#4fa4d8', '#9bd3f7', '#c8102e', '#ffc857', '#ff7f50', '#00b894'],
           }]
         },
         options: {
           responsive: true,
-          plugins: { legend: { position: 'bottom' } },
           animation: { duration: 1200 }
         }
       });
