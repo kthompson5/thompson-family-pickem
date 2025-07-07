@@ -62,6 +62,23 @@
       max-width: 800px;
       margin: 40px auto;
       padding: 20px;
+      text-align: center;
+    }
+
+    .chart-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem;
+      margin-bottom: 20px;
+    }
+
+    .game-select {
+      margin-bottom: 20px;
+      padding: 8px 12px;
+      border-radius: 6px;
+      font-size: 1rem;
+      background-color: #fff;
+      color: #002f5f;
+      border: none;
     }
 
     footer {
@@ -102,8 +119,8 @@
   </header>
 
   <div class="chart-container">
-    <label for="gameSelect">Select Game:</label>
-    <select id="gameSelect"></select>
+    <h2 id="chartTitle" class="chart-title">Pick Trends</h2>
+    <select id="gameSelect" class="game-select"></select>
     <canvas id="pickChart"></canvas>
   </div>
 
@@ -141,23 +158,37 @@
     function renderChart(game, counts) {
       const ctx = document.getElementById('pickChart').getContext('2d');
       const data = counts[game] || {};
+      const total = Object.values(data).reduce((sum, val) => sum + val, 0);
+
+      const labels = Object.keys(data);
+      const values = labels.map(team => Math.round((data[team] / total) * 100));
+
+      document.getElementById('chartTitle').textContent = `Pick Trends: ${game}`;
 
       if (chart) chart.destroy();
 
       chart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels: Object.keys(data),
+          labels,
           datasets: [{
-            label: 'Pick Trends',
-            data: Object.values(data),
+            label: 'Percent of Players',
+            data: values,
             backgroundColor: ['#4fa4d8', '#9bd3f7', '#c8102e', '#ffc857'],
           }]
         },
         options: {
           responsive: true,
           plugins: { legend: { display: false } },
-          animation: { duration: 1000 }
+          animation: { duration: 1000 },
+          scales: {
+            y: {
+              beginAtZero: true,
+              ticks: {
+                callback: value => `${value}%`
+              }
+            }
+          }
         }
       });
     }
