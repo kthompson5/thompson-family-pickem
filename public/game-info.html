@@ -1,140 +1,168 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pick Trends</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <link rel="stylesheet" href="style.css">
   <style>
     body {
-      background-color: #0b1f3a;
+      background-color: #001427;
       color: white;
       font-family: 'Inter', sans-serif;
-      padding: 20px;
+      margin: 0;
+      padding: 0;
+      overflow-x: hidden;
+    }
+
+    .header-bar {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      background-color: white;
+      padding: 20px 0;
+      animation: fadeIn 1.2s ease;
+    }
+
+    .main-logo {
+      max-height: 140px;
+      margin-bottom: 10px;
+    }
+
+    .tagline-area {
       text-align: center;
     }
-    .chart-container {
-      max-width: 700px;
-      margin: 40px auto;
-    }
-    select {
-      padding: 10px;
-      margin-bottom: 20px;
-      border-radius: 8px;
+
+    .tagline {
       font-size: 1rem;
+      font-weight: 600;
+      color: #002f5f;
+      margin-bottom: 4px;
     }
-    .home-btn {
+
+    .league-logos img {
+      height: 28px;
+      margin-right: 8px;
+    }
+
+    .home-link {
+      margin-top: 12px;
       display: inline-block;
-      margin-top: 30px;
-      padding: 10px 20px;
-      background-color: #4fa4d8;
-      color: #0b1f3a;
-      border-radius: 6px;
+      padding: 8px 16px;
+      background-color: #002f5f;
+      color: white;
       text-decoration: none;
+      border-radius: 6px;
       font-weight: bold;
     }
-    .home-btn:hover {
-      background-color: #72c1f0;
+
+    .chart-container {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    footer {
+      margin-top: 50px;
+      text-align: center;
+      color: #aaa;
+      font-size: 0.9rem;
+    }
+
+    footer a {
+      color: #9bd3f7;
+      margin: 0 10px;
+      text-decoration: none;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
   </style>
 </head>
 <body>
-  <h1>Pick Trends</h1>
-
-  <select id="gameFilter" onchange="updateChart()">
-    <option value="">Select a Game</option>
-  </select>
+  <header class="header-bar">
+    <a href="/index.html">
+      <img src="logo.png" alt="Thompson Family Pick 'Em" class="main-logo" />
+    </a>
+    <div class="tagline-area">
+      <div class="tagline">Built for the Family. Powered by Competition.</div>
+      <div class="league-logos">
+        <img src="cfp.png" alt="CFP" />
+        <img src="nfl.png" alt="NFL" />
+        <img src="mlb.png" alt="MLB" />
+        <img src="pga.png" alt="PGA" />
+        <img src="nba.png" alt="NBA" />
+      </div>
+    </div>
+    <a href="/index.html" class="home-link">🏠 Home</a>
+  </header>
 
   <div class="chart-container">
+    <label for="gameSelect">Select Game:</label>
+    <select id="gameSelect"></select>
     <canvas id="pickChart"></canvas>
   </div>
 
-  <a class="home-btn" href="/index.html">Back to Home</a>
+  <footer>
+    <a href="/leaderboard.html">Leaderboard</a>
+    <a href="/rules.html">Rules</a>
+    <a href="/game-info.html">Game Info</a>
+  </footer>
 
   <script>
     let chart;
-    let allData = {};
 
-    async function fetchPicks() {
+    async function fetchAndRender() {
       const res = await fetch('/admin-picks?password=goirish');
       const picks = await res.json();
-      const gameCounts = {};
+      const games = new Set();
+      const counts = {};
 
       Object.values(picks).forEach(playerPicks => {
-        Object.entries(playerPicks).forEach(([game, team]) => {
-          if (!gameCounts[game]) gameCounts[game] = {};
-          gameCounts[game][team] = (gameCounts[game][team] || 0) + 1;
+        Object.entries(playerPicks).forEach(([game, pick]) => {
+          games.add(game);
+          counts[game] = counts[game] || {};
+          counts[game][pick] = (counts[game][pick] || 0) + 1;
         });
       });
 
-      allData = gameCounts;
-      populateDropdown();
-      updateChart();
+      const gameList = Array.from(games);
+      const gameSelect = document.getElementById('gameSelect');
+      gameSelect.innerHTML = gameList.map(game => `<option value="${game}">${game}</option>`).join('');
+
+      gameSelect.addEventListener('change', () => renderChart(gameSelect.value, counts));
+      renderChart(gameList[0], counts);
     }
 
-    function populateDropdown() {
-      const select = document.getElementById("gameFilter");
-      Object.keys(allData).forEach(game => {
-        const option = document.createElement("option");
-        option.value = game;
-        option.textContent = game;
-        select.appendChild(option);
-      });
-    }
-
-    function updateChart() {
-      const selectedGame = document.getElementById("gameFilter").value;
-      const counts = allData[selectedGame] || {};
-
-      const labels = Object.keys(counts);
-      const data = Object.values(counts);
-
-      const bgColors = labels.map(() => getRandomColor());
+    function renderChart(game, counts) {
+      const ctx = document.getElementById('pickChart').getContext('2d');
+      const data = counts[game] || {};
 
       if (chart) chart.destroy();
-      const ctx = document.getElementById('pickChart').getContext('2d');
 
       chart = new Chart(ctx, {
         type: 'bar',
         data: {
-          labels,
+          labels: Object.keys(data),
           datasets: [{
-            label: `% of Picks`,
-            data,
-            backgroundColor: bgColors,
-            borderRadius: 6
+            label: 'Pick Trends',
+            data: Object.values(data),
+            backgroundColor: ['#4fa4d8', '#9bd3f7', '#c8102e', '#ffc857'],
           }]
         },
         options: {
           responsive: true,
-          animation: {
-            duration: 1500
-          },
-          scales: {
-            y: {
-              beginAtZero: true,
-              ticks: { color: 'white' },
-              grid: { color: '#333' }
-            },
-            x: {
-              ticks: { color: 'white' },
-              grid: { color: '#333' }
-            }
-          },
-          plugins: {
-            legend: { labels: { color: 'white' } }
-          }
+          plugins: { legend: { display: false } },
+          animation: { duration: 1000 }
         }
       });
     }
 
-    function getRandomColor() {
-      const colors = ['#4fa4d8', '#9bd3f7', '#c8102e', '#ffd700', '#72c1f0'];
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
-
-    fetchPicks();
+    fetchAndRender();
   </script>
 </body>
 </html>
