@@ -103,10 +103,9 @@ const logos = {
   "Michigan": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/130.png",
   "Notre Dame": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/87.png",
   "Ohio State": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/194.png",
-  "Florida State": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/52.png",
   "USC": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/30.png",
   "Texas": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/251.png",
   "Oregon": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/248.png",
   "LSU": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/99.png"
-  "Florida State": https://github.com/kthompson5/thompson-family-pickem/blob/main/public/Florida%20State.png,  
+  "Florida State": "/logos/college/Florida%20State.png", 
 };
