@@ -41,6 +41,28 @@ const logos = {
   "Bengals": "https://a.espncdn.com/i/teamlogos/nfl/500/cin.png",
   "Bills": "https://a.espncdn.com/i/teamlogos/nfl/500/buf.png",
   "Ravens": "https://a.espncdn.com/i/teamlogos/nfl/500/bal.png",
+  "Chargers": "https://a.espncdn.com/i/teamlogos/nfl/500/lac.png",
+  "Dolphins": "https://a.espncdn.com/i/teamlogos/nfl/500/mia.png",
+  "Colts": "https://a.espncdn.com/i/teamlogos/nfl/500/ind.png",
+  "Cardinals": "https://a.espncdn.com/i/teamlogos/nfl/500/ari.png",
+  "Saints": "https://a.espncdn.com/i/teamlogos/nfl/500/no.png",
+  "Steelers": "https://a.espncdn.com/i/teamlogos/nfl/500/pit.png",
+  "Jets": "https://a.espncdn.com/i/teamlogos/nfl/500/nyj.png",
+  "Panthers": "https://a.espncdn.com/i/teamlogos/nfl/500/car.png",
+  "Jags": "https://a.espncdn.com/i/teamlogos/nfl/500/jac.png",
+  "Titans": "https://a.espncdn.com/i/teamlogos/nfl/500/ten.png",
+  "Broncos": "https://a.espncdn.com/i/teamlogos/nfl/500/den.png",
+  "Seahawks": "https://a.espncdn.com/i/teamlogos/nfl/500/sea.png",
+  "Texans": "https://a.espncdn.com/i/teamlogos/nfl/500/hou.png",
+  "Rams": "https://a.espncdn.com/i/teamlogos/nfl/500/lar.png",
+  "Vikings": "https://a.espncdn.com/i/teamlogos/nfl/500/min.png",
+  "Giants": "https://a.espncdn.com/i/teamlogos/nfl/500/nyg.png",
+  "Commanders": "https://a.espncdn.com/i/teamlogos/nfl/500/was.png",
+  "Falcons": "https://a.espncdn.com/i/teamlogos/nfl/500/atl.png",
+  "Browns": "https://a.espncdn.com/i/teamlogos/nfl/500/cle.png",
+  "Raiders": "https://a.espncdn.com/i/teamlogos/nfl/500/lv.png",
+  "Patriots": "https://a.espncdn.com/i/teamlogos/nfl/500/ne.png",
+  "Bucs": "https://a.espncdn.com/i/teamlogos/nfl/500/tb.png",
 
  // NBA
   "Celtics": "https://a.espncdn.com/i/teamlogos/nba/500/bos.png",
@@ -86,4 +108,5 @@ const logos = {
   "Texas": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/251.png",
   "Oregon": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/248.png",
   "LSU": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/99.png"
+  
 };
