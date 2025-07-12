@@ -137,7 +137,7 @@ const logos = {
   "Virginia Tech": "/logos/college/Virginia%20Tech.png",
 
   // High School
-  "Basha": "/logos/college/Basha.png",
-  "Brophy": "/logos/college/Brophy.png",
+  "Basha": "/logos/high_school/Basha.png",
+  "Brophy": "/logos/high_school/Brophy.png",
 
 };
