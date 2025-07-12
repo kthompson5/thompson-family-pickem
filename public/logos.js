@@ -108,5 +108,5 @@ const logos = {
   "Texas": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/251.png",
   "Oregon": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/248.png",
   "LSU": "https://raw.githubusercontent.com/CFBD/cfb-web/master/public/logos/99.png"
-  
+  "Florida State": https://github.com/kthompson5/thompson-family-pickem/blob/main/public/Florida%20State.png,  
 };
