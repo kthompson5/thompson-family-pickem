@@ -135,4 +135,9 @@ const logos = {
   "Utah State": "/logos/college/Utah%20State.png",
   "UTEP": "/logos/college/UTEP.png",
   "Virginia Tech": "/logos/college/Virginia%20Tech.png",
+
+  // High School
+  "Basha": "/logos/college/Basha.png",
+  "Brophy": "/logos/college/Brophy.png",
+
 };
