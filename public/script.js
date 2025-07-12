@@ -1,5 +1,5 @@
 const games = [
-  { id: "game1", away: "Cowboys", home: "Eagles", date: "Sept 1", time: "7:30 PM", leftPercent: 45 },
+  { id: "game1", away: "Florida State", home: "Eagles", date: "Sept 1", time: "7:30 PM", leftPercent: 45 },
   { id: "game2", away: "Lions", home: "Packers", date: "Sept 1", time: "3:00 PM", leftPercent: 55 },
   { id: "game3", away: "Notre Dame", home: "Michigan", date: "Sept 2", time: "6:00 PM", leftPercent: 60 },
 ];
