@@ -7,7 +7,7 @@ const games = [
   { id: "game6", away: "Central Michigan", home: "San Jose State", date: "Aug 29", time: "9:30 PM", leftPercent: 40 },
   { id: "game7", away: "Texas", home: "Ohio State", date: "Aug 30", time: "11:00 AM", leftPercent: 48 },
   { id: "game8", away: "Syracuse", home: "Tennessee", date: "Aug 30", time: "11:00 AM", leftPercent: 40 },
-  { id: "game9", away: "Old Dominion", home: "Indiana", date: "Aug 30", time: "1:30 PM", leftPercent: 70 },
+  { id: "game9", away: "Old Dominion", home: "Indiana", date: "Aug 30", time: "1:30 PM", leftPercent: 30 },
   { id: "game10", away: "Alabama", home: "Florida State", date: "Aug 30", time: "2:30 PM", leftPercent: 65 },
   { id: "game11", away: "LSU", home: "Clemson", date: "Aug 30", time: "6:30 PM", leftPercent: 48 },
   { id: "game12", away: "UTEP", home: "Utah State", date: "Aug 30", time: "6:30 PM", leftPercent: 45 },
