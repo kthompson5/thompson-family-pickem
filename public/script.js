@@ -104,6 +104,8 @@ function submitPicks() {
     return;
   }
 
+showPopup("🍀 Good Luck! Your Picks are Saved!");
+
   const picks = {};
   games.forEach(game => {
     const choice = document.getElementById(game.id).value;
