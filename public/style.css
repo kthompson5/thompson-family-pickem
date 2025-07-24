@@ -499,3 +499,64 @@ button:hover {
   margin-right: 8px;
   width: auto;
 }
+
+.champion-timeline {
+  list-style: none;
+  padding-left: 0;
+  text-align: left;
+  max-width: 600px;
+  margin: 0 auto;
+  font-size: 1.1rem;
+  animation: fadeIn 1s ease-in-out;
+}
+
+.champion-timeline li {
+  border-left: 4px solid #ffc857;
+  padding-left: 14px;
+  margin-bottom: 14px;
+  position: relative;
+  line-height: 1.6;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  padding: 10px 14px 10px 20px;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+  transition-delay: var(--delay);
+}
+
+.champion-timeline li::before {
+  content: "🏆";
+  position: absolute;
+  left: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 1.2rem;
+}
+
+.champion-timeline .event {
+  color: #ffc857;
+  font-weight: 600;
+}
+
+.champion-timeline .winner {
+  color: #9bd3f7;
+  font-weight: 700;
+}
+
+/* Fade-in container */
+.fade-in-section {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.fade-in-section.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.champion-timeline li.visible {
+  opacity: 1;
+  transform: none;
+}
