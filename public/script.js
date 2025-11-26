@@ -1,5 +1,5 @@
 const games = [
-  { id: "game1", away: "Iowa State", home: "Kansas State", date: "Aug 23", time: "11:00 AM", leftPercent: 45 },
+  { id: "game1", away: "Mississippi", home: "Mississippi State", date: "Aug 23", time: "11:00 AM", leftPercent: 45 },
   { id: "game2", away: "Basha", home: "Brophy", date: "Aug 28", time: "5:00 PM", leftPercent: 55 },
   { id: "game3", away: "Nebraska", home: "Cincinnati", date: "Aug 28", time: "8:00 PM", leftPercent: 60 },
   { id: "game4", away: "Auburn", home: "Baylor", date: "Aug 29", time: "7:00 PM", leftPercent: 55 },
