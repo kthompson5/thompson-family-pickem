@@ -153,6 +153,7 @@ const logos = {
   "Utah": "/logos/college/Utah.png",
   "Mississippi State": "/logos/college/MississippiState.png",
   "Ole Miss": "/logos/college/Mississippi.png",
+  "Texas A&M": "/logos/college/TexasAM.png",
 
   // High School
   "Basha": "/logos/high_school/Basha.png",
@@ -160,7 +161,7 @@ const logos = {
   "Cass Tech": "/logos/high_school/CassTech.jpeg",
   "Chandler": "/logos/high_school/Chandler.png",
   "Catholic Central": "/logos/high_school/DCC.png",
-  "DeWitt": "/logos/high_school/DeWitt.jpeg",
+  "DeWitt": "/logos/high_school/Dewitt.jpeg",
   "Dexter": "/logos/high_school/Dexter.png",
   "Divine Child": "/logos/high_school/DivineChild.png",
   "West Catholic": "/logos/high_school/GRWestCatholic.png",
